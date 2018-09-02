@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/Aaron-Lathrop/Node_Capstone/issues"
   },
-  "homepage": "https://github.com/Aaron-Lathrop/Node_Capstone#readme"
+  "homepage": "https://github.com/Aaron-Lathrop/Node_Capstone#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
 }
