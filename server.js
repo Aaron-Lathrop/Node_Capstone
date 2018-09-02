@@ -6,7 +6,31 @@ app.use(express.json());
 
 app.use(express.static('public'));
 
-app.listen(process.env.PORT || 8080);
-console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
 
-module.exports = {app};
+let server;
+
+function runServer() {
+    return new Promise((resolve,reject) => {
+        server = app.listen(process.env.PORT || 8080, () => {
+        console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
+        resolve();
+    })
+    .on('error', err => {
+        reject(err);
+    });
+});
+}
+
+function closeServer() {
+    return new Promise((resolve,reject) => {
+        console.log("Closing server");
+        server.close(err => {
+            if(err) {
+                return reject(err);
+            }
+            resolve()
+        });
+    });
+}
+
+module.exports = {app, runServer, closeServer};

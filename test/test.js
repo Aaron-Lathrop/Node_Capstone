@@ -4,11 +4,20 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const expect = chai.expect;
 
-const {app} = require('../server');
+const {app, runServer, closeServer} = require('../server');
 
 chai.use(chaiHttp);
 
 describe('Node Capstone app', function(){
+
+    before(function(){
+        return runServer();
+    });
+
+    after(function() {
+        return closeServer();
+    });
+
     it('should show the app is online', function(){
         return chai.request(app)
             .get('/')
