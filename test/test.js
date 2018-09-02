@@ -11,10 +11,11 @@ chai.use(chaiHttp);
 describe('Node Capstone app', function(){
     it('should show the app is online', function(){
         return chai.request(app)
-            .listen(process.env.PORT || 8080)
+            .get('/')
             .then(function(res){
                 expect(res).to.have.status(200);
-            });//then(function(res))
+                expect(res).to.be.html;
+            });
     });//it should show the app is online
 
 });//describe Node Capstone app
