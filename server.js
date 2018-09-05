@@ -9,8 +9,10 @@ app.post("/", function(req, res) {
       req.body.result &&
       req.body.result.parameters &&
       req.body.result.parameters.echoText
-        ? req.body.result.parameters.echoText
+        ? req.body.result.parameters.resolvedQuery
         : "Seems like some problem. Speak again.";
+    console.log(req.body.result.parameters.echoText);
+    console.log(req.body.result.parameters.resolvedQuery);
     return res.json({
       speech: speech,
       displayText: speech,
