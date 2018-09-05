@@ -1,13 +1,13 @@
-const Dialog_Flow_Key = process.env.Dialog_Flow_Key;
-const APIAI_SESSION_ID= process.env.APIAI_SESSION_ID;
+// const Dialog_Flow_Key = process.env.Dialog_Flow_Key;
+// const APIAI_SESSION_ID= process.env.APIAI_SESSION_ID;
 
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-const socket = io();
-const apiai = require('apiai');
-const app = apiai(process.env.Dialog_Flow_Key);
+// const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+// const recognition = new SpeechRecognition();
+// const socket = io();
+// const apiai = require('apiai');
+// const app = apiai(process.env.Dialog_Flow_Key);
 
-recongnition.lang ='en-US';
+// recongnition.lang ='en-US';
 
 
 
