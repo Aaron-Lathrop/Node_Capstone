@@ -6,14 +6,36 @@
         <link rel='stylesheet' href='main.css'>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
-        <script src="node-capstone/server.js" type="application/javascript"></script>
+        <script src="./server.js" type="application/javascript"></script>
         <script src="index.js"></script>
     </head>
     <body>
         <h1>Welcome to Interview Prep!</h1>
         <p>You can practice answering some of interview questions so you can be ready for the real thing!</p>
         <br><br>
-        
+        <script>
+            const express = require('express');
+            const app = express();
+            app.use(express.json());
+            app.use(express.static('public'));
+
+            app.post("/", function(req, res) {
+                var speech =
+                req.body.result &&
+                req.body.result.parameters &&
+                req.body.result.parameters.echoText
+                    ? req.body.result.parameters.resolvedQuery
+                    : "Seems like some problem. Speak again.";
+                console.log(req.body.result.parameters.echoText);
+                console.log(req.body.result.parameters.resolvedQuery);
+                console.log(speech);
+                return res.json({
+                speech: speech,
+                displayText: speech,
+                source: "stark-thicket-75096"
+                });
+            });
+        </script>        
 
         <iframe
             allow="microphone;"

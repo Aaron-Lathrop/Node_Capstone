@@ -13,6 +13,7 @@ app.post("/", function(req, res) {
         : "Seems like some problem. Speak again.";
     console.log(req.body.result.parameters.echoText);
     console.log(req.body.result.parameters.resolvedQuery);
+    console.log(speech);
     return res.json({
       speech: speech,
       displayText: speech,
