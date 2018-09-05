@@ -2,10 +2,21 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
-
-
 app.use(express.static('public'));
 
+app.post("/", function(req, res) {
+    var speech =
+      req.body.result &&
+      req.body.result.parameters &&
+      req.body.result.parameters.echoText
+        ? req.body.result.parameters.echoText
+        : "Seems like some problem. Speak again.";
+    return res.json({
+      speech: speech,
+      displayText: speech,
+      source: "webhook-echo-sample"
+    });
+  });
 
 let server;
 

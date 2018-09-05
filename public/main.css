@@ -5,3 +5,10 @@ html {
 h1 {
     text-align:center;
 }
+
+iframe {
+    float: right;
+    box-shadow:  5px 10px 10px #888888;
+    border: none;
+    margin-right: 30%;
+}
