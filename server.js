@@ -12,7 +12,7 @@ app.post("/", function(req, res) {
     //   req.body.result.parameters.echoText
     //     ? req.body.result.parameters.resolvedQuery
     //     : "Seems like some problem. Speak again.";
-    var speech = req.body.speech;
+    var speech = req.body.queryResult.fulfillmentText;
     // console.log(req.body.result.parameters.echoText);
     // console.log(req.body.result.parameters.resolvedQuery);
     // console.log(speech);
