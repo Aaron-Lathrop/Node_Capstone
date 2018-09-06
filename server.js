@@ -6,12 +6,13 @@ app.use(express.static('public'));
 // app.use(express.static(path.join('node-capstone', "js")));
 
 app.post("/", function(req, res) {
-    var speech =
-      req.body.result &&
-      req.body.result.parameters &&
-      req.body.result.parameters.echoText
-        ? req.body.result.parameters.resolvedQuery
-        : "Seems like some problem. Speak again.";
+    // var speech =
+    //   req.body.result &&
+    //   req.body.result.parameters &&
+    //   req.body.result.parameters.echoText
+    //     ? req.body.result.parameters.resolvedQuery
+    //     : "Seems like some problem. Speak again.";
+    var speech = req.body.speech;
     console.log(req.body.result.parameters.echoText);
     console.log(req.body.result.parameters.resolvedQuery);
     console.log(speech);
