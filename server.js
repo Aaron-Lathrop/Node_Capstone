@@ -15,7 +15,7 @@ app.post('/', function(req, res){
     let echo = req.body.queryResult.parameters['echoText'];
     let response = " ";
     let responseObj = {
-                        "fulfillmentText":response,
+                        "fulfillmentText":echo,
                         "fulfillmentMessages":[{"text": {"text": echo}}],
                         "source":"stark-thicket-75096"
                     }
