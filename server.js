@@ -38,7 +38,8 @@ const nodeSampleQuestions = {
 };
 
 function getPracticeQuestion(questionList){
-    return questionList[0].questionText;
+
+    return questionList.questions[0].questionText;
 }
 
 app.post('/', function(req, res){
