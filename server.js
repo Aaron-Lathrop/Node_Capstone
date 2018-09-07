@@ -51,8 +51,8 @@ app.post('/', function(req, res){
     console.log(`Echo text is: ${req.body.queryResult.parameters['echoText']}`);
     let echo = req.body.queryResult.parameters['echoText'];
     let responseObj = {
-                        "fulfillmentText":echo,
-                        "fulfillmentMessages":[{"text": {"text": [getPracticeQuestion(nodeSampleQuestions)]}}],
+                        "fulfillmentText":getPracticeQuestion(nodeSampleQuestions),
+                        "fulfillmentMessages":[{"text": {"text": [echo]}}],
                         "source":"stark-thicket-75096"
                     }
     console.log(`Here is the resonse to dialogflow: ${responseObj}`);
