@@ -38,7 +38,7 @@ const nodeSampleQuestions = {
 };
 
 function getPracticeQuestion(questionList){
-
+    let random = 
     return questionList.questions[0].questionText;
 }
 
@@ -51,7 +51,7 @@ app.post('/', function(req, res){
     console.log(`Echo text is: ${req.body.queryResult.parameters['echoText']}`);
     let echo = req.body.queryResult.parameters['echoText'];
     let responseObj = {
-                        "fulfillmentText":getPracticeQuestion(nodeSampleQuestions),
+                        "fulfillmentText":echo,
                         "fulfillmentMessages":[{"text": {"text": [getPracticeQuestion(nodeSampleQuestions)]}}],
                         "source":"stark-thicket-75096"
                     }
