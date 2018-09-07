@@ -39,7 +39,7 @@ const nodeSampleQuestions = {
 
 function getPracticeQuestion(questionList){
     
-    return questionList.questions[0].questionText;
+    return questionList.questions[Math.floor(Math.random() * questions.length)].questionText;
 }
 
 app.post('/', function(req, res){
