@@ -10,5 +10,6 @@ iframe {
     float: right;
     box-shadow:  5px 10px 10px #888888;
     border: none;
-    margin-right: 30%;
+    margin-right: 50%;
+    transform: translate(50%,0);
 }

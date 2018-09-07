@@ -3,7 +3,6 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 app.use(express.static('public'));
-// app.use(express.static(path.join('node-capstone', "js")));
 
 app.post('/', function(req, res){
     console.log('Received POST request');
@@ -13,7 +12,6 @@ app.post('/', function(req, res){
     console.log(req.body);
     console.log(`Echo text is: ${req.body.queryResult.parameters['echoText']}`);
     let echo = req.body.queryResult.parameters['echoText'];
-    let response = " ";
     let responseObj = {
                         "fulfillmentText":echo,
                         "fulfillmentMessages":[{"text": {"text": [echo]}}],
@@ -22,25 +20,6 @@ app.post('/', function(req, res){
     console.log(`Here is the resonse to dialogflow: ${responseObj}`);
     return res.json(responseObj);
 });
-
-
-// app.post("/", function(req, res) {
-//     // var speech =
-//     //   req.body.result &&
-//     //   req.body.result.parameters &&
-//     //   req.body.result.parameters.echoText
-//     //     ? req.body.result.parameters.resolvedQuery
-//     //     : "Seems like some problem. Speak again.";
-//     var speech = req.body.queryResult.fulfillmentText;
-//     // console.log(req.body.result.parameters.echoText);
-//     // console.log(req.body.result.parameters.resolvedQuery);
-//     // console.log(speech);
-//     return res.json({
-//       speech: speech,
-//       displayText: speech,
-//       source: "stark-thicket-75096"
-//     });
-//   });
 
 let server;
 
