@@ -8,31 +8,66 @@ const nodeSampleQuestions = {
     "questions": [
         {
             "id": "1111111",
-            "questionText": "Describe the HTTP requests/response lifecycle."
+            "questionText": "Describe the HTTP requests/response lifecycle.",
+            "type": "general",
+            "userAdded": F,
+            "public": T,
+            "addedBy": "Admin",
+            "advice": "Review your Thinkful curriculum."
         },
         {
             "id": "2222222",
-            "questionText": "Describe the architecture of a basic Express app. How is it organized?"
+            "questionText": "Describe the architecture of a basic Express app. How is it organized?",
+            "type": "general",
+            "userAdded": F,
+            "public": T,
+            "addedBy": "Admin",
+            "advice": "Review your Thinkful curriculum."
         },
         {
             "id": "3333333",
-            "questionText": "Tell me about a time when you've used Express Router. How was it helpful?"
+            "questionText": "Tell me about a time when you've used Express Router. How was it helpful?",
+            "type": "general",
+            "userAdded": F,
+            "public": T,
+            "addedBy": "Admin",
+            "advice": "Review your Thinkful curriculum."
         },
         {
             "id": "4444444",
-            "questionText": "What's your experience with continuous integration? How has it helped you?"
+            "questionText": "What's your experience with continuous integration? How has it helped you?",
+            "type": "general",
+            "userAdded": F,
+            "public": T,
+            "addedBy": "Admin",
+            "advice": "Review your Thinkful curriculum."
         },
         {
             "id": "5555555",
-            "questionText": "Describe how a Mongo database is structured."
+            "questionText": "Describe how a Mongo database is structured.",
+            "type": "general",
+            "userAdded": F,
+            "public": T,
+            "addedBy": "Admin",
+            "advice": "Review your Thinkful curriculum."
         },
         {
             "id": "6666666",
-            "questionText": "How do JSON web tokens work?"
+            "questionText": "How do JSON web tokens work?",
+            "type": "general",
+            "userAdded": F,
+            "public": T,
+            "addedBy": "Admin",
+            "advice": "Review your Thinkful curriculum."
         },
         {
             "id": "7777777",
-            "questionText": "What is the purpose of bycrypt in the authentication process?"
+            "questionText": "What is the purpose of bycrypt in the authentication process?",
+            "type": "general",
+            "userAdded": F,
+            "public": T,
+            "addedBy": "Admin",
+            "advice": "Review your Thinkful curriculum."
         }
     ]
 };
@@ -41,23 +76,6 @@ function getPracticeQuestion(questionList){
     
     return questionList.questions[1].questionText;
 }
-
-app.post('/', function(req, res){
-    console.log('Received POST request');
-    if(!req.body) return res.sendStatus(400)
-    res.setHeader('Content-Type', 'application/json');
-    console.log('Here is the post request from DialogFlow');
-    console.log(req.body);
-    console.log(`Echo text is: ${req.body.queryResult.parameters['echoText']}`);
-    let echo = req.body.queryResult.parameters['echoText'];
-    let responseObj = {
-                        "fulfillmentText":getPracticeQuestion(nodeSampleQuestions),
-                        "fulfillmentMessages":[{"text": {"text": [echo]}}],
-                        "source":"stark-thicket-75096"
-                    }
-    console.log(`Here is the resonse to dialogflow: ${responseObj}`);
-    return res.json(responseObj);
-});
 
 let server;
 
