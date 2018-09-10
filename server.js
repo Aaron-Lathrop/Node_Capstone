@@ -1,4 +1,6 @@
 'use strict';
+console.log('server-side code is running');
+
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -10,8 +12,8 @@ const nodeSampleQuestions = {
             "id": "1111111",
             "questionText": "Describe the HTTP requests/response lifecycle.",
             "type": "general",
-            "userAdded": F,
-            "public": T,
+            "userAdded": false,
+            "public": true,
             "addedBy": "Admin",
             "advice": "Review your Thinkful curriculum."
         },
@@ -19,8 +21,8 @@ const nodeSampleQuestions = {
             "id": "2222222",
             "questionText": "Describe the architecture of a basic Express app. How is it organized?",
             "type": "general",
-            "userAdded": F,
-            "public": T,
+            "userAdded": false,
+            "public": true,
             "addedBy": "Admin",
             "advice": "Review your Thinkful curriculum."
         },
@@ -28,8 +30,8 @@ const nodeSampleQuestions = {
             "id": "3333333",
             "questionText": "Tell me about a time when you've used Express Router. How was it helpful?",
             "type": "general",
-            "userAdded": F,
-            "public": T,
+            "userAdded": false,
+            "public": true,
             "addedBy": "Admin",
             "advice": "Review your Thinkful curriculum."
         },
@@ -37,8 +39,8 @@ const nodeSampleQuestions = {
             "id": "4444444",
             "questionText": "What's your experience with continuous integration? How has it helped you?",
             "type": "general",
-            "userAdded": F,
-            "public": T,
+            "userAdded": false,
+            "public": true,
             "addedBy": "Admin",
             "advice": "Review your Thinkful curriculum."
         },
@@ -46,8 +48,8 @@ const nodeSampleQuestions = {
             "id": "5555555",
             "questionText": "Describe how a Mongo database is structured.",
             "type": "general",
-            "userAdded": F,
-            "public": T,
+            "userAdded": false,
+            "public": true,
             "addedBy": "Admin",
             "advice": "Review your Thinkful curriculum."
         },
@@ -55,8 +57,8 @@ const nodeSampleQuestions = {
             "id": "6666666",
             "questionText": "How do JSON web tokens work?",
             "type": "general",
-            "userAdded": F,
-            "public": T,
+            "userAdded": false,
+            "public": true,
             "addedBy": "Admin",
             "advice": "Review your Thinkful curriculum."
         },
@@ -64,8 +66,8 @@ const nodeSampleQuestions = {
             "id": "7777777",
             "questionText": "What is the purpose of bycrypt in the authentication process?",
             "type": "general",
-            "userAdded": F,
-            "public": T,
+            "userAdded": false,
+            "public": true,
             "addedBy": "Admin",
             "advice": "Review your Thinkful curriculum."
         }
