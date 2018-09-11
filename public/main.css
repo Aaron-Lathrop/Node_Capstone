@@ -23,21 +23,28 @@ label {
 }
 
 textarea {
+    position: relative;
     display: block;
     margin-bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+button {
+    padding: 15px 25px 15px 25px;
+    border-radius: 10px;
 }
 
 button:hover {
     cursor: pointer;
 }
 
-#answerButton {
-    padding: 10px 15px 10px 15px;
+#mockInterview {
+    text-align: center;
 }
 
-#mockStart {
-    padding: 15px 25px 15px 25px;
-    border-radius: 10px;
+.center {
+    text-align: center;
 }
 
 iframe {
