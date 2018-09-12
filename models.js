@@ -49,5 +49,7 @@ responseSchema.methods.serialize = function() {
 };
 
 const Question = mongoose.model('Question', questionSchema);
+const User = mongoose.model('User', userSchema);
+const Response = mongoose.model('Response', responseSchema);
 
-modeule.exports = {Question};
+module.exports = {Question, User, Response};
