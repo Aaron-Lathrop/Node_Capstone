@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+const { PORT, DATABASE_URL} = require('./config');
+const { Question } = require('./models');
+
 const express = require('express');
 const app = express();
 app.use(express.json());
