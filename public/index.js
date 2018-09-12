@@ -158,10 +158,15 @@ function mockStartHandler() {
         $('#mockInterview').html(`
             <form id='interview' name='interview' autocomplete='off'>
             <label>${question}</label>
-            <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse'></textarea>
+            <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
             <button id='answerButton' type='submit' value='Answer'>Answer</button>
             </form>`);
     });
+    let mic = $('#speechinput');
+    mic.onfocus = mic.blur;
+    mic.onwebkitspeechchange = function(e) {
+        $('#userResponse').val() = speechinput.val();
+    };
     $(answerButtonHandler());
 }
 
@@ -177,7 +182,7 @@ function answerButtonHandler() {
             $('#mockInterview').html(`
                 <form id='interview' name='interview' autocomplete='off'>
                 <label>${question}</label>
-                <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse'></textarea>
+                <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
                 <button id='answerButton' type='submit' value='Answer'>Answer</button>
                 </form>`);
             
@@ -188,7 +193,11 @@ function answerButtonHandler() {
                 <button id='review'>Review Your Answers</button>`);
             $(reviewButtonHandler());
         }
-        
+        let mic = $('#speechinput');
+        mic.onfocus = mic.blur;
+        mic.onwebkitspeechchange = function(e) {
+        $('#userResponse').val() = speechinput.val();
+    };
         questionNumber++;
     });
 }

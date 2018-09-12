@@ -43,6 +43,11 @@ button:hover {
     text-align: center;
 }
 
+#userResponse {
+    height: 150px;
+    width: 75%;
+}
+
 .center {
     text-align: center;
 }
