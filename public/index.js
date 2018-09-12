@@ -129,23 +129,36 @@ const responses = {
 function getPracticeQuestion(questionList){
     
         const question = questionList.questions[questionNumber].questionText;
-        questionNumber++;
+        
         return question;
     
 
 }
 
-function getResponses(){
+function getResponses(callback){
+    setTimeout(function(){callback(responses)}, 100);
+}
 
+function displayResponses(data) {
+    for (let i=0; i< data.responses.length; i++){
+        $('body').append(
+            `<strong> ${data.responses[i].questionText} </strong>
+             <p> ${data.responses[i].userResponse} </p><br><br>`
+        );
+    }
+}
+
+function getAndDisplayResponses(){
+    getResponses(displayResponses);
 }
 
 function mockStartHandler() {
     $('#mockStart').click(function(){
         const question = getPracticeQuestion(nodeSampleQuestions);
         $('#mockInterview').html(`
-            <form id='interview name='interview' autocomplete='off'>
+            <form id='interview' name='interview' autocomplete='off'>
             <label>${question}</label>
-            <textarea rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='${question}'></textarea>
+            <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse'></textarea>
             <button id='answerButton' type='submit' value='Answer'>Answer</button>
             </form>`);
     });
@@ -155,14 +168,19 @@ function mockStartHandler() {
 function answerButtonHandler() {
     $('#mockInterview').submit("#interview", function(e){
         e.preventDefault();
+        
         if(questionNumber < nodeSampleQuestions.questions.length){
+            responses.responses[questionNumber].questionText = $('#interview').find('label').text();
+            responses.responses[questionNumber].userResponse = $('#interview').find('textarea[name="userResponse"]').val();
+            console.log(`The user response is: ${responses.responses[questionNumber].userResponse}`);
             const question = getPracticeQuestion(nodeSampleQuestions);
             $('#mockInterview').html(`
-                <form id='interview name='interview' autocomplete='off'>
+                <form id='interview' name='interview' autocomplete='off'>
                 <label>${question}</label>
-                <textarea rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='${question}'></textarea>
+                <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse'></textarea>
                 <button id='answerButton' type='submit' value='Answer'>Answer</button>
                 </form>`);
+            
         } else {
             $('#mockInterview').html(`
                 <h3>Thank you for your time, this concludes the interview</h3>
@@ -170,18 +188,20 @@ function answerButtonHandler() {
                 <button id='review'>Review Your Answers</button>`);
             $(reviewButtonHandler());
         }
+        
+        questionNumber++;
     });
 }
 
 function reviewButtonHandler(){
     $("#review").click(function(){
         console.log(`Review button clicked`);
+        $(getAndDisplayResponses);
     });
 }
 
 function handleNodeApp(){
     $(mockStartHandler());
-    
 }
 
 $(handleNodeApp());
