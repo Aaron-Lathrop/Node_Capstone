@@ -9,7 +9,7 @@ const questionSchema = mongoose.Schema({
     public: Boolean,
     addedBy: {type: String, required: true},
     advice: String
-});
+},{collection: questions});
 
 const responseSchema = mongoose.Schema({
     questionText: {type: String, required: true},
@@ -24,7 +24,8 @@ const userSchema = mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: String,
     created: {type: Date, default: Date.now},
-    responses: [responseSchema]
+    responses: [responseSchema],
+    questions: Array
 });
 
 userSchema.virtual('name').get(function(){
