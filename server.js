@@ -45,7 +45,7 @@ app.get('/responses', function(req, res){
 });
 
 app.get('/users', function(req, res){
-    Response
+    User
     .find()
     .then(users => {
         res.json({
