@@ -9,28 +9,36 @@ const questionSchema = mongoose.Schema({
     public: Boolean,
     addedBy: {type: String, required: true},
     advice: String
-},{collection: questions});
+},{collection: "questions"});
 
 const responseSchema = mongoose.Schema({
     questionText: {type: String, required: true},
     responseText: {type: String, required: true},
     userName: {type: String, required: true},
     date: Date
-});
+},{collection: "responses"});
 
 const userSchema = mongoose.Schema({
-    userName: {type: String, required: true},
-    token: {type: String, required: true},
+    userName: {type: String, required: true, unique: true},
+    token: {type: String, required: true, unique: true},
     firstName: {type: String, required: true},
     lastName: String,
     created: {type: Date, default: Date.now},
     responses: [responseSchema],
     questions: Array
-});
+},{collection: "users"});
 
 userSchema.virtual('name').get(function(){
     return `${this.firstName} ${this.lastName}`.trim();
 });
+
+userSchema.methods.serialize = function() {
+    return {
+        id: this._id,
+        userName: this.userName,
+        name: this.name
+    };
+};
 
 questionSchema.methods.serialize = function() {
     return {
