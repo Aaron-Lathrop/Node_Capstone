@@ -28,6 +28,14 @@ const userSchema = mongoose.Schema({
     questions: Array
 },{collection: "users"});
 
+const interviewSchema = mongoose.Schema({
+    userName: {type: String, required: true},
+    firstName: {type: String, required: true},
+    created: {type: Date, default: Date.now},
+    responses: Array,
+    questions: Array
+});
+
 userSchema.virtual('name').get(function(){
     return `${this.firstName} ${this.lastName}`.trim();
 });
@@ -57,8 +65,19 @@ responseSchema.methods.serialize = function() {
     };
 };
 
+interviewSchema.methods.serialize = function() {
+    return {
+        id: this._id,
+        firstName: this.firstName,
+        created: this.created,
+        responses: this.responses,
+        questions: this.questions
+    };
+};
+
 const Question = mongoose.model('Question', questionSchema);
 const User = mongoose.model('User', userSchema);
 const Response = mongoose.model('Response', responseSchema);
+const Interview = mongoose.model("Interview", interviewSchema);
 
-module.exports = {Question, User, Response};
+module.exports = {Question, User, Response, Interview};
