@@ -34,6 +34,7 @@ app.get('/mock-interview', function(req, res){
 //gets the interviews a user has done, add additional paramters once 
 //authentication coding is complete
 app.get('/interview', function(req, res){
+    console.log(`Getting interviews from database.`)
     Interview
     .find()
     .limit(10)
@@ -47,6 +48,7 @@ app.get('/interview', function(req, res){
         console.error(err);
         res.status(500).json({message: "Internal server error! Oh my!"});
     });
+    console.log(`Interviews loaded.`)
 });
 
 //this creates a new interview document to record a specific set of questions and 
@@ -56,9 +58,7 @@ app.post('/interview', function(req,res){
     Interview
     .create({
         userName: "Admin",
-        firstName: "Aaron",
-        responses: ["responses test"],
-        questions: ["questions test"]
+        firstName: "Aaron"
     })
     .then(interview => res.status(201).json(interview.serialize()))
     .catch(err => {
@@ -78,7 +78,7 @@ app.put('/interview/:id', function(req, res){
     }
 
     const toUpdate = {};
-    const updateableFields = ["responses", "questions"];
+    const updateableFields = ["responses"];
 
     updateableFields.forEach(field => {
         if(field in req.body){
@@ -111,7 +111,8 @@ app.delete('/interview/:id', function(req,res){
     });
 });
 
-//gets the user's responses
+//gets the user's responses, add authentication so only the user can
+//access their own reponses
 app.get('/responses', function(req, res){
     Response
     .find()
@@ -128,6 +129,15 @@ app.get('/responses', function(req, res){
 });
 
 app.post('/responses', function(req,res){
+    const requireFields = ['questionText', 'responseText', 'userName'];
+
+});
+
+app.put('/responses/:id', function(req,res){
+
+});
+
+app.delete('/responses/:id', function(req,res){
 
 });
 
@@ -153,8 +163,8 @@ app.post('/users', function(req,res){
 });
 
 app.use('*', function (req, res) {
-    res.status(404).json({ message: 'Not Found' });
-  });
+    res.status(404).json({ message: 'Oops! Looks like this is not the page you were looking for. This one is Not Found' });
+});
 
 let server;
 

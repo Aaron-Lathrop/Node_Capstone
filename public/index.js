@@ -127,12 +127,8 @@ const responses = {
 };
 
 function getPracticeQuestion(questionList){
-    
         const question = questionList.questions[questionNumber].questionText;
-        
         return question;
-    
-
 }
 
 function getResponses(callback){

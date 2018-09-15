@@ -15,8 +15,15 @@ const responseSchema = mongoose.Schema({
     questionText: {type: String, required: true},
     responseText: {type: String, required: true},
     userName: {type: String, required: true},
-    date: Date
-},{collection: "responses"});
+    date: {type: Date, default: Date.now}
+});
+
+const interviewSchema = mongoose.Schema({
+    userName: {type: String, required: true},
+    firstName: {type: String, required: true},
+    created: {type: Date, default: Date.now},
+    responses: [responseSchema]
+});
 
 const userSchema = mongoose.Schema({
     userName: {type: String, required: true, unique: true},
@@ -24,17 +31,11 @@ const userSchema = mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: String,
     created: {type: Date, default: Date.now},
-    responses: [responseSchema],
-    questions: Array
+    interviews: [interviewSchema],
+    questions: [questionSchema]
 },{collection: "users"});
 
-const interviewSchema = mongoose.Schema({
-    userName: {type: String, required: true},
-    firstName: {type: String, required: true},
-    created: {type: Date, default: Date.now},
-    responses: Array,
-    questions: Array
-});
+//user schema
 
 userSchema.virtual('name').get(function(){
     return `${this.firstName} ${this.lastName}`.trim();
@@ -48,6 +49,8 @@ userSchema.methods.serialize = function() {
     };
 };
 
+//question schema
+
 questionSchema.methods.serialize = function() {
     return {
         id: this._id,
@@ -55,6 +58,8 @@ questionSchema.methods.serialize = function() {
         advice: this.advice
     };
 };
+
+//response schema
 
 responseSchema.methods.serialize = function() {
     return {
@@ -65,13 +70,19 @@ responseSchema.methods.serialize = function() {
     };
 };
 
+//interview schema
+
+// interviewSchema.pre('find', function(next){
+//     this.populate('responses');
+//     next();
+// });
+
 interviewSchema.methods.serialize = function() {
     return {
         id: this._id,
         firstName: this.firstName,
         created: this.created,
-        responses: this.responses,
-        questions: this.questions
+        responses: this.responses
     };
 };
 
