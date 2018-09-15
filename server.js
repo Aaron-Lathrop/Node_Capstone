@@ -31,6 +31,24 @@ app.get('/mock-interview', function(req, res){
     });
 });
 
+//gets the interviews a user has done, add additional paramters once 
+//authentication coding is complete
+app.get('/interview', function(req, res){
+    Interview
+    .find()
+    .limit(10)
+    .then(interviews => {
+        res.json({
+            interviews: interviews.map(
+                (interview) => interview.serialize())
+        });
+    })
+    .catch(err => {
+        console.error(err);
+        res.status(500).json({message: "Internal server error! Oh my!"});
+    });
+});
+
 //this creates a new interview document to record a specific set of questions and 
 //responses that a user had a specific time. Questions and responses begin blank
 //and will populate using the PUT endpoint
@@ -75,7 +93,24 @@ app.put('/interview/:id', function(req, res){
     .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'});
     });
 
-}); //app.put closing
+});
+
+//deletes a specific interview by id
+app.delete('/interview/:id', function(req,res){
+    if(!(req.params.id && req.body.id && req.params.id === req.body.id)){
+        const message = (`Request path id (${req.params.id}) must match`+
+        `request body id (${req.body.id})`);
+        console.error(message);
+        res.status(400).json({message: message});
+    }
+
+    Interview.findByIdAndRemove(req.params.id)
+    .then(interview => res.status(204).end)
+    .catch(err => {
+        console.error(err);
+        res.status(500).status({message: `Internal server error! Oh my!`})
+    });
+});
 
 //gets the user's responses
 app.get('/responses', function(req, res){
