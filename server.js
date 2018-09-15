@@ -57,9 +57,8 @@ app.post('/interview', function(req,res){
     .create({
         userName: "Admin",
         firstName: "Aaron",
-        created: Date.now,
-        responses: [],
-        questions: []
+        responses: ["responses test"],
+        questions: ["questions test"]
     })
     .then(interview => res.status(201).json(interview.serialize()))
     .catch(err => {
@@ -104,8 +103,8 @@ app.delete('/interview/:id', function(req,res){
         res.status(400).json({message: message});
     }
 
-    Interview.findByIdAndRemove(req.params.id)
-    .then(interview => res.status(204).end)
+    Interview.findByIdAndDelete(req.params.id)
+    .then(interview => res.status(204).end())
     .catch(err => {
         console.error(err);
         res.status(500).status({message: `Internal server error! Oh my!`})
