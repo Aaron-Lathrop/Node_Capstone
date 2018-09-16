@@ -12,13 +12,13 @@ header h1 {
     margin-bottom: 12px;
 }
 
-header p {
+p {
     font-size: 18px;
 }
 
 label {
-    margin-bottom: 10px;
-    font-size: 20px;
+    margin-bottom: 30px;
+    font-size: 25px;
     display: block;
 }
 
@@ -28,6 +28,9 @@ textarea {
     margin-bottom: 10px;
     left: 50%;
     transform: translate(-50%, 0);
+    font-size: 20px;
+    border: 1px solid lightskyblue;
+    border-radius: 8px;
 }
 
 button {
@@ -48,14 +51,34 @@ button:hover {
     width: 75%;
 }
 
+#interviewAvatar {
+    display: inline;
+    max-height: 75px;
+    max-width: 75px;
+    transform: translateY(30px);
+}
+
+#interviewQuestion {
+    padding: 20px;
+    border: 2px solid purple;
+    border-radius: 8px;
+    transform: translateY(-50%);
+}
+
+.response {
+    padding: 20px;
+    border: 2px solid lightskyblue;
+    border-radius: 8px;
+}
+
 .center {
     text-align: center;
 }
 
-iframe {
-    float: right;
-    box-shadow:  5px 10px 10px #888888;
-    border: none;
-    margin-right: 50%;
-    transform: translate(50%,0);
+.hide {
+    display: none;
+}
+
+:focus {
+    border-radius: 8px;
 }

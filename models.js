@@ -72,10 +72,10 @@ responseSchema.methods.serialize = function() {
 
 //interview schema
 
-// interviewSchema.pre('find', function(next){
-//     this.populate('responses');
-//     next();
-// });
+interviewSchema.pre('create', function(next){
+    this.populate('responses');
+    next();
+});
 
 interviewSchema.methods.serialize = function() {
     return {

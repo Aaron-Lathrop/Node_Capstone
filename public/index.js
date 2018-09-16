@@ -3,143 +3,69 @@ console.log('client-side code is running');
 
 let questionNumber = 0;
 
-const nodeSampleQuestions = {
-    "questions": [
-        {
-            "id": "1111111",
-            "questionText": "Describe the HTTP requests/response lifecycle.",
-            "type": "general",
-            "userAdded": false,
-            "public": true,
-            "addedBy": "Admin",
-            "advice": "Review your Thinkful curriculum."
-        },
-        {
-            "id": "2222222",
-            "questionText": "Describe the architecture of a basic Express app. How is it organized?",
-            "type": "general",
-            "userAdded": false,
-            "public": true,
-            "addedBy": "Admin",
-            "advice": "Review your Thinkful curriculum."
-        },
-        {
-            "id": "3333333",
-            "questionText": "Tell me about a time when you've used Express Router. How was it helpful?",
-            "type": "general",
-            "userAdded": false,
-            "public": true,
-            "addedBy": "Admin",
-            "advice": "Review your Thinkful curriculum."
-        },
-        {
-            "id": "4444444",
-            "questionText": "What's your experience with continuous integration? How has it helped you?",
-            "type": "general",
-            "userAdded": false,
-            "public": true,
-            "addedBy": "Admin",
-            "advice": "Review your Thinkful curriculum."
-        },
-        {
-            "id": "5555555",
-            "questionText": "Describe how a Mongo database is structured.",
-            "type": "general",
-            "userAdded": false,
-            "public": true,
-            "addedBy": "Admin",
-            "advice": "Review your Thinkful curriculum."
-        },
-        {
-            "id": "6666666",
-            "questionText": "How do JSON web tokens work?",
-            "type": "general",
-            "userAdded": false,
-            "public": true,
-            "addedBy": "Admin",
-            "advice": "Review your Thinkful curriculum."
-        },
-        {
-            "id": "7777777",
-            "questionText": "What is the purpose of bycrypt in the authentication process?",
-            "type": "general",
-            "userAdded": false,
-            "public": true,
-            "addedBy": "Admin",
-            "advice": "Review your Thinkful curriculum."
+const interviewResponses = {
+    userName: "Admin",
+    firstName: "Aaron",
+    responses: []
+};
+
+function getPracticeQuestion(callback){
+    const URL = "http://localhost:8080/mock-interview";
+
+    $.getJSON(URL, callback)
+    .done(function(data){
+        console.log(data);
+    });
+}
+
+function displayQuestion(data){
+    $('#mockInterview').html(`
+        <form id='interview' name='interview' autocomplete='off'>
+        <label><span id="interviewQuestion">${data.questions[questionNumber].questionText}</span><img id="interviewAvatar" src="/Interview_avatar.png"></label>
+        <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
+        <button id='answerButton' type='submit' value='Answer'>Answer</button>
+        </form>`);
+    answerButtonHandler();
+}
+
+function getAndDisplayQuestions(){
+    getPracticeQuestion(displayQuestion);
+}
+
+function createInterview(){
+    const URL = "http://localhost:8080/interview";
+    const data = interviewResponses;
+    $.ajax({
+        async: true,
+        crossDomain: true,
+        headers: {"content-type": "application/json"},
+        type: "POST",
+        url: URL,
+        data: JSON.stringify(data),
+        success: function(response){
+            console.log(`POST of was successful for the following:`); 
+            console.log(response);
+            displayResponses(response);
         }
-    ]
-};
-
-const responses = {
-    "responses": [
-        {
-            "id": "1111111",
-            "userName": "Aaron",
-            "questionText": "",
-            "userResponse": "",
-            "date": Date
-        },
-        {
-            "id": "2222222",
-            "userName": "Aaron",
-            "questionText": "",
-            "userResponse": "",
-            "date": Date
-        },
-        {
-            "id": "3333333",
-            "userName": "Aaron",
-            "questionText": "",
-            "userResponse": "",
-            "date": Date
-        },
-        {
-            "id": "4444444",
-            "userName": "Aaron",
-            "questionText": "",
-            "userResponse": "",
-            "date": Date
-        },
-        {
-            "id": "5555555",
-            "userName": "Aaron",
-            "questionText": "",
-            "userResponse": "",
-            "date": Date
-        },
-        {
-            "id": "6666666",
-            "userName": "Aaron",
-            "questionText": "",
-            "userResponse": "",
-            "date": Date
-        },
-        {
-            "id": "7777777",
-            "userName": "Aaron",
-            "questionText": "",
-            "userResponse": "",
-            "date": Date
-        },
-        
-    ]
-};
-
-function getPracticeQuestion(questionList){
-        const question = questionList.questions[questionNumber].questionText;
-        return question;
+    });
+    
 }
 
-function getResponses(callback){
-    setTimeout(function(){callback(responses)}, 100);
-}
+// function getResponses(callback){
+//     const URL = "http://localhost:8080/interview";
+//     $.getJSON(URL,callback);
+// }
 
 function displayResponses(data) {
+    $('body').addClass('center');
+    $('body').html(`
+    <h1><u>Here are your responses</u></h1><br><br>`);
     for (let i=0; i< data.responses.length; i++){
         $('body').append(
-            `<strong> ${data.responses[i].questionText} </strong>
-             <p> ${data.responses[i].userResponse} </p><br><br>`
+            `<div class="response col-6">
+                <p><strong> ${data.responses[i].questionText} </strong></p>
+                <p> ${data.responses[i].responseText} </p>
+             </div>`
         );
     }
 }
@@ -149,40 +75,33 @@ function getAndDisplayResponses(){
 }
 
 function mockStartHandler() {
+    console.log(`mockStartHandler called`);
     $('#mockStart').click(function(){
-        const question = getPracticeQuestion(nodeSampleQuestions);
-        $('#mockInterview').html(`
-            <form id='interview' name='interview' autocomplete='off'>
-            <label>${question}</label>
-            <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
-            <button id='answerButton' type='submit' value='Answer'>Answer</button>
-            </form>`);
+        $('welcome').toggleClass('hide');
+        $('mock').toggleClass('hide');
+        $(getAndDisplayQuestions());
     });
-    let mic = $('#speechinput');
-    mic.onfocus = mic.blur;
-    mic.onwebkitspeechchange = function(e) {
-        $('#userResponse').val() = speechinput.val();
-    };
-    $(answerButtonHandler());
 }
 
 function answerButtonHandler() {
-    $('#mockInterview').submit("#interview", function(e){
+    console.log(`answerButtonHandler called`);
+    $('#interview').submit(function(e){
         e.preventDefault();
-        
-        if(questionNumber < nodeSampleQuestions.questions.length){
-            responses.responses[questionNumber].questionText = $('#interview').find('label').text();
-            responses.responses[questionNumber].userResponse = $('#interview').find('textarea[name="userResponse"]').val();
-            console.log(`The user response is: ${responses.responses[questionNumber].userResponse}`);
-            const question = getPracticeQuestion(nodeSampleQuestions);
-            $('#mockInterview').html(`
-                <form id='interview' name='interview' autocomplete='off'>
-                <label>${question}</label>
-                <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
-                <button id='answerButton' type='submit' value='Answer'>Answer</button>
-                </form>`);
+        console.log(`answer button clicked`);
+        if(questionNumber < 9){
+            interviewResponses.responses.push({
+                "userName": "Admin",
+                "questionText": $('#interview').find('label').text(),
+                "responseText": $('#interview').find('textarea[name="userResponse"]').val()
+            });
+            $(getAndDisplayQuestions());
             
         } else {
+            interviewResponses.responses.push({
+                "userName": "Admin",
+                "questionText": $('#interview').find('label').text(),
+                "responseText": $('#interview').find('textarea[name="userResponse"]').val()
+            });
             $('#mockInterview').html(`
                 <h3>Thank you for your time, this concludes the interview</h3>
                 <p><span class='center'>Click the review button to review your answers.</span></p>
@@ -195,12 +114,15 @@ function answerButtonHandler() {
         $('#userResponse').val() = speechinput.val();
     };
         questionNumber++;
+        console.log(interviewResponses);
     });
 }
 
 function reviewButtonHandler(){
     $("#review").click(function(){
         console.log(`Review button clicked`);
+        questionNumber = 0;
+        createInterview();
         $(getAndDisplayResponses);
     });
 }
@@ -209,4 +131,4 @@ function handleNodeApp(){
     $(mockStartHandler());
 }
 
-$(handleNodeApp());
+$(document).ready($(handleNodeApp()));

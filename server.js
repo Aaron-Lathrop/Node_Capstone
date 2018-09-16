@@ -13,6 +13,12 @@ const app = express();
 app.use(express.json());
 app.use(express.static('public'));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 //gets questions for user to practice during mock-interview, consider
 //renaming the slug on this
 app.get('/mock-interview', function(req, res){
@@ -37,7 +43,6 @@ app.get('/interview', function(req, res){
     console.log(`Getting interviews from database.`)
     Interview
     .find()
-    .limit(10)
     .then(interviews => {
         res.json({
             interviews: interviews.map(
@@ -57,8 +62,9 @@ app.get('/interview', function(req, res){
 app.post('/interview', function(req,res){
     Interview
     .create({
-        userName: "Admin",
-        firstName: "Aaron"
+        userName: "test",
+        firstName: "test",
+        responses: req.body.responses
     })
     .then(interview => res.status(201).json(interview.serialize()))
     .catch(err => {
