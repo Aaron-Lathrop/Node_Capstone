@@ -117,36 +117,6 @@ app.delete('/interview/:id', function(req,res){
     });
 });
 
-//gets the user's responses, add authentication so only the user can
-//access their own reponses
-app.get('/responses', function(req, res){
-    Response
-    .find()
-    .then(responses => {
-        res.json({
-            responses: responses.map(
-                (response) => response.serialize())
-        });
-    })
-    .catch(err => {
-        console.error(err);
-        res.status(500).json({message: "Internal server error! Oh my!"});
-    });
-});
-
-app.post('/responses', function(req,res){
-    const requireFields = ['questionText', 'responseText', 'userName'];
-
-});
-
-app.put('/responses/:id', function(req,res){
-
-});
-
-app.delete('/responses/:id', function(req,res){
-
-});
-
 //need to only find 1 user at a time
 
 // app.get('/users', function(req, res){
@@ -164,9 +134,9 @@ app.delete('/responses/:id', function(req,res){
 //     });
 // });
 
-app.post('/users', function(req,res){
+// app.post('/users', function(req,res){
     
-});
+// });
 
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Oops! Looks like this is not the page you were looking for. This one is Not Found' });
