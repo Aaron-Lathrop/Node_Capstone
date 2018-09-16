@@ -51,10 +51,10 @@ function createInterview(){
     
 }
 
-// function getResponses(callback){
-//     const URL = "http://localhost:8080/interview";
-//     $.getJSON(URL,callback);
-// }
+function getResponses(callback){
+    const URL = "http://localhost:8080/interview";
+    $.getJSON(URL,callback);
+}
 
 function displayResponses(data) {
     $('body').addClass('center');
