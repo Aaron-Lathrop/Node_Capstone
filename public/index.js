@@ -45,7 +45,7 @@ function createInterview(){
         success: function(response){
             console.log(`POST of was successful for the following:`); 
             console.log(response);
-            displayResponses(response);
+            displayResponses(response.responses);
         }
     });
     
@@ -60,11 +60,11 @@ function displayResponses(data) {
     $('body').addClass('center');
     $('body').html(`
     <h1><u>Here are your responses</u></h1><br><br>`);
-    for (let i=0; i< data.responses.length; i++){
+    for (let i=0; i< data.length; i++){
         $('body').append(
             `<div class="response col-6">
-                <p><strong> ${data.responses[i].questionText} </strong></p>
-                <p> ${data.responses[i].responseText} </p>
+                <p><strong> ${data[i].questionText} </strong></p>
+                <p> ${data[i].responseText} </p>
              </div>`
         );
     }
