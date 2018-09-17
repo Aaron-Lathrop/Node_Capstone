@@ -51,10 +51,10 @@ function createInterview(){
     
 }
 
-function getResponses(callback){
-    const URL = "https://stark-thicket-75096.herokuapp.com/interview";
-    $.getJSON(URL,callback);
-}
+// function getResponses(callback){
+//     const URL = "https://stark-thicket-75096.herokuapp.com/interview";
+//     $.getJSON(URL,callback);
+// }
 
 function displayResponses(data) {
     console.log(`the data to be displayed is:`);
@@ -72,9 +72,9 @@ function displayResponses(data) {
     }
 }
 
-function getAndDisplayResponses(){
-    getResponses(displayResponses);
-}
+// function getAndDisplayResponses(){
+//     getResponses(displayResponses);
+// }
 
 function mockStartHandler() {
     console.log(`mockStartHandler called`);
@@ -125,7 +125,6 @@ function reviewButtonHandler(){
         console.log(`Review button clicked`);
         questionNumber = 0;
         createInterview();
-        $(getAndDisplayResponses);
     });
 }
 
