@@ -113,7 +113,7 @@ app.delete('/interview/:id', function(req,res){
     .then(interview => res.status(204).end())
     .catch(err => {
         console.error(err);
-        res.status(500).status({message: `Internal server error! Oh my!`})
+        res.status(500).json({message: `Internal server error! Oh my!`})
     });
 });
 

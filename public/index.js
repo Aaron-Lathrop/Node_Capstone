@@ -64,9 +64,9 @@ function displayResponses(data) {
     <h1><u>Here are your responses</u></h1><br><br>`);
     for (let i=0; i< data.responses.length; i++){
         $('body').append(
-            `<div class="response col-6">
-                <p><strong> ${data.responses[i].questionText} </strong></p>
-                <p> ${data.responses[i].responseText} </p>
+            `<div class="response col-12">
+                <p><strong> ${data.responses[i].questionText}</strong></p>
+                <p> ${data.responses[i].responseText}</p>
              </div>`
         );
     }
