@@ -57,10 +57,12 @@ function getResponses(callback){
 }
 
 function displayResponses(data) {
+    console.log(`the data to be displayed is:`);
+    console.log(data);
     $('body').addClass('center');
     $('body').html(`
     <h1><u>Here are your responses</u></h1><br><br>`);
-    for (let i=0; i< data.responses.length; i++){
+    for (let i=0; i< data.interviews[interviews.length - 1].responses.length; i++){
         $('body').append(
             `<div class="response col-6">
                 <p><strong> ${data.responses[i].questionText} </strong></p>
