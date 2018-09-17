@@ -10,7 +10,7 @@ const interviewResponses = {
 };
 
 function getPracticeQuestion(callback){
-    const URL = "http://localhost:8080/mock-interview";
+    const URL = "https://stark-thicket-75096.herokuapp.com/mock-interview";
 
     $.getJSON(URL, callback)
     .done(function(data){
@@ -33,7 +33,7 @@ function getAndDisplayQuestions(){
 }
 
 function createInterview(){
-    const URL = "http://localhost:8080/interview";
+    const URL = "https://stark-thicket-75096.herokuapp.com/interview";
     const data = interviewResponses;
     $.ajax({
         async: true,
@@ -52,7 +52,7 @@ function createInterview(){
 }
 
 function getResponses(callback){
-    const URL = "http://localhost:8080/interview";
+    const URL = "https://stark-thicket-75096.herokuapp.com/interview";
     $.getJSON(URL,callback);
 }
 
