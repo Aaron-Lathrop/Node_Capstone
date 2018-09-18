@@ -25,29 +25,29 @@ const interviewSchema = mongoose.Schema({
     responses: [responseSchema]
 });
 
-const userSchema = mongoose.Schema({
-    userName: {type: String, required: true, unique: true},
-    token: {type: String, required: true, unique: true},
-    firstName: {type: String, required: true},
-    lastName: String,
-    created: {type: Date, default: Date.now},
-    interviews: [interviewSchema],
-    questions: [questionSchema]
-},{collection: "users"});
+// const userSchema = mongoose.Schema({
+//     userName: {type: String, required: true, unique: true},
+//     token: {type: String, required: true, unique: true},
+//     firstName: {type: String, required: true},
+//     lastName: String,
+//     created: {type: Date, default: Date.now},
+//     interviews: [interviewSchema],
+//     questions: [questionSchema]
+// },{collection: "users"});
 
 //user schema
 
-userSchema.virtual('name').get(function(){
-    return `${this.firstName} ${this.lastName}`.trim();
-});
+// userSchema.virtual('name').get(function(){
+//     return `${this.firstName} ${this.lastName}`.trim();
+// });
 
-userSchema.methods.serialize = function() {
-    return {
-        id: this._id,
-        userName: this.userName,
-        name: this.name
-    };
-};
+// userSchema.methods.serialize = function() {
+//     return {
+//         id: this._id,
+//         userName: this.userName,
+//         name: this.name
+//     };
+// };
 
 //question schema
 
