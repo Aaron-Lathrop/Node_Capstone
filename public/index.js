@@ -158,6 +158,18 @@ function reviewButtonHandler(){
     });
 }
 
+// function getDashboardUser(){
+//     const url = 
+// }
+
+// function displayDashboard(data){
+//     $('.js-username-dash').html(data.username);
+// }
+
+// function getAndDisplayDashboard(){
+
+// }
+
 function handleNodeApp(){
     $(mockStartHandler());
     $(signupHandler());

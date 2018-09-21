@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 html {
     background-color: #f8f8f8f8;
     font-family: Arial, Helvetica, sans-serif;
@@ -112,14 +116,15 @@ button:hover {
     transform: translateY(-50%);
 }
 
+#dash-body {
+    background-color: purple;
+}
+
 #dash-header {
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
-    height: 50%;
     width: 100%;
-    /* margin-bottom: 450px; */
+    margin-top: 60px;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
     background-color: purple;
     color: white;
 }

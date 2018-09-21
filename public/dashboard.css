@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: purple;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin-bottom: 40px;
+    background-color: purple;
+}
+
+nav ul {
+    /* position: fixed;
+    top: 0; */
+    left: 0;
+    display: inline-block;
+    list-style-type: none;
+    color: white;
+}
+
+nav li {
+    float: left;
+    margin-right: 15px;
+}
+
+header {
+    text-align: center;
+    font-size: 30px;
+}
+
+header h1 {
+    font-size: 42px;
+    
+}
+
+#dash-body {
+    background-color: purple;
+}
+
+#dash-header {
+    width: 100%;
+    margin-top: 60px;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    background-color: purple;
+    color: white;
+}
+
+#dash-main {
+    margin-top:30%;
+}
