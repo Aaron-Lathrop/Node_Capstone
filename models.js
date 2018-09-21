@@ -87,8 +87,8 @@ interviewSchema.methods.serialize = function() {
 };
 
 const Question = mongoose.model('Question', questionSchema);
-const User = mongoose.model('User', userSchema);
+//const User = mongoose.model('User', userSchema);
 const Response = mongoose.model('Response', responseSchema);
 const Interview = mongoose.model("Interview", interviewSchema);
 
-module.exports = {Question, User, Response, Interview};
+module.exports = {Question, Response, Interview};

@@ -9,6 +9,36 @@ const interviewResponses = {
     responses: []
 };
 
+ function postNewUser(url, data){
+    $.ajax({
+        async: true,
+        crossDomain: true,
+        headers: {"content-type": "application/json"},
+        type: "POST",
+        url: url,
+        data: JSON.stringify(data),
+        success: function(response){
+            console.log(`POST of was successful for the following:`); 
+            console.log(response);
+        }
+    });
+ }
+
+function signupHandler(){
+    $('#signup').submit(function(e){
+        e.preventDefault();
+        console.log("Handler for signup submit called");
+        const newUser = {
+            username: $('input[name="username"]').val(),
+            password: $('input[name="password"]').val(),
+            firstName: $('input[name="firstName"]').val(),
+            lastName: $('input[name="lastName"]').val()
+        };
+        console.log(newUser);
+        postNewUser("http://localhost:8080/api/users", newUser);
+    });
+}
+
 function getPracticeQuestion(callback){
     const URL = "https://stark-thicket-75096.herokuapp.com/mock-interview";
 
@@ -130,6 +160,7 @@ function reviewButtonHandler(){
 
 function handleNodeApp(){
     $(mockStartHandler());
+    $(signupHandler());
 }
 
 $(document).ready($(handleNodeApp()));
