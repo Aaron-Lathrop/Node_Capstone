@@ -158,17 +158,17 @@ function reviewButtonHandler(){
     });
 }
 
-// function getDashboardUser(){
-//     const url = 
-// }
+function getDashboardUser(){
+    const url = "http://localhost:8080/api/users/:username";
+}
 
-// function displayDashboard(data){
-//     $('.js-username-dash').html(data.username);
-// }
+function displayDashboard(data){
+    $('.js-username-dash').html(data.username);
+}
 
-// function getAndDisplayDashboard(){
+function getAndDisplayDashboard(){
 
-// }
+}
 
 function handleNodeApp(){
     $(mockStartHandler());
