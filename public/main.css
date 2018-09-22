@@ -27,13 +27,13 @@ p {
     display: block;
 }
 
-#signup label {
+#signup label, #login label {
     display: block;
     text-align: left;
     margin-left: 15%;
 }
 
-#signup fieldset {
+#signup fieldset, #login fieldset {
     font-size: 25px;
     width: 50%;
     height: 50%;
@@ -45,14 +45,14 @@ p {
     background-color: white;
     box-shadow: 7px 5px 5px grey;
 }
-#signup legend {
+#signup legend, #login legend {
     position: relative;
     top: 25px;
     margin-bottom: 25px;
     padding-top: 20px;
 }
 
-#signup input, button {
+#signup input, button, #login input {
     border: 2px solid whitesmoke;
     border-radius: 8px;
     height: 45px;
@@ -64,7 +64,7 @@ p {
     box-shadow: 7px 5px 5px grey;
 }
 
-#signupButton {
+#signupButton, #loginButton {
     border: 1px solid purple;
     background-color: purple;
     color: white;
@@ -72,6 +72,13 @@ p {
     width: 50%;
     padding-bottom: 15px;
 }
+
+.js-show-login-signup{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 
 textarea {
     position: relative;

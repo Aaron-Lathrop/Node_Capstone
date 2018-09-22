@@ -159,20 +159,42 @@ function reviewButtonHandler(){
 }
 
 function getDashboardUser(){
-    const url = "http://localhost:8080/api/users/:username";
+    const username = "Admin";
+    const url = `http://localhost:8080/api/users/${username}`;
+    
+    $.ajax({
+        type: "GET",
+        url: url,
+        async: true,
+        crossDomain: true,
+        headers: {"contentType": "application/json"},
+        success: function(data){
+            console.log(data);
+            displayDashboard(data);
+        }
+    });
 }
 
 function displayDashboard(data){
-    $('.js-username-dash').html(data.username);
+    $('.js-username-dash').html(data.firstName);
 }
 
 function getAndDisplayDashboard(){
+    displayDashboard(getDashboardUser());
+}
 
+function handleShowLoginSignup() {
+    $('.js-show-login-signup').click(function(){
+        $('#signup').toggleClass('hide');
+        $('#login').toggleClass('hide');
+    });
 }
 
 function handleNodeApp(){
     $(mockStartHandler());
     $(signupHandler());
+    $(getDashboardUser());
+    $(handleShowLoginSignup());
 }
 
 $(document).ready($(handleNodeApp()));

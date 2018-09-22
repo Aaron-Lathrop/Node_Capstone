@@ -99,7 +99,7 @@ router.post('/', jsonParser, (req, res) => {
   lastName = lastName.trim();
   
   return User.find({username})
-    .count()
+    .countDocuments()
     .then(count => {
       console.log(count);
       if (count > 0) {
@@ -144,7 +144,7 @@ router.post('/', jsonParser, (req, res) => {
 // verify this in the Mongo shell.
 router.get('/:username', (req, res) => {
   return User.findOne({username: req.params.username})
-    .then(users => res.json(users.map(user => user.serialize())))
+    .then(user => res.json(user.serialize()))
     .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
