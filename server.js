@@ -9,7 +9,8 @@ mongoose.Promise = global.Promise;
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { PORT, DATABASE_URL} = require('./config');
-const { Question, Interview } = require('./models');
+const { Question } = require('./models');
+const { Interview } = require('./users/models');
 
 const express = require('express');
 const app = express();
@@ -86,10 +87,11 @@ app.get('/interview', function(req, res){
 //responses that a user had a specific time. Questions and responses begin blank
 //and will populate using the PUT endpoint
 app.post('/interview', function(req,res){
+    console.log(req.body);
     Interview
     .create({
-        userName: "test",
-        firstName: "test",
+        username: req.body.username,
+        firstName: req.body.firstName,
         responses: req.body.responses
     })
     .then(interview => res.status(201).json(interview.serialize()))

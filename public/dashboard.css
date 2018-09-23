@@ -12,8 +12,10 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    margin-bottom: 40px;
-    background-color: purple;
+    height: 50px;
+    margin-bottom: 50px;
+    background-color: ghostwhite;
+    border-bottom: 2px solid gray;
 }
 
 nav ul {
@@ -22,12 +24,19 @@ nav ul {
     left: 0;
     display: inline-block;
     list-style-type: none;
-    color: white;
+    color: black;
 }
 
 nav li {
     float: left;
     margin-right: 15px;
+    font-weight: bold;
+}
+
+nav li:hover{
+    cursor: pointer;
+    color: blue;
+
 }
 
 header {

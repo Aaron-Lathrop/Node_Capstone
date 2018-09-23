@@ -1,10 +1,84 @@
 'use strict';
-console.log('client-side code is running');
+// const {mockStartHandler} = require('./mockinterview');
 
-let questionNumber = 0;
+function handleNav(){
+    $('nav').click('li', function(e){
+        let go = e.target.id;
+        let html;
+        if(go === 'home'){
+            html = `home page`;
+        } else if(go === 'practice'){
+            html = `
+            <h2>Mock Interview</h2>
+            <div id="mockInterview" role="alert" aria-live="polite">
+                <p>You're about to start a 10 question mock interview. Questions will be delivered in a random order and your responses will be saved for later review.</p>
+                <button id='mockStart'>Start Interview</button>
+            </div>`;
+        } else if(go === 'review'){
+            html = `review page`;
+        } else if(go === 'register'){
+            html = `
+            <form id="signup" name="signup">
+                <fieldset class='center'>
+                    <legend>SIGN UP</legend>
+                    <label for="firstName">First Name</label>
+                    <input type='text' name='firstName' placeholder="First Name">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" name='lastName' placeholder="Last Name">
+                    <label for="username">Username</label>
+                    <input type="text" name='username' placeholder="Username">
+                    <label for="password">Password</label>
+                    <input type="password" name='password' placeholder="Password">
+                    <button id='signupButton' type="submit">SIGN UP</button>
+                    <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
+                </fieldset>
+            </form>
+            <form id="login" name="login" action="http://localhost:8080/dashboard.html" class="hide">
+                <fieldset class='center'>
+                    <legend>LOG IN</legend>
+                    
+                    <label for="login-username">Username</label>
+                    <input type="text" name='login-username' placeholder="Username">
+                    <label for="login-password">Password</label>
+                    <input type="password" name='login-password' placeholder="Password">
+                    <button id='loginButton' type="submit">LOG IN</button>
+                    <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
+                </fieldset>
+            </form>`;
+        } else if(go === 'signin'){
+            html = `
+            <form id="login" name="login" action="http://localhost:8080/dashboard.html">
+                <fieldset class='center'>
+                    <legend>LOG IN</legend>
+                    
+                    <label for="login-username">Username</label>
+                    <input type="text" name='login-username' placeholder="Username">
+                    <label for="login-password">Password</label>
+                    <input type="password" name='login-password' placeholder="Password">
+                    <button id='loginButton' type="submit">LOG IN</button>
+                    <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
+                </fieldset>
+            </form>
+            <form id="signup" name="signup" class="hide">
+                <fieldset class='center'>
+                    <legend>SIGN UP</legend>
+                    <label for="firstName">First Name</label>
+                    <input type='text' name='firstName' placeholder="First Name">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" name='lastName' placeholder="Last Name">
+                    <label for="username">Username</label>
+                    <input type="text" name='username' placeholder="Username">
+                    <label for="password">Password</label>
+                    <input type="password" name='password' placeholder="Password">
+                    <button id='signupButton' type="submit">SIGN UP</button>
+                    <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
+                </fieldset>
+            </form>`;
+        }
 
-const questions = [];
-const interviewResponses = {};
+        $('main').html(html);
+    });
+}
 
  function postNewUser(url, data){
     $.ajax({
@@ -120,10 +194,10 @@ function handleShowLoginSignup() {
 }
 
 function handleNodeApp(){
-    $(mockStartHandler());
     $(signupHandler());
     $(loginHandler());
     $(handleShowLoginSignup());
+    $(handleNav());
 }
 
 $(document).ready($(handleNodeApp()));

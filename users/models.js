@@ -9,8 +9,22 @@ const UserSchema = mongoose.Schema ({
     password: {type: String, required: true},
     firstName: {type: String, default: ''},
     lastName: {type: String, default: ''},
-    created: {type: Date, default: Date.now}
-    
+    created: {type: Date, default: Date.now},
+    interviews: [interviewSchema]
+});
+
+const responseSchema = mongoose.Schema({
+    questionText: {type: String, required: true},
+    responseText: {type: String, required: true},
+    username: {type: String, required: true},
+    date: {type: Date, default: Date.now}
+});
+
+const interviewSchema = mongoose.Schema({
+    username: {type: String, required: true},
+    firstName: {type: String, required: true},
+    created: {type: Date, default: Date.now},
+    responses: [responseSchema]
 });
 
 UserSchema.methods.serialize = function() {
@@ -29,6 +43,21 @@ UserSchema.statics.hashPassword = function(password) {
     return bcrypt.hash(password, 10);
 };
 
-const User = mongoose.model('User', UserSchema);
+interviewSchema.pre('create', function(next){
+    this.populate('responses');
+    next();
+});
 
-module.exports = {User};
+interviewSchema.methods.serialize = function() {
+    return {
+        id: this._id,
+        firstName: this.firstName,
+        created: this.created,
+        responses: this.responses
+    };
+};
+
+const User = mongoose.model('User', UserSchema);
+const Interview = mongoose.model("Interview", interviewSchema);
+
+module.exports = {User, Interview};

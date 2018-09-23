@@ -21,6 +21,11 @@ p {
     font-size: 18px;
 }
 
+#signin, #register{
+    text-align:right;
+    right: 15px;
+}
+
 #interview label {
     margin-bottom: 30px;
     font-size: 25px;
@@ -145,6 +150,8 @@ button:hover {
     padding: 20px;
     border: 2px solid lightskyblue;
     border-radius: 8px;
+    background-color: ghostwhite;
+    height: 300px;
 }
 
 .center {
