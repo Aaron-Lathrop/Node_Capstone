@@ -12,7 +12,15 @@ function loadScreen(screen){
     let html;
         if(screen === 'home'){
            // history.pushState("home", "Home", "");
-            html = `home page`;
+            html = `
+            <section id="homescreen row">
+                <div class="home col-6">
+                    <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
+                    <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
+                    Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
+                    <button id="getStarted">Get Started</button>
+                </div>
+            </section>`;
         } else if(screen === 'practice'){
            // history.pushState("practice", "Practice", "/practice");
             html = `
@@ -91,6 +99,8 @@ function loadScreen(screen){
         $(document).ready($(handleNodeApp()));
 }
 
+
+
  function postNewUser(url, data){
     $.ajax({
         async: true,
@@ -134,11 +144,11 @@ function loginUser(url, data){
         data: JSON.stringify(data),
         success: function(res){
             const token = `Bearer ${res.authToken}`;
-            //document.cookie = `${token}`;
+            window.sessionStorage.access_token = `${token}`;
             $.ajax({
                 url: `http://localhost:8080/users/${data.username}`,
                 headers: {
-                    "Authorization": token,
+                    "Authorization": window.sessionStorage.access_token,
                     "content-type": "application/json"
                 },
                 async: true,

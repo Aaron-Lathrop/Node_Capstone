@@ -57,8 +57,8 @@ p {
     padding-top: 20px;
 }
 
-#signup input, button, #login input {
-    border: 2px solid whitesmoke;
+#signup input, #login input {
+    border: 2px solid ghostwhite;
     border-radius: 8px;
     height: 45px;
     width: 75%;
@@ -78,12 +78,27 @@ p {
     padding-bottom: 15px;
 }
 
+#homescreen {
+    background-color: ghostwhite;
+}
+
+button {
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    text-align: center;
+    padding: 15px;
+}
+
+.home {
+    background-color: ghostwhite;
+    border-radius: 5px;
+}
+
 .js-show-login-signup{
     color: blue;
     text-decoration: underline;
     cursor: pointer;
 }
-
 
 textarea {
     position: relative;
@@ -97,9 +112,9 @@ textarea {
 }
 
 button {
-    padding: 15px 25px 15px 25px;
+    /* padding: 15px 25px 15px 25px; */
     border-radius: 10px;
-    align-items: center;
+    text-align: center;
 }
 
 button:hover {
@@ -155,7 +170,9 @@ button:hover {
 }
 
 .center {
-    text-align: center;
+    left: 50%;
+    transform: translateX(50%);
+    /* text-align: center; */
 }
 
 .hide {
