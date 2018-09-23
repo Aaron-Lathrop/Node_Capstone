@@ -3,12 +3,17 @@
 
 function handleNav(){
     $('nav').click('li', function(e){
-        let go = e.target.id;
-        let html;
-        if(go === 'home'){
+        let go = e.target.id
+        loadScreen(go);
+    });
+}
+
+function loadScreen(screen){
+    let html;
+        if(screen === 'home'){
            // history.pushState("home", "Home", "");
             html = `home page`;
-        } else if(go === 'practice'){
+        } else if(screen === 'practice'){
            // history.pushState("practice", "Practice", "/practice");
             html = `
             <h2>Mock Interview</h2>
@@ -16,10 +21,10 @@ function handleNav(){
                 <p>You're about to start a 10 question mock interview. Questions will be delivered in a random order and your responses will be saved for later review.</p>
                 <button id='mockStart'>Start Interview</button>
             </div>`;
-        } else if(go === 'review'){
+        } else if(screen === 'review'){
            // history.pushState("review", "Review", "/review");
             html = `review page`;
-        } else if(go === 'register'){
+        } else if(screen === 'register'){
             //history.pushState("sign up", "Sign up", "/sign-up");
             html = `
             <form id="signup" name="signup">
@@ -50,7 +55,7 @@ function handleNav(){
                 </fieldset>
             </form>`;
             $(handleShowLoginSignup());
-        } else if(go === 'signin'){
+        } else if(screen === 'signin'){
             //history.pushState("log in", "Log In", "/log-in");
             html = `
             <form id="login" name="login">
@@ -84,7 +89,6 @@ function handleNav(){
         }
         $('main').html(html);
         $(document).ready($(handleNodeApp()));
-    });
 }
 
  function postNewUser(url, data){
@@ -98,9 +102,6 @@ function handleNav(){
         success: function(response){
             console.log(`POST of was successful for the following:`); 
             console.log(response);
-        },
-        fail: function(err){
-            console.error(err);
         }
     });
  }
@@ -143,6 +144,7 @@ function loginUser(url, data){
                 async: true,
                 type: "GET",
                 success: function(res){
+                    loadScreen('home');
                     $(document).ready(displayDashboard(res));
                 }
             });
