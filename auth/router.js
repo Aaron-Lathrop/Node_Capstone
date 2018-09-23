@@ -22,7 +22,7 @@ router.use(express.json());
 
 router.post('/login', localAuth, (req,res) => {
     const authToken = createAuthToken(req.user.serialize());
-    res.setHeader("Set-Cookie", `access_token=${authToken}`);
+    //res.setHeader("Set-Cookie", `access_token=${authToken}`);
     res.json({authToken});
 });
 

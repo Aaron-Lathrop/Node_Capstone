@@ -14,11 +14,16 @@ function loadScreen(screen){
            // history.pushState("home", "Home", "");
             html = `
             <section id="homescreen row">
-                <div class="home col-6">
-                    <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
-                    <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
-                    Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
-                    <button id="getStarted">Get Started</button>
+                <div class="home col-12">
+                        <div class="home center col-6">
+                            <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
+                            <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
+                            Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
+                            <div class='row col-6'>
+                                <button id="homeLogin" class='center'>Login</button>
+                                <button id="homeSignup"class='center'>Sign Up</button>
+                            </div>
+                        </div> 
                 </div>
             </section>`;
         } else if(screen === 'practice'){
@@ -93,7 +98,22 @@ function loadScreen(screen){
                     <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
                 </fieldset>
             </form>`;
-            
+        } else if(screen === 'logout'){
+            sessionStorage.clear();
+            html = `
+            <section id="homescreen row">
+                <div class="home col-12">
+                        <div class="home center col-6">
+                            <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
+                            <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
+                            Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
+                            <div class='row col-6'>
+                                <button id="homeLogin" class='center'>Login</button>
+                                <button id="homeSignup"class='center'>Sign Up</button>
+                            </div>
+                        </div> 
+                </div>
+            </section>`;
         }
         $('main').html(html);
         $(document).ready($(handleNodeApp()));
@@ -102,10 +122,13 @@ function loadScreen(screen){
 
 
  function postNewUser(url, data){
+     console.log('postNewUser called');
     $.ajax({
         async: true,
         crossDomain: true,
-        headers: {"content-type": "application/json"},
+        //headers: {"content-type": "application/json"},
+        contentType: "application/json",
+        dataType: "json",
         type: "POST",
         url: url,
         data: JSON.stringify(data),
@@ -143,12 +166,13 @@ function loginUser(url, data){
         url: url,
         data: JSON.stringify(data),
         success: function(res){
-            const token = `Bearer ${res.authToken}`;
-            window.sessionStorage.access_token = `${token}`;
+            const token = res.authToken;
+            localStorage.clear();
+            localStorage.setItem("access_token", token);
             $.ajax({
                 url: `http://localhost:8080/users/${data.username}`,
                 headers: {
-                    "Authorization": window.sessionStorage.access_token,
+                    "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
                     "content-type": "application/json"
                 },
                 async: true,
@@ -172,31 +196,34 @@ function loginHandler(){
         loginUser("http://localhost:8080/auth/login", user);
         $('input[name="login-username"]').val("");
         $('input[name="login-password"]').val("");
+        $('#logout').toggleClass('hide');
+        $('#signin').toggleClass('hide');
     });
 }
 
 //reinstert mockinterview.js code here if necessary
 
 function getDashboardUser(user){
-    const url = `http://localhost:8080/users/${user.username}`; 
     $.ajax({
-        type: "GET",
-        url: url,
-        async: true,
-        crossDomain: true,
+        url: `http://localhost:8080/users/${user}`,
         headers: {
-            "contentType": "application/json",
-            "Authorization": user.token
+            "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+            "content-type": "application/json"
         },
-        success: function(data){
-            console.log(data);
-            window.location.href = "/dashboard";
-            $(document).ready(displayDashboard(data));
+        async: true,
+        type: "GET",
+        success: function(res){
+            $(document).ready(displayDashboard(res));
         }
     });
 }
 
 function displayDashboard(data){
+    $('#practice').toggleClass('hide');
+    $('#review').toggleClass('hide');
+    $('#signin').toggleClass('hide');
+    $('#register').toggleClass('hide');
+    $('#logout').toggleClass('hide');
     $('.js-username-dash').html(data.firstName);
 }
 
@@ -212,11 +239,32 @@ function handleShowLoginSignup() {
 
 }
 
+function loggedIn() {
+    if(localStorage.getItem("access_token")){
+        const parsedToken = parseJwt(localStorage.getItem("access_token"));
+        $('#practice, #review, #logout').removeClass('hide');
+        $('#sigin, #register').removeClass('hide');
+        getDashboardUser(parsedToken.sub);
+    } else{
+        console.log("please login");
+        $('#practice, #review, #logout').addClass('hide');
+        $('#home, #sigin, #register').removeClass('hide');
+        //loadScreen('home');
+    }
+}
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+};
+
 function handleNodeApp(){
     $(signupHandler());
     $(loginHandler());
     $(handleShowLoginSignup());
     $(handleNav());
+    $(loggedIn());
 }
 
 $(document).ready($(handleNodeApp()));

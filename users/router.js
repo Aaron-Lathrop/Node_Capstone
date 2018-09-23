@@ -139,7 +139,7 @@ router.post('/', jsonParser, (req, res) => {
       // Forward validation errors on to the client, otherwise give a 500
       // error because something unexpected has happened
       if (err.reason === 'ValidationError') {
-        return res.status(err.code).json(err);
+        return res.status(err.code).json({message: `${err}`});
       }
       res.status(500).json({code: 500, message: 'OH NO EVERYTHING IS BROKEN!'});
     });
@@ -152,3 +152,5 @@ router.get('/:username', jwtAuth, (req, res) => {
 });
 
 module.exports = {router};
+
+//5ba7d25b0301540434776c02
