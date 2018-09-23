@@ -4,15 +4,6 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const UserSchema = mongoose.Schema ({
-    username: {type: String, required: true, unique: true},
-    password: {type: String, required: true},
-    firstName: {type: String, default: ''},
-    lastName: {type: String, default: ''},
-    created: {type: Date, default: Date.now},
-    interviews: [interviewSchema]
-});
-
 const responseSchema = mongoose.Schema({
     questionText: {type: String, required: true},
     responseText: {type: String, required: true},
@@ -25,6 +16,15 @@ const interviewSchema = mongoose.Schema({
     firstName: {type: String, required: true},
     created: {type: Date, default: Date.now},
     responses: [responseSchema]
+});
+
+const UserSchema = mongoose.Schema ({
+    username: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    firstName: {type: String, default: ''},
+    lastName: {type: String, default: ''},
+    created: {type: Date, default: Date.now},
+    interviews: [interviewSchema]
 });
 
 UserSchema.methods.serialize = function() {

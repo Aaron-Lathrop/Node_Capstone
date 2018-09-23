@@ -6,8 +6,10 @@ function handleNav(){
         let go = e.target.id;
         let html;
         if(go === 'home'){
+           // history.pushState("home", "Home", "");
             html = `home page`;
         } else if(go === 'practice'){
+           // history.pushState("practice", "Practice", "/practice");
             html = `
             <h2>Mock Interview</h2>
             <div id="mockInterview" role="alert" aria-live="polite">
@@ -15,8 +17,10 @@ function handleNav(){
                 <button id='mockStart'>Start Interview</button>
             </div>`;
         } else if(go === 'review'){
+           // history.pushState("review", "Review", "/review");
             html = `review page`;
         } else if(go === 'register'){
+            //history.pushState("sign up", "Sign up", "/sign-up");
             html = `
             <form id="signup" name="signup">
                 <fieldset class='center'>
@@ -33,7 +37,7 @@ function handleNav(){
                     <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
                 </fieldset>
             </form>
-            <form id="login" name="login" action="http://localhost:8080/dashboard.html" class="hide">
+            <form id="login" name="login" class="hide">
                 <fieldset class='center'>
                     <legend>LOG IN</legend>
                     
@@ -45,9 +49,11 @@ function handleNav(){
                     <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
                 </fieldset>
             </form>`;
+            $(handleShowLoginSignup());
         } else if(go === 'signin'){
+            //history.pushState("log in", "Log In", "/log-in");
             html = `
-            <form id="login" name="login" action="http://localhost:8080/dashboard.html">
+            <form id="login" name="login">
                 <fieldset class='center'>
                     <legend>LOG IN</legend>
                     
@@ -74,9 +80,10 @@ function handleNav(){
                     <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
                 </fieldset>
             </form>`;
+            
         }
-
         $('main').html(html);
+        $(document).ready($(handleNodeApp()));
     });
 }
 
@@ -125,8 +132,8 @@ function loginUser(url, data){
         url: url,
         data: JSON.stringify(data),
         success: function(res){
-            window.location.href = "http://localhost:8080/dashboard";
             const token = `Bearer ${res.authToken}`;
+            //document.cookie = `${token}`;
             $.ajax({
                 url: `http://localhost:8080/users/${data.username}`,
                 headers: {

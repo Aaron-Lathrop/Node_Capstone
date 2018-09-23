@@ -22,7 +22,7 @@ app.use(express.static('public'));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Cookie");
     res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
     if(req.method === 'OPTIONS'){
         return res.send(204);
@@ -35,8 +35,7 @@ passport.use(jwtStrategy);
 
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
-app.use('/signup', express.static('public/signup.html'));
-app.use('/dashboard', express.static('public/dashboard.html'));
+app.use('/interview', express.static('public/index.html'));
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
