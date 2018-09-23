@@ -3,11 +3,8 @@ console.log('client-side code is running');
 
 let questionNumber = 0;
 
-const interviewResponses = {
-    userName: "Admin",
-    firstName: "Aaron",
-    responses: []
-};
+const questions = [];
+const interviewResponses = {};
 
  function postNewUser(url, data){
     $.ajax({
@@ -20,6 +17,9 @@ const interviewResponses = {
         success: function(response){
             console.log(`POST of was successful for the following:`); 
             console.log(response);
+        },
+        fail: function(err){
+            console.error(err);
         }
     });
  }
@@ -27,7 +27,6 @@ const interviewResponses = {
 function signupHandler(){
     $('#signup').submit(function(e){
         e.preventDefault();
-        console.log("Handler for signup submit called");
         const newUser = {
             username: $('input[name="username"]').val(),
             password: $('input[name="password"]').val(),
@@ -35,142 +34,71 @@ function signupHandler(){
             lastName: $('input[name="lastName"]').val()
         };
         console.log(newUser);
-        postNewUser("http://localhost:8080/api/users", newUser);
+        postNewUser("http://localhost:8080/users", newUser);
+        $('input[name="username"]').val("");
+        $('input[name="password"]').val("");
+        $('input[name="firstName"]').val("");
+        $('input[name="lastName"]').val("");
     });
 }
 
-function getPracticeQuestion(callback){
-    const URL = "https://stark-thicket-75096.herokuapp.com/mock-interview";
-
-    $.getJSON(URL, callback)
-    .done(function(data){
-        console.log(data);
-    });
-}
-
-function displayQuestion(data){
-    $('#mockInterview').html(`
-        <form id='interview' name='interview' autocomplete='off'>
-        <label><span id="interviewQuestion">${data.questions[questionNumber].questionText}</span><img id="interviewAvatar" src="/Interview_avatar.png"></label>
-        <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
-        <button id='answerButton' type='submit' value='Answer'>Answer</button>
-        </form>`);
-    answerButtonHandler();
-}
-
-function getAndDisplayQuestions(){
-    getPracticeQuestion(displayQuestion);
-}
-
-function createInterview(){
-    const URL = "https://stark-thicket-75096.herokuapp.com/interview";
-    const data = interviewResponses;
+function loginUser(url, data){
     $.ajax({
         async: true,
         crossDomain: true,
         headers: {"content-type": "application/json"},
         type: "POST",
-        url: URL,
+        url: url,
         data: JSON.stringify(data),
-        success: function(response){
-            console.log(`POST of was successful for the following:`); 
-            console.log(response);
-            displayResponses(response);
+        success: function(res){
+            window.location.href = "http://localhost:8080/dashboard";
+            const token = `Bearer ${res.authToken}`;
+            $.ajax({
+                url: `http://localhost:8080/users/${data.username}`,
+                headers: {
+                    "Authorization": token,
+                    "content-type": "application/json"
+                },
+                async: true,
+                type: "GET",
+                success: function(res){
+                    $(document).ready(displayDashboard(res));
+                }
+            });
         }
     });
-    
 }
 
-// function getResponses(callback){
-//     const URL = "https://stark-thicket-75096.herokuapp.com/interview";
-//     $.getJSON(URL,callback);
-// }
-
-function displayResponses(data) {
-    console.log(`the data to be displayed is:`);
-    console.log(data);
-    $('body').addClass('center');
-    $('body').html(`
-    <h1><u>Here are your responses</u></h1><br><br>`);
-    for (let i=0; i< data.responses.length; i++){
-        $('body').append(
-            `<div class="response col-12">
-                <p><strong> ${data.responses[i].questionText}</strong></p>
-                <p> ${data.responses[i].responseText}</p>
-             </div>`
-        );
-    }
-}
-
-// function getAndDisplayResponses(){
-//     getResponses(displayResponses);
-// }
-
-function mockStartHandler() {
-    console.log(`mockStartHandler called`);
-    $('#mockStart').click(function(){
-        $('welcome').toggleClass('hide');
-        $('mock').toggleClass('hide');
-        $(getAndDisplayQuestions());
-    });
-}
-
-function answerButtonHandler() {
-    console.log(`answerButtonHandler called`);
-    $('#interview').submit(function(e){
+function loginHandler(){
+    $('#login').submit(function(e){
         e.preventDefault();
-        console.log(`answer button clicked`);
-        if(questionNumber < 9){
-            interviewResponses.responses.push({
-                "userName": "Admin",
-                "questionText": $('#interview').find('label').text(),
-                "responseText": $('#interview').find('textarea[name="userResponse"]').val()
-            });
-            $(getAndDisplayQuestions());
-            
-        } else {
-            interviewResponses.responses.push({
-                "userName": "Admin",
-                "questionText": $('#interview').find('label').text(),
-                "responseText": $('#interview').find('textarea[name="userResponse"]').val()
-            });
-            $('#mockInterview').html(`
-                <h3>Thank you for your time, this concludes the interview</h3>
-                <p><span class='center'>Click the review button to review your answers.</span></p>
-                <button id='review'>Review Your Answers</button>`);
-            $(reviewButtonHandler());
-        }
-        let mic = $('#speechinput');
-        mic.onfocus = mic.blur;
-        mic.onwebkitspeechchange = function(e) {
-        $('#userResponse').val() = speechinput.val();
-    };
-        questionNumber++;
-        console.log(interviewResponses);
+        const user = {
+            username: $('input[name="login-username"]').val(),
+            password: $('input[name="login-password"]').val()
+        };
+        loginUser("http://localhost:8080/auth/login", user);
+        $('input[name="login-username"]').val("");
+        $('input[name="login-password"]').val("");
     });
 }
 
-function reviewButtonHandler(){
-    $("#review").click(function(){
-        console.log(`Review button clicked`);
-        questionNumber = 0;
-        createInterview();
-    });
-}
+//reinstert mockinterview.js code here if necessary
 
-function getDashboardUser(){
-    const username = "Admin";
-    const url = `http://localhost:8080/api/users/${username}`;
-    
+function getDashboardUser(user){
+    const url = `http://localhost:8080/users/${user.username}`; 
     $.ajax({
         type: "GET",
         url: url,
         async: true,
         crossDomain: true,
-        headers: {"contentType": "application/json"},
+        headers: {
+            "contentType": "application/json",
+            "Authorization": user.token
+        },
         success: function(data){
             console.log(data);
-            displayDashboard(data);
+            window.location.href = "/dashboard";
+            $(document).ready(displayDashboard(data));
         }
     });
 }
@@ -188,12 +116,13 @@ function handleShowLoginSignup() {
         $('#signup').toggleClass('hide');
         $('#login').toggleClass('hide');
     });
+
 }
 
 function handleNodeApp(){
     $(mockStartHandler());
     $(signupHandler());
-    $(getDashboardUser());
+    $(loginHandler());
     $(handleShowLoginSignup());
 }
 

@@ -5,13 +5,21 @@
         <title>Interview Prep</title>
         <link rel='stylesheet' href='float-grid.css'>
         <link rel='stylesheet' href='main.css'>
+        <link rel='stylesheet' href='dashboard.css'>
         <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script> -->
        
     </head>
-    <header role='banner'>
-            <h1>Welcome to Interview Prep!</h1>
-            <p>Practice makes perfect, or at least more confident.</p>
-    </header>
+    <nav role='navigation'>
+        <ul>
+            <li>Home</li>
+            <li>Practice</li>
+            <li>Review</li>
+        </ul>
+    </nav>
+    <header role='banner' id="dash-header">
+        <h1>Welcome <span class="js-username-dash"></span></h1>
+        <p>Practice makes perfect. Feel more confident.</p>
+</header>
     <body>
 
         <main role='main'>

@@ -9,11 +9,12 @@ mongoose.Promise = global.Promise;
 const { router: usersRouter } = require('./users');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { PORT, DATABASE_URL} = require('./config');
-const { Question, Response, Interview } = require('./models');
+const { Question, Interview } = require('./models');
 
 const express = require('express');
 const app = express();
 const passport = require('passport');
+
 app.use(express.json());
 app.use(morgan('common'));
 app.use(express.static('public'));
@@ -28,11 +29,13 @@ app.use(function(req, res, next) {
     next();
   });
 
-  passport.use(localStrategy);
-  passport.use(jwtStrategy);
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
-  app.use('/api/users/', usersRouter);
-  app.use('/api/auth', authRouter);
+app.use('/users', usersRouter);
+app.use('/auth', authRouter);
+app.use('/signup', express.static('public/signup.html'));
+app.use('/dashboard', express.static('public/dashboard.html'));
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
@@ -47,7 +50,7 @@ app.get('/api/protected', jwtAuth, (req, res) => {
 app.get('/mock-interview', function(req, res){
     Question
     .find()
-    .limit(10)
+    .limit(100)
     .then(questions => {
         res.json({
             questions: questions.map(

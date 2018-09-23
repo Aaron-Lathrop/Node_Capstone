@@ -94,6 +94,7 @@ textarea {
 button {
     padding: 15px 25px 15px 25px;
     border-radius: 10px;
+    align-items: center;
 }
 
 button:hover {
