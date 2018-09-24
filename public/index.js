@@ -2,7 +2,7 @@
 // const {mockStartHandler} = require('./mockinterview');
 
 function handleNav(){
-    $('nav').click('li', function(e){
+    $('li').click(function(e){
         let go = e.target.id
         loadScreen(go);
     });
@@ -67,7 +67,6 @@ function loadScreen(screen){
                     <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
                 </fieldset>
             </form>`;
-            $(handleShowLoginSignup());
         } else if(screen === 'signin'){
             //history.pushState("log in", "Log In", "/log-in");
             html = `
@@ -135,6 +134,7 @@ function loadScreen(screen){
         success: function(response){
             console.log(`POST of was successful for the following:`); 
             console.log(response);
+            loginUser("http://localhost:8080/auth/login", data);
         }
     });
  }
@@ -178,7 +178,8 @@ function loginUser(url, data){
                 async: true,
                 type: "GET",
                 success: function(res){
-                    loadScreen('home');
+                    // loadScreen('home');
+                    location.reload();
                     $(document).ready(displayDashboard(res));
                 }
             });
@@ -193,11 +194,18 @@ function loginHandler(){
             username: $('input[name="login-username"]').val(),
             password: $('input[name="login-password"]').val()
         };
-        loginUser("http://localhost:8080/auth/login", user);
         $('input[name="login-username"]').val("");
         $('input[name="login-password"]').val("");
-        $('#logout').toggleClass('hide');
-        $('#signin').toggleClass('hide');
+        loginUser("http://localhost:8080/auth/login", user);
+    });
+}
+
+function logoutUser(){
+    console.log('logoutUser called');
+    $('#logout').click(function(){
+        console.log('clicked logout');
+        localStorage.removeItem("access_token");
+        location.reload();
     });
 }
 
@@ -219,11 +227,6 @@ function getDashboardUser(user){
 }
 
 function displayDashboard(data){
-    $('#practice').toggleClass('hide');
-    $('#review').toggleClass('hide');
-    $('#signin').toggleClass('hide');
-    $('#register').toggleClass('hide');
-    $('#logout').toggleClass('hide');
     $('.js-username-dash').html(data.firstName);
 }
 
@@ -231,29 +234,32 @@ function getAndDisplayDashboard(){
     displayDashboard(getDashboardUser());
 }
 
-function handleShowLoginSignup() {
-    $('.js-show-login-signup').click(function(){
-        $('#signup').toggleClass('hide');
-        $('#login').toggleClass('hide');
-    });
+// function handleShowLoginSignup() {
+//     $('.js-show-login-signup').click(function(){
+//         $('#signup').toggleClass('hide');
+//         $('#login').toggleClass('hide');
+//     });
 
-}
+// }
 
 function loggedIn() {
     if(localStorage.getItem("access_token")){
         const parsedToken = parseJwt(localStorage.getItem("access_token"));
+        console.log(`you're logged in right now`);
+        
         $('#practice, #review, #logout').removeClass('hide');
-        $('#sigin, #register').removeClass('hide');
+        $('#signin, #register').addClass('hide');
         getDashboardUser(parsedToken.sub);
+        $(logoutUser());
     } else{
-        console.log("please login");
+        console.log("you're logged out right now");
         $('#practice, #review, #logout').addClass('hide');
         $('#home, #sigin, #register').removeClass('hide');
-        //loadScreen('home');
+        
     }
 }
 
-function parseJwt (token) {
+function parseJwt(token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
@@ -262,9 +268,10 @@ function parseJwt (token) {
 function handleNodeApp(){
     $(signupHandler());
     $(loginHandler());
-    $(handleShowLoginSignup());
+    //$(handleShowLoginSignup());
     $(handleNav());
     $(loggedIn());
+    $(mockStartHandler());
 }
 
 $(document).ready($(handleNodeApp()));

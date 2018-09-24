@@ -1,11 +1,12 @@
 'use strict';
 
 let questionNumber = 0;
+const parsedToken = parseJwt(localStorage.getItem("access_token"));
 
 const questions = [];
 const interviewResponses = {
-    username: "Admin",
-    firstName: "Aaron",
+    username: `${parsedToken.user.username}`,
+    firstName: `${parsedToken.user.firstName}`,
     responses: []};
 
 function getPracticeQuestion(callback){
@@ -53,7 +54,7 @@ function displayResponses(data) {
     <h1><u>Here are your responses</u></h1><br><br>`);
     for (let i=0; i< data.responses.length; i++){
         $('body').append(
-            `<div class="response col-6">
+            `<div class="response col-12">
                 <p><strong> ${data.responses[i].questionText}</strong></p>
                 <p> ${data.responses[i].responseText}</p>
              </div>`
@@ -62,6 +63,7 @@ function displayResponses(data) {
 }
 
 function mockStartHandler() {
+    console.log("mockStartHandler called");
     $('#mockStart').click(function(){
         console.log('starting interview')
         $('welcome').toggleClass('hide');
@@ -73,9 +75,9 @@ function mockStartHandler() {
 function answerButtonHandler() {
     $('#interview').submit(function(e){
         e.preventDefault();
-        if(questionNumber < 9){
+        if(questionNumber < 1){
             interviewResponses.responses.push({
-                "username": "Admin",
+                "username": `${parsedToken.user.username}`,
                 "questionText": $('#interview').find('label').text(),
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
@@ -83,7 +85,7 @@ function answerButtonHandler() {
             
         } else {
             interviewResponses.responses.push({
-                "username": "Admin",
+                "username": `${parsedToken.user.username}`,
                 "questionText": $('#interview').find('label').text(),
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
@@ -109,4 +111,8 @@ function reviewButtonHandler(){
     });
 }
 
-$(mockStartHandler());
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace('-', '+').replace('_', '/');
+    return JSON.parse(window.atob(base64));
+};

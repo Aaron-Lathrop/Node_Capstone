@@ -133,13 +133,15 @@ router.post('/', jsonParser, (req, res) => {
     })
     .then(user => {
       res.json({message: user});
-      return res.status(201).json(user.serialize());
+      console.log(user.serialize());
+      return res.status(201).json(user.serialize());//return res.status(201).json(user.serialize());
     })
     .catch(err => {
+      console.error(err);
       // Forward validation errors on to the client, otherwise give a 500
       // error because something unexpected has happened
       if (err.reason === 'ValidationError') {
-        return res.status(err.code).json({message: `${err}`});
+        return res.status(err.code).json(err);
       }
       res.status(500).json({code: 500, message: 'OH NO EVERYTHING IS BROKEN!'});
     });
@@ -151,6 +153,10 @@ router.get('/:username', jwtAuth, (req, res) => {
       .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
-module.exports = {router};
+router.put('/:username', jwtAuth, (req,res) => {
+  User.updateOne({username: req.params.username}, {interviews: req.body})
+  .then(response => res.status(204).end())
+  .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
+});
 
-//5ba7d25b0301540434776c02
+module.exports = {router};
