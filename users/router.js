@@ -153,7 +153,7 @@ router.get('/:username', jwtAuth, (req, res) => {
       .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
-router.put('/:username', jwtAuth, (req,res) => {
+router.post('/:username/interview', jwtAuth, (req,res) => {
   User.updateOne({username: req.params.username}, {interviews: req.body})
   .then(response => res.status(204).end())
   .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})

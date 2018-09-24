@@ -1,5 +1,4 @@
 'use strict';
-// const {mockStartHandler} = require('./mockinterview');
 
 function handleNav(){
     $('li').click(function(e){
@@ -11,7 +10,6 @@ function handleNav(){
 function loadScreen(screen){
     let html;
         if(screen === 'home'){
-           // history.pushState("home", "Home", "");
             html = `
             <section id="homescreen row">
                 <div class="home col-12">
@@ -27,7 +25,6 @@ function loadScreen(screen){
                 </div>
             </section>`;
         } else if(screen === 'practice'){
-           // history.pushState("practice", "Practice", "/practice");
             html = `
             <h2>Mock Interview</h2>
             <div id="mockInterview" role="alert" aria-live="polite">
@@ -35,10 +32,8 @@ function loadScreen(screen){
                 <button id='mockStart'>Start Interview</button>
             </div>`;
         } else if(screen === 'review'){
-           // history.pushState("review", "Review", "/review");
             html = `review page`;
         } else if(screen === 'register'){
-            //history.pushState("sign up", "Sign up", "/sign-up");
             html = `
             <form id="signup" name="signup">
                 <fieldset class='center'>
@@ -58,7 +53,6 @@ function loadScreen(screen){
             <form id="login" name="login" class="hide">
                 <fieldset class='center'>
                     <legend>LOG IN</legend>
-                    
                     <label for="login-username">Username</label>
                     <input type="text" name='login-username' placeholder="Username">
                     <label for="login-password">Password</label>
@@ -68,12 +62,10 @@ function loadScreen(screen){
                 </fieldset>
             </form>`;
         } else if(screen === 'signin'){
-            //history.pushState("log in", "Log In", "/log-in");
             html = `
             <form id="login" name="login">
                 <fieldset class='center'>
                     <legend>LOG IN</legend>
-                    
                     <label for="login-username">Username</label>
                     <input type="text" name='login-username' placeholder="Username">
                     <label for="login-password">Password</label>
@@ -121,19 +113,15 @@ function loadScreen(screen){
 
 
  function postNewUser(url, data){
-     console.log('postNewUser called');
     $.ajax({
         async: true,
         crossDomain: true,
-        //headers: {"content-type": "application/json"},
         contentType: "application/json",
         dataType: "json",
         type: "POST",
         url: url,
         data: JSON.stringify(data),
         success: function(response){
-            console.log(`POST of was successful for the following:`); 
-            console.log(response);
             loginUser("http://localhost:8080/auth/login", data);
         }
     });
@@ -148,7 +136,6 @@ function signupHandler(){
             firstName: $('input[name="firstName"]').val(),
             lastName: $('input[name="lastName"]').val()
         };
-        console.log(newUser);
         postNewUser("http://localhost:8080/users", newUser);
         $('input[name="username"]').val("");
         $('input[name="password"]').val("");
@@ -178,7 +165,6 @@ function loginUser(url, data){
                 async: true,
                 type: "GET",
                 success: function(res){
-                    // loadScreen('home');
                     location.reload();
                     $(document).ready(displayDashboard(res));
                 }
@@ -208,8 +194,6 @@ function logoutUser(){
         location.reload();
     });
 }
-
-//reinstert mockinterview.js code here if necessary
 
 function getDashboardUser(user){
     $.ajax({

@@ -65,7 +65,7 @@ app.get('/mock-interview', function(req, res){
 
 //gets the interviews a user has done, add additional paramters once 
 //authentication coding is complete
-app.get('/interview', function(req, res){
+app.get('/interview', jwtAuth, function(req, res){
     console.log(`Getting interviews from database.`)
     Interview
     .find()
@@ -85,8 +85,7 @@ app.get('/interview', function(req, res){
 //this creates a new interview document to record a specific set of questions and 
 //responses that a user had a specific time. Questions and responses begin blank
 //and will populate using the PUT endpoint
-app.post('/interview', function(req,res){
-    console.log(req.body);
+app.post('/interview', jwtAuth, function(req,res){
     Interview
     .create({
         username: req.body.username,
@@ -102,7 +101,7 @@ app.post('/interview', function(req,res){
 
 //updates the responses and questions properties of the Interview document
 //the interview to be updated will be tracked by the document's id
-app.put('/interview/:id', function(req, res){
+app.put('/interview/:id', jwtAuth, function(req, res){
     if(!(req.params.id && req.body.id && req.params.id === req.body.id)) {
         const message = (`Request path id (${req.params.id}) must match ` + 
         `request body id ${req.body.id}`);
@@ -128,7 +127,7 @@ app.put('/interview/:id', function(req, res){
 });
 
 //deletes a specific interview by id
-app.delete('/interview/:id', function(req,res){
+app.delete('/interview/:id', jwtAuth, function(req,res){
     if(!(req.params.id && req.body.id && req.params.id === req.body.id)){
         const message = (`Request path id (${req.params.id}) must match`+
         `request body id (${req.body.id})`);

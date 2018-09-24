@@ -4,13 +4,6 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-// const responseSchema = mongoose.Schema({
-//     questionText: {type: String, required: true},
-//     responseText: {type: String, required: true},
-//     username: {type: String, required: true},
-//     date: {type: Date, default: Date.now}
-// });
-
 const interviewSchema = mongoose.Schema({
     username: {type: String, required: true},
     firstName: {type: String, required: true},
@@ -26,7 +19,7 @@ const UserSchema = mongoose.Schema ({
     created: {type: Date, default: Date.now},
     interviews: {type: Array, default: []}
 }
-// ,{autoIndex: false}
+
 );
 
 UserSchema.methods.serialize = function() {
@@ -60,12 +53,7 @@ interviewSchema.methods.serialize = function() {
 };
 
 const User = mongoose.model('User', UserSchema);
-// User.createIndexes(function(err){
-//     if(err) return handleError(err);
-// });
+
 const Interview = mongoose.model("Interview", interviewSchema);
-// Interview.createIndexes(function(err){
-//     if(err) return handleError(err);
-// });
 
 module.exports = {User, Interview};

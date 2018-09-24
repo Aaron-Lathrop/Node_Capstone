@@ -40,8 +40,6 @@ function createInterview(){
         url: URL,
         data: JSON.stringify(data),
         success: function(response){
-            console.log(`POST of was successful for the following:`); 
-            console.log(response);
             displayResponses(response);
         },
     });
