@@ -153,18 +153,28 @@ router.get('/:username', jwtAuth, (req, res) => {
       .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+
 router.post('/:username/interview', jwtAuth, (req,res) => {
+  console.log("posting interview");
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
     const message = (`Request path username (${req.params.usernmae}) must match ` + 
     `request body username ${req.body.username}`);
     console.error(message);
     return res.status(400).json({message: message});
   }
-
+  
   User.findOne({username: req.params.username})
-  .then(user => user.interviews.push(req.body))
+  .then(user => {
+    console.log(`before posting, the user has these interviews`);
+    console.log(user.interviews);
+    user.interviews.push(req.body);
+    return user.save();
+    } 
+  )
+  .then(res.status(204).json({message: `interview saved successfully`}))
   .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
 });
+
 
 router.delete('/:username/interview/:id', jwtAuth, function(req,res){
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)){

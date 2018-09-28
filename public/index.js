@@ -182,36 +182,14 @@ function loadLoggedInScreenUsing(parsedToken){
 }
 
 function logoutUser(){
-    console.log('logoutUser called');
     $('#logout').click(function(){
-        console.log('clicked logout');
         localStorage.removeItem("access_token");
         location.reload();
     });
 }
 
-function getDashboardUser(user){
-
-    // $.ajax({
-    //     url: `http://localhost:8080/users/${user}`,
-    //     headers: {
-    //         "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
-    //         "content-type": "application/json"
-    //     },
-    //     async: true,
-    //     type: "GET",
-    //     success: function(res){
-    //         $(document).ready(displayDashboard(res));
-    //     }
-    // });
-}
-
 function displayDashboard(data){
     $('.js-username-dash').html(data.firstName);
-}
-
-function getAndDisplayDashboard(){
-    displayDashboard(getDashboardUser());
 }
 
 // function handleShowLoginSignup() {
@@ -226,7 +204,6 @@ function loggedIn() {
     if(localStorage.getItem("access_token")){
         const parsedToken = parseJwt(localStorage.getItem("access_token"));
         console.log(`you're logged in right now`);
-        
         $('#practice, #review, #logout').removeClass('hide');
         $('#signin, #register').addClass('hide');
         displayDashboard(parsedToken.user);
