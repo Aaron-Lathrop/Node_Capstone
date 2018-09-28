@@ -1,12 +1,11 @@
 'use strict';
 
 let questionNumber = 0;
-const parsedToken = parseJwt(localStorage.getItem("access_token"));
 
 const questions = [];
 const interviewResponses = {
-    username: `${parsedToken.user.username}`,
-    firstName: `${parsedToken.user.firstName}`,
+    username: "",
+    firstName: "",
     responses: []};
 
 function getPracticeQuestion(callback){
@@ -73,7 +72,10 @@ function mockStartHandler() {
 function answerButtonHandler() {
     $('#interview').submit(function(e){
         e.preventDefault();
-        if(questionNumber < 1){
+        if(questionNumber < 1 && localStorage.getItem("access_token") !== null){
+            const parsedToken = parseJwt(localStorage.getItem("access_token"));
+            interviewResponses.username = parsedToken.user.username;
+            interviewResponses.firstName = parsedToken.user.firstName;
             interviewResponses.responses.push({
                 "username": `${parsedToken.user.username}`,
                 "questionText": $('#interview').find('label').text(),

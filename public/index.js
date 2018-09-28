@@ -13,15 +13,11 @@ function loadScreen(screen){
             html = `
             <section id="homescreen row">
                 <div class="home col-12">
-                        <div class="home center col-6">
-                            <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
-                            <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
-                            Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
-                            <div class='row col-6'>
-                                <button id="homeLogin" class='center'>Login</button>
-                                <button id="homeSignup"class='center'>Sign Up</button>
-                            </div>
-                        </div> 
+                    <div class="home center col-6">
+                        <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
+                        <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
+                        Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
+                    </div> 
                 </div>
             </section>`;
         } else if(screen === 'practice'){
@@ -94,15 +90,11 @@ function loadScreen(screen){
             html = `
             <section id="homescreen row">
                 <div class="home col-12">
-                        <div class="home center col-6">
-                            <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
-                            <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
-                            Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
-                            <div class='row col-6'>
-                                <button id="homeLogin" class='center'>Login</button>
-                                <button id="homeSignup"class='center'>Sign Up</button>
-                            </div>
-                        </div> 
+                    <div class="home center col-6">
+                        <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
+                        <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
+                        Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
+                    </div> 
                 </div>
             </section>`;
         }
@@ -110,24 +102,7 @@ function loadScreen(screen){
         $(document).ready($(handleNodeApp()));
 }
 
-
-
- function postNewUser(url, data){
-    $.ajax({
-        async: true,
-        crossDomain: true,
-        contentType: "application/json",
-        dataType: "json",
-        type: "POST",
-        url: url,
-        data: JSON.stringify(data),
-        success: function(response){
-            loginUser("http://localhost:8080/auth/login", data);
-        }
-    });
- }
-
-function signupHandler(){
+function signupButtonHandler(){
     $('#signup').submit(function(e){
         e.preventDefault();
         const newUser = {
@@ -136,7 +111,7 @@ function signupHandler(){
             firstName: $('input[name="firstName"]').val(),
             lastName: $('input[name="lastName"]').val()
         };
-        postNewUser("http://localhost:8080/users", newUser);
+        postNewUser(newUser);
         $('input[name="username"]').val("");
         $('input[name="password"]').val("");
         $('input[name="firstName"]').val("");
@@ -144,45 +119,65 @@ function signupHandler(){
     });
 }
 
-function loginUser(url, data){
+function postNewUser(userSignupInfo){
     $.ajax({
         async: true,
         crossDomain: true,
-        headers: {"content-type": "application/json"},
+        contentType: "application/json",
+        dataType: "json",
         type: "POST",
-        url: url,
-        data: JSON.stringify(data),
-        success: function(res){
-            const token = res.authToken;
-            localStorage.clear();
-            localStorage.setItem("access_token", token);
-            $.ajax({
-                url: `http://localhost:8080/users/${data.username}`,
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
-                    "content-type": "application/json"
-                },
-                async: true,
-                type: "GET",
-                success: function(res){
-                    location.reload();
-                    $(document).ready(displayDashboard(res));
-                }
-            });
+        url: "http://localhost:8080/users",
+        data: JSON.stringify(userSignupInfo),
+        success: function(response){
+            loginUser(userSignupInfo);
         }
     });
 }
 
-function loginHandler(){
+function loginButtonHandler(){
     $('#login').submit(function(e){
         e.preventDefault();
-        const user = {
+        const userSignupInfo = {
             username: $('input[name="login-username"]').val(),
             password: $('input[name="login-password"]').val()
         };
         $('input[name="login-username"]').val("");
         $('input[name="login-password"]').val("");
-        loginUser("http://localhost:8080/auth/login", user);
+        loginUser(userSignupInfo);
+    });
+}
+
+function loginUser(usernameAndPassword){
+    $.ajax({
+        async: true,
+        crossDomain: true,
+        headers: {"content-type": "application/json"},
+        type: "POST",
+        url: "http://localhost:8080/auth/login",
+        data: JSON.stringify(usernameAndPassword),
+        success: function(jwtToken){
+            const authToken = jwtToken.authToken;
+            const parsedToken = parseJwt(authToken);
+            localStorage.clear();
+            localStorage.setItem("access_token", authToken);
+            loadLoggedInScreenUsing(parsedToken);
+        }
+    });
+}
+
+function loadLoggedInScreenUsing(parsedToken){
+    $.ajax({
+        url: `http://localhost:8080/users/${parsedToken.user.username}`,
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+            "content-type": "application/json"
+        },
+        async: true,
+        type: "GET",
+        success: function(res){
+            location.reload();
+            $(document).ready(displayDashboard(res));
+        }
     });
 }
 
@@ -196,18 +191,19 @@ function logoutUser(){
 }
 
 function getDashboardUser(user){
-    $.ajax({
-        url: `http://localhost:8080/users/${user}`,
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
-            "content-type": "application/json"
-        },
-        async: true,
-        type: "GET",
-        success: function(res){
-            $(document).ready(displayDashboard(res));
-        }
-    });
+
+    // $.ajax({
+    //     url: `http://localhost:8080/users/${user}`,
+    //     headers: {
+    //         "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+    //         "content-type": "application/json"
+    //     },
+    //     async: true,
+    //     type: "GET",
+    //     success: function(res){
+    //         $(document).ready(displayDashboard(res));
+    //     }
+    // });
 }
 
 function displayDashboard(data){
@@ -233,7 +229,7 @@ function loggedIn() {
         
         $('#practice, #review, #logout').removeClass('hide');
         $('#signin, #register').addClass('hide');
-        getDashboardUser(parsedToken.sub);
+        displayDashboard(parsedToken.user);
         $(logoutUser());
     } else{
         console.log("you're logged out right now");
@@ -250,8 +246,8 @@ function parseJwt(token) {
 };
 
 function handleNodeApp(){
-    $(signupHandler());
-    $(loginHandler());
+    $(signupButtonHandler());
+    $(loginButtonHandler());
     //$(handleShowLoginSignup());
     $(handleNav());
     $(loggedIn());

@@ -39,6 +39,7 @@ app.use('/interview', express.static('public/index.html'));
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
+//fallback test endpoint; remove for production
 app.get('/api/protected', jwtAuth, (req, res) => {
     return res.json({
       data: 'rosebud'
@@ -95,7 +96,7 @@ app.post('/interview', jwtAuth, function(req,res){
     .then(interview => res.status(201).json(interview.serialize()))
     .catch(err => {
         console.error(err);
-        res.status(500).json({message: "Interal server error! Oh my!"});
+        res.status(500).json({message: "Internal server error! Oh my!"});
     });
 });
 
