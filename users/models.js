@@ -46,8 +46,6 @@ interviewSchema.pre('create', function(next){
 interviewSchema.methods.serialize = function() {
     return {
         id: this._id,
-        firstName: this.firstName,
-        created: this.created,
         responses: this.responses
     };
 };
