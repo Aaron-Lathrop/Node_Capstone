@@ -153,9 +153,28 @@ router.get('/:username', jwtAuth, (req, res) => {
       .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+router.get('/:username/interview', jwtAuth, (req,res) => {
+  // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
+  //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
+  //   `request body username ${req.body.username}`);
+  //   console.error(message);
+  //   return res.status(400).json({message: message});
+  // }
+  User.findOne({username: req.params.username})
+  .then(user => {
+    res.json({
+      interviews: user.interviews.map(
+        (interview) => interview.serialize())
+    });
+  })
+  .catch(err => {
+      console.error(err);
+      res.status(500).json({message: "Internal server error! Oh my!"});
+  });
+});
+
 
 router.post('/:username/interview', jwtAuth, (req,res) => {
-  console.log("posting interview");
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
     const message = (`Request path username (${req.params.usernmae}) must match ` + 
     `request body username ${req.body.username}`);
@@ -165,28 +184,39 @@ router.post('/:username/interview', jwtAuth, (req,res) => {
   
   User.findOne({username: req.params.username})
   .then(user => {
-    console.log(`before posting, the user has these interviews`);
-    console.log(user.interviews);
     user.interviews.push(req.body);
     return user.save();
     } 
   )
-  .then(res.status(204).json({message: `interview saved successfully`}))
+  .then(res.status(201).json({message: `interview saved successfully`}))
   .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
 });
 
 
 router.delete('/:username/interview/:id', jwtAuth, function(req,res){
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
+    const message = (`Request path username (${req.params.username}) must match`+
+    `request body username (${req.body.username})`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+
+  if(!(req.params.id && req.body.id && req.params.id === req.body.id)){
     const message = (`Request path id (${req.params.id}) must match`+
     `request body id (${req.body.id})`);
     console.error(message);
     res.status(400).json({message: message});
   }
 
-  User.findOne(req.params.username)
-  .then(user => user.interviews.find({_id: id}))
-  .then(interview => interview.pop())
+  User.findOne({username: req.body.username})
+  .then(user => user.interviews.forEach(function(interview, index) {
+    if(interview._id == req.body.id){
+      user.interviews.splice(index,1);
+      return user.save() 
+    }
+     
+  }))
+  .then(res.status(201).json({message: "interview successfully deleted"}))
   .catch(err => {
     console.error(err);
     res.status(500).json({message: `Internal server error! Oh my!`})

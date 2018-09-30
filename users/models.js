@@ -17,7 +17,7 @@ const UserSchema = mongoose.Schema ({
     firstName: {type: String, default: ''},
     lastName: {type: String, default: ''},
     created: {type: Date, default: Date.now},
-    interviews: {type: Array, default: []}
+    interviews: {type: [interviewSchema], default: []}
 }
 
 );
