@@ -169,7 +169,9 @@ router.delete('/:username/:id', jwtAuth, (req,res) =>{
   }
 
   User.findByIdAndRemove(req.params.id)
-  .then(user => res.status(204).end())
+  .then(user => {
+    res.status(204).end();
+  })
   .catch(err =>{
     console.error(err);
     res.status(500).json({message: "Internal server error! Oh my!"})
@@ -177,12 +179,12 @@ router.delete('/:username/:id', jwtAuth, (req,res) =>{
 });
 
 router.get('/:username/interview', jwtAuth, (req,res) => {
-  // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
-  //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
-  //   `request body username ${req.body.username}`);
-  //   console.error(message);
-  //   return res.status(400).json({message: message});
-  // }
+  if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
+    const message = (`Request path username (${req.params.usernmae}) must match ` + 
+    `request body username ${req.body.username}`);
+    console.error(message);
+    return res.status(400).json({message: message});
+  }
   User.findOne({username: req.params.username})
   .then(user => {
     res.json({
