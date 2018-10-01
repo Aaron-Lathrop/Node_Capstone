@@ -153,6 +153,29 @@ router.get('/:username', jwtAuth, (req, res) => {
       .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+router.delete('/:username/:id', jwtAuth, (req,res) =>{
+  if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
+    const message = (`Request path username (${req.params.username}) must match`+
+    `request body username (${req.body.username})`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+
+  if(!(req.params.id && req.body.id && req.params.id === req.body.id)){
+    const message = (`Request path id (${req.params.id}) must match`+
+    `request body id (${req.body.id})`);
+    console.error(message);
+    res.status(400).json({message: message});
+  }
+
+  User.findByIdAndRemove(req.params.id)
+  .then(user => res.status(204).end())
+  .catch(err =>{
+    console.error(err);
+    res.status(500).json({message: "Internal server error! Oh my!"})
+  });
+});
+
 router.get('/:username/interview', jwtAuth, (req,res) => {
   // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
   //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
