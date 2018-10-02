@@ -2,29 +2,55 @@
 
 let questionNumber = 0;
 
-const questions = [];
+const interviewQuestions = [];
 const interviewResponses = {
     username: "",
     firstName: "",
     responses: []};
 
-function getPracticeQuestion(callback){
+function getInterviewQuestions(callback){
     const URL = "https://stark-thicket-75096.herokuapp.com/mock-interview";
-    $.getJSON(URL, callback);
+    $.getJSON(URL, callback)
+    .done(data => {
+        console.log(data);
+        storeQuestionsLocally(data);
+    });
 }
 
-function displayQuestion(data){
+function storeQuestionsLocally(data){
+    data.questions.forEach(question => interviewQuestions.push(question));
+    displayQuestion(interviewQuestions);
+}
+
+function randomQuestion(questions){
+    if(interviewQuestions.length > 0){
+        let randomNumber = Math.floor(Math.random() * interviewQuestions.length);
+        console.log(randomNumber);
+        const output = questions.splice(randomNumber,1);
+        console.log(output[0]);
+        return output[0];
+    } 
+    else {
+        alert("No more questions");
+    }
+    
+}
+
+function displayQuestion(){
+    // console.log(interviewQuestions);
+    // console.log(randomQuestion(interviewQuestions));
     $('#mockInterview').html(`
         <form id='interview' name='interview' autocomplete='off'>
-        <label><span id="interviewQuestion">${data.questions[questionNumber].questionText}</span><img id="interviewAvatar" src="/Interview_avatar.png"></label>
+        <label><span id="interviewQuestion">${randomQuestion(interviewQuestions).questionText}</span><img id="interviewAvatar" src="/Interview_avatar.png"></label>
         <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
         <button id='answerButton' type='submit' value='Answer'>Answer</button>
         </form>`);
     answerButtonHandler();
 }
 
+
 function getAndDisplayQuestions(){
-    getPracticeQuestion(displayQuestion);
+    getInterviewQuestions(displayQuestion);
 }
 
 function createInterview(){
@@ -65,14 +91,14 @@ function mockStartHandler() {
         console.log('starting interview')
         $('welcome').toggleClass('hide');
         $('mock').toggleClass('hide');
-        $(getAndDisplayQuestions());
+        $(getInterviewQuestions());
     });
 }
 
 function answerButtonHandler() {
     $('#interview').submit(function(e){
         e.preventDefault();
-        if(questionNumber < 1 && localStorage.getItem("access_token") !== null){
+        if(questionNumber < 9 && localStorage.getItem("access_token") !== null){
             const parsedToken = parseJwt(localStorage.getItem("access_token"));
             interviewResponses.username = parsedToken.user.username;
             interviewResponses.firstName = parsedToken.user.firstName;
@@ -81,11 +107,12 @@ function answerButtonHandler() {
                 "questionText": $('#interview').find('label').text(),
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
-            $(getAndDisplayQuestions());
+            $(displayQuestion());
             
         } else {
+            console.log(parsedToken.user.username);
             interviewResponses.responses.push({
-                "username": `${parsedToken.user.username}`,
+                "username": parsedToken.user.username,
                 "questionText": $('#interview').find('label').text(),
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });

@@ -201,16 +201,17 @@ function displayDashboard(data){
 // }
 
 function loggedIn() {
-    if(localStorage.getItem("access_token")){
-        const parsedToken = parseJwt(localStorage.getItem("access_token"));
+    let userLoggedInToken = localStorage.getItem("access_token");
+    if(userLoggedInToken){
+        const parsedToken = parseJwt(userLoggedInToken);
         console.log(`you're logged in right now`);
-        $('#practice, #review, #logout').removeClass('hide');
+        $('#account, #practice, #review, #logout').removeClass('hide');
         $('#signin, #register').addClass('hide');
         displayDashboard(parsedToken.user);
         $(logoutUser());
     } else{
         console.log("you're logged out right now");
-        $('#practice, #review, #logout').addClass('hide');
+        $('#practice, #review, #logout, #account').addClass('hide');
         $('#home, #sigin, #register').removeClass('hide');
         
     }
