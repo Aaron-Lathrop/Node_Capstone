@@ -8,8 +8,10 @@ function handleNav(){
 }
 
 function loadScreen(screen){
+    $('header').addClass('hide');
     let html;
         if(screen === 'home'){
+            $('header').removeClass('hide');
             html = `
             <section id="homescreen row">
                 <div class="home col-12">
