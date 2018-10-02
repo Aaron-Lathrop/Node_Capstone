@@ -77,11 +77,10 @@ function createInterview(){
 }
 
 function displayResponses(data) {
-    $('body').addClass('center');
-    $('body').html(`
+    $('header').html(`
     <h1><u>Here are your responses</u></h1><br><br>`);
     for (let i=0; i< data.responses.length; i++){
-        $('body').append(
+        $('main').append(
             `<div class="response col-12">
                 <p><strong> ${data.responses[i].questionText}</strong></p>
                 <p> ${data.responses[i].responseText}</p>
