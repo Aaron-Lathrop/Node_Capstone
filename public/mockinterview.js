@@ -54,18 +54,23 @@ function getAndDisplayQuestions(){
 }
 
 function createInterview(){
-    const URL = "http://localhost:8080/interview";
+    const token = localStorage.getItem("access_token");
+    const userInfo = parseJwt(token);
+    const URL = `http://localhost:8080/users/${userInfo.user.username}/interview`;
     const data = interviewResponses;
     $.ajax({
         async: true,
         crossDomain: true,
-        contentType: "application/json",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "content-type": "application/json"
+        },
         dataType: "json",
         type: "POST",
         url: URL,
         data: JSON.stringify(data),
-        success: function(response){
-            displayResponses(response);
+        success: function(){
+            displayResponses(data);
         },
     });
     
@@ -98,8 +103,8 @@ function mockStartHandler() {
 function answerButtonHandler() {
     $('#interview').submit(function(e){
         e.preventDefault();
+        const parsedToken = parseJwt(localStorage.getItem("access_token"));
         if(questionNumber < 9 && localStorage.getItem("access_token") !== null){
-            const parsedToken = parseJwt(localStorage.getItem("access_token"));
             interviewResponses.username = parsedToken.user.username;
             interviewResponses.firstName = parsedToken.user.firstName;
             interviewResponses.responses.push({
@@ -112,7 +117,7 @@ function answerButtonHandler() {
         } else {
             console.log(parsedToken.user.username);
             interviewResponses.responses.push({
-                "username": parsedToken.user.username,
+                "username": `${parsedToken.user.username}`,
                 "questionText": $('#interview').find('label').text(),
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
