@@ -194,13 +194,13 @@ function displayDashboard(data){
     $('.js-username-dash').html(data.firstName);
 }
 
-// function handleShowLoginSignup() {
-//     $('.js-show-login-signup').click(function(){
-//         $('#signup').toggleClass('hide');
-//         $('#login').toggleClass('hide');
-//     });
+function handleShowLoginSignup() {
+    $('.js-show-login-signup').click(function(){
+        $('#signup').toggleClass('hide');
+        $('#login').toggleClass('hide');
+    });
 
-// }
+}
 
 function loggedIn() {
     let userLoggedInToken = localStorage.getItem("access_token");
@@ -215,7 +215,6 @@ function loggedIn() {
         console.log("you're logged out right now");
         $('#practice, #review, #logout, #account').addClass('hide');
         $('#home, #sigin, #register').removeClass('hide');
-        
     }
 }
 
@@ -228,7 +227,7 @@ function parseJwt(token) {
 function handleNodeApp(){
     $(signupButtonHandler());
     $(loginButtonHandler());
-    //$(handleShowLoginSignup());
+    $(handleShowLoginSignup());
     $(handleNav());
     $(loggedIn());
     $(mockStartHandler());

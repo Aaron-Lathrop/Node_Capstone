@@ -13,6 +13,7 @@ html {
 }
 
 nav {
+    z-index: 10;
     position: fixed;
     top: 0;
     left: 0;
@@ -21,6 +22,7 @@ nav {
     margin-bottom: 50px;
     background-color: #0c0d0f;
     border-bottom: 2px solid gray;
+    color: white;
 }
 
 nav ul {
@@ -31,6 +33,7 @@ nav ul {
 }
 
 nav li {
+    /* height: 50px; */
     float: left;
     margin-right: 15px;
     font-weight: bold;
@@ -38,8 +41,8 @@ nav li {
 
 nav li:hover{
     cursor: pointer;
-    color: rgba(202, 214, 218, 0.568);
-    /* background-color: lightgreen; */
+    color: ghostwhite;
+    /* background-color: #0611B9; */
 }
 
 header {
@@ -130,10 +133,6 @@ p {
     padding-bottom: 15px;
 }
 
-#homescreen {
-    background-color: ghostwhite;
-}
-
 button {
     margin-left: 0 auto;
     margin-right: 0 auto;
@@ -144,6 +143,13 @@ button {
 .home {
     background-color: ghostwhite;
     border-radius: 5px;
+}
+
+.response-container {
+    background-color: ghostwhite;
+    border-radius: 10px;
+    color: #0c0d0f;
+    padding: 15px;
 }
 
 .js-show-login-signup{
@@ -175,6 +181,7 @@ button:hover {
 
 #mockInterview {
     text-align: center;
+    margin-top: 10%;
 }
 
 #userResponse {
@@ -182,35 +189,24 @@ button:hover {
     width: 75%;
 }
 
+/* #interview label {
+
+} */
+
 #interviewAvatar {
     display: inline;
     max-height: 75px;
     max-width: 75px;
-    transform: translateY(30px);
+    /* transform: translateY(30px); */
+    border-radius: 50%;
 }
 
-#interviewQuestion {
+.interviewQuestion {
     padding: 20px;
-    border: 2px solid purple;
+    border: 1px solid ghostwhite;
     border-radius: 8px;
+    background-color: ghostwhite;
     transform: translateY(-50%);
-}
-
-#dash-body {
-    background-color: purple;
-}
-
-#dash-header {
-    width: 100%;
-    margin-top: 60px;
-    margin-left: 0 auto;
-    margin-right: 0 auto;
-    background-color: rgba(202, 214, 218, 0.568);
-    color: ghostwhite;
-}
-
-#dash-main {
-    margin-top:30%;
 }
 
 .response {
@@ -220,6 +216,11 @@ button:hover {
     background-color: ghostwhite;
     height: 300px;
 }
+
+/* .center {
+    margin-left: auto;
+    margin-right: auto;
+} */
 
 .center {
     left: 50%;

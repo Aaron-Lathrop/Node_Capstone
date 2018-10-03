@@ -40,8 +40,10 @@ function displayQuestion(){
     // console.log(interviewQuestions);
     // console.log(randomQuestion(interviewQuestions));
     $('#mockInterview').html(`
+        
         <form id='interview' name='interview' autocomplete='off'>
-        <label><span id="interviewQuestion">${randomQuestion(interviewQuestions).questionText}</span><img id="interviewAvatar" src="/Interview_avatar.png"></label>
+        <img id="interviewAvatar" src="/Interview_avatar.png">
+        <label class='row'><span class="interviewQuestion">${randomQuestion(interviewQuestions).questionText}</span></label>
         <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
         <button id='answerButton' type='submit' value='Answer'>Answer</button>
         </form>`);
