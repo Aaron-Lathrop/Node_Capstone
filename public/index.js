@@ -11,7 +11,8 @@ function loadScreen(screen){
     $('header').addClass('hide');
     let html;
         if(screen === 'home'){
-            $('header').removeClass('hide');
+            $('header').removeClass('hide').html(`<h1>Welcome <span class="js-username-dash"></span></h1>
+            <p>Practice makes perfect. Feel more confident.</p>`);
             html = `
             <section id="homescreen row">
                 <div class="home col-12">
@@ -29,8 +30,6 @@ function loadScreen(screen){
                 <p>You're about to start a 10 question mock interview. Questions will be delivered in a random order and your responses will be saved for later review.</p>
                 <button id='mockStart'>Start Interview</button>
             </div>`;
-        } else if(screen === 'review'){
-            html = `review page`;
         } else if(screen === 'register'){
             html = `
             <form id="signup" name="signup">
@@ -101,6 +100,9 @@ function loadScreen(screen){
             </section>`;
         }
         $('main').html(html);
+        if(screen ==='review'){
+            getAndDisplayInterviewCards();
+        }
         $(document).ready($(handleNodeApp()));
 }
 
@@ -183,6 +185,57 @@ function loadLoggedInScreenUsing(parsedToken){
     });
 }
 
+function getInterviews(callback){
+    const token = localStorage.getItem("access_token");
+    const userInfo = parseJwt(token);
+    $.ajax({
+        url: `http://localhost:8080/users/${userInfo.user.username}/interview`,
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "content-type": "application/json"
+        },
+        async: true,
+        type: "GET",
+        success: function(res){
+            console.log(res);
+            console.log(res.interviews);
+            callback(res.interviews);
+        }
+    });
+}
+
+function displayInterviewCards(data){
+    console.log(data);
+    $('main').html(`<h1>Click on an interview to view your responses.</h1><section id="selectInterview" class="row"></section>`);
+    data.forEach(interview => {
+        $('#selectInterview').append(`
+        <div id=${interview.id} class='col-6 response-container interview'>
+            <strong>Interview from:</strong>
+            <p><span>${interview.created}</span></p>
+        </div>`);
+    });
+    $(displayInterviewResponses(data));
+}
+
+function getAndDisplayInterviewCards(){
+    getInterviews(displayInterviewCards);
+}
+
+function displayInterviewResponses(data){
+    console.log(`displayInterviewResponses called`);
+    console.log(data);
+    $('#selectInterview').on("click", "div", function(e){
+        console.log("interview clicked");
+        const interviewId = e.target.id;
+        console.log(interviewId);
+        const interview = data.find(function(item){
+            return item.id === interviewId;
+        });
+        console.log(interview);
+        displayResponses(interview.responses);
+    });
+}
+
 function logoutUser(){
     $('#logout').click(function(){
         localStorage.removeItem("access_token");
@@ -199,7 +252,6 @@ function handleShowLoginSignup() {
         $('#signup').toggleClass('hide');
         $('#login').toggleClass('hide');
     });
-
 }
 
 function loggedIn() {

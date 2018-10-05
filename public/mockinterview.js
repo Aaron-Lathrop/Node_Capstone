@@ -79,14 +79,15 @@ function createInterview(){
 }
 
 function displayResponses(data) {
+    console.log(data);
     $('header').html(`
     <h1><u>Here are your responses</u></h1><br><br>`);
     for (let i=0; i< data.responses.length; i++){
         $('main').append(
-            `<div class="response col-12">
+            `<div class='row"><div class="response-container col-6">
                 <p><strong> ${data.responses[i].questionText}</strong></p>
                 <p> ${data.responses[i].responseText}</p>
-             </div>`
+             </div></div>`
         );
     }
 }

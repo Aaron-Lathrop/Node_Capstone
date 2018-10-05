@@ -61,10 +61,14 @@ header, h2, #mockStart {
     text-align: center;
 }
 
-header h1 {
-    font-size: 42px;
+h1 {
+    font-size: 35px;
     text-align:center;
     margin-bottom: 12px;
+}
+
+main {
+    margin-top: 10%;
 }
 
 p {
@@ -140,9 +144,16 @@ button {
     padding: 15px;
 }
 
+#selectInterview div:hover{
+    cursor: pointer;
+    border-color: rgba(248, 248, 255, 0.527);
+    background-color: rgba(248, 248, 255, 0.527);
+}
+
 .home {
     background-color: ghostwhite;
     border-radius: 5px;
+    padding: 15px;
 }
 
 .response-container {
