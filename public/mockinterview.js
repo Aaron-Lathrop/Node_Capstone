@@ -66,7 +66,7 @@ function getAndDisplayQuestions(){
 function createInterview(){
     const token = localStorage.getItem("access_token");
     const userInfo = parseJwt(token);
-    const URL = `http://localhost:8080/users/${userInfo.user.username}/interview`;
+    const URL = `/users/${userInfo.user.username}/interview`;
     const data = interviewResponses;
     $.ajax({
         async: true,

@@ -32,6 +32,13 @@ function loadScreen(screen){
             </div>`;
         } else if(screen === 'register'){
             html = `
+            <div class="row">
+                <div class="col-12">
+                    <p>Try a demo of this interview app!</p>
+                    <p>Username: demo</p>
+                    <p>Password: demo123456</p>
+                </div>
+            </div>
             <form id="signup" name="signup">
                 <fieldset class='center'>
                     <legend>SIGN UP</legend>
@@ -60,6 +67,13 @@ function loadScreen(screen){
             </form>`;
         } else if(screen === 'signin'){
             html = `
+            <div class="row">
+                <div class="col-12">
+                    <p>Try a demo of this interview app!</p>
+                    <p>Username: demo</p>
+                    <p>Password: demo123456</p>
+                </div>
+            </div>
             <form id="login" name="login">
                 <fieldset class='center'>
                     <legend>LOG IN</legend>
@@ -130,7 +144,7 @@ function postNewUser(userSignupInfo){
         contentType: "application/json",
         dataType: "json",
         type: "POST",
-        url: "http://localhost:8080/users",
+        url: "/users",
         data: JSON.stringify(userSignupInfo),
         success: function(response){
             loginUser(userSignupInfo);
@@ -157,7 +171,7 @@ function loginUser(usernameAndPassword){
         crossDomain: true,
         headers: {"content-type": "application/json"},
         type: "POST",
-        url: "http://localhost:8080/auth/login",
+        url: "/auth/login",
         data: JSON.stringify(usernameAndPassword),
         success: function(jwtToken){
             const authToken = jwtToken.authToken;
@@ -171,7 +185,7 @@ function loginUser(usernameAndPassword){
 
 function loadLoggedInScreenUsing(parsedToken){
     $.ajax({
-        url: `http://localhost:8080/users/${parsedToken.user.username}`,
+        url: `/users/${parsedToken.user.username}`,
         headers: {
             "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
             "content-type": "application/json"
@@ -189,7 +203,7 @@ function getInterviews(callback){
     const token = localStorage.getItem("access_token");
     const userInfo = parseJwt(token);
     $.ajax({
-        url: `http://localhost:8080/users/${userInfo.user.username}/interview`,
+        url: `/users/${userInfo.user.username}/interview`,
         headers: {
             "Authorization": `Bearer ${token}`,
             "content-type": "application/json"
@@ -239,7 +253,7 @@ function deleteInterview(){
         console.log(`delete button clicked`);
         const interviewId = $(e.target).closest('div').attr('id');
         $.ajax({
-            url: `http://localhost:8080/users/${userInfo.user.username}/interview/${interviewId}`,
+            url: `/users/${userInfo.user.username}/interview/${interviewId}`,
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "content-type": "application/json"
