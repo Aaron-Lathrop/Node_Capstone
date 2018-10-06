@@ -42,10 +42,18 @@ function displayQuestion(){
     $('#mockInterview').html(`
         
         <form id='interview' name='interview' autocomplete='off'>
-        <img id="interviewAvatar" src="/Interview_avatar.png">
-        <label class='row'><span class="interviewQuestion">${randomQuestion(interviewQuestions).questionText}</span></label>
-        <textarea id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
+        <div class"row">
+            <img id="interviewAvatar" class="col-12" src="/Interview_avatar.png">
+        </div>
+        <div class"row">
+             <label class='interviewQuestion col-12'><span>${randomQuestion(interviewQuestions).questionText}</span></label>
+        </div>
+        <div class"row">
+        <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
+        </div>
+        <div class"row">
         <button id='answerButton' type='submit' value='Answer'>Answer</button>
+        </div>
         </form>`);
     answerButtonHandler();
 }
@@ -79,15 +87,16 @@ function createInterview(){
 }
 
 function displayResponses(data) {
-    console.log(data);
     $('header').html(`
     <h1><u>Here are your responses</u></h1><br><br>`);
-    for (let i=0; i< data.responses.length; i++){
+    for (let i=0; i < data.length; i++){
+        console.log(`appending results ${i}`);
+        console.log(data[0].responses[i].questionText);
         $('main').append(
-            `<div class='row"><div class="response-container col-6">
-                <p><strong> ${data.responses[i].questionText}</strong></p>
-                <p> ${data.responses[i].responseText}</p>
-             </div></div>`
+            `<div class="response-container col-6">
+                <p><strong> ${data[0].responses[i].questionText}</strong></p>
+                <p> ${data[0].responses[i].responseText}</p>
+             </div>`
         );
     }
 }
@@ -95,7 +104,6 @@ function displayResponses(data) {
 function mockStartHandler() {
     console.log("mockStartHandler called");
     $('#mockStart').click(function(){
-        console.log('starting interview')
         $('welcome').toggleClass('hide');
         $('mock').toggleClass('hide');
         $(getInterviewQuestions());

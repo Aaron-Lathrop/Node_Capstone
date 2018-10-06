@@ -210,8 +210,8 @@ function displayInterviewCards(data){
     data.forEach(interview => {
         $('#selectInterview').append(`
         <div id=${interview.id} class='col-6 response-container interview'>
-            <strong>Interview from:</strong>
-            <p><span>${interview.created}</span></p>
+            <strong>Interview from: </strong><span>${interview.created}</span>
+            <button id="deleteInterview">Delete</button>
         </div>`);
     });
     $(displayInterviewResponses(data));
@@ -222,17 +222,34 @@ function getAndDisplayInterviewCards(){
 }
 
 function displayInterviewResponses(data){
-    console.log(`displayInterviewResponses called`);
-    console.log(data);
-    $('#selectInterview').on("click", "div", function(e){
-        console.log("interview clicked");
-        const interviewId = e.target.id;
-        console.log(interviewId);
+    $('#selectInterview').on("click", function(e){
+        //if($(e.target).prop("tagName").toLowerCase() === "button")
+        const interviewId = $(e.target).closest('div').attr('id');
         const interview = data.find(function(item){
             return item.id === interviewId;
         });
-        console.log(interview);
         displayResponses(interview.responses);
+    });
+}
+
+function deleteInterview(){
+    const token = localStorage.getItem("access_token");
+    const userInfo = parseJwt(token);
+    $('button').click("#deleteInterview",function(e){
+        console.log(`delete button clicked`);
+        const interviewId = $(e.target).closest('div').attr('id');
+        $.ajax({
+            url: `http://localhost:8080/users/${userInfo.user.username}/interview/${interviewId}`,
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "content-type": "application/json"
+            },
+            async: true,
+            type: "DELETE",
+            success: function(){
+                alert(`Interview has been deleted`);
+            }
+        });
     });
 }
 
