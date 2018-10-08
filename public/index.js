@@ -103,15 +103,12 @@ function loadScreen(screen){
         } else if(screen === 'logout'){
             sessionStorage.clear();
             html = `
-            <section id="homescreen row">
+            <section class='row'>
                 <div class="home col-12">
-                    <div class="home center col-6">
-                        <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
-                        <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
-                        Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
-                    </div> 
+                    <h1>Logging out</h1>
                 </div>
             </section>`;
+            location.reload();
         }
         $('main').html(html);
         if(screen ==='review'){
@@ -213,7 +210,18 @@ function getInterviews(callback){
         success: function(res){
             console.log(res);
             console.log(res.interviews);
-            callback(res.interviews);
+            if(res.interviews.length > 0){
+                callback(res.interviews);
+            } else if(res.interviews.length === 0){
+                $('header').html(`
+                <div class='row'>
+                    <div class='col-12'>
+                        <h2>Looks like you haven't taken any interiews yet.</h2>
+
+                    </div>
+                </div>
+                `);
+            }            
         }
     });
 }
