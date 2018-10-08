@@ -18,11 +18,12 @@ nav {
     top: 0;
     left: 0;
     width: 100%;
-    height: 50px;
+    height: 65px;
     margin-bottom: 50px;
     background-color: #0c0d0f;
     border-bottom: 2px solid gray;
     color: white;
+    font-size: 20px;
 }
 
 nav ul {
@@ -68,7 +69,7 @@ h1 {
 }
 
 main {
-    margin-top: 10%;
+    margin-top: 70px;
 }
 
 p {
@@ -85,10 +86,11 @@ p {
     font-size: 25px;
     display: block;
 }
+
 #login, #signup {
-    position: relative;
+    /* position: relative; */
     text-align: center;
-    top: 65px;
+    /* top: 65px; */
     /* transform: translateY(50%); */
 }
 
@@ -200,10 +202,6 @@ button:hover {
     width: 75%;
 }
 
-/* #interview label {
-
-} */
-
 #interviewAvatar {
     clear: both;
     display: block;
@@ -211,7 +209,6 @@ button:hover {
     margin-right: auto;
     max-height: 75px;
     max-width: 75px;
-    /* transform: translateY(30px); */
     border-radius: 50%;
 }
 
@@ -220,8 +217,8 @@ button:hover {
     border: 1px solid ghostwhite;
     border-radius: 8px;
     background-color: ghostwhite;
-    transform: translateY(-50%);
     display: block;
+    margin-top: 15px;
 }
 
 .response {
@@ -232,15 +229,13 @@ button:hover {
     height: 300px;
 }
 
-/* .center {
+.center {
     margin-left: auto;
     margin-right: auto;
-} */
+}
 
-.center {
-    left: 50%;
-    transform: translateX(50%);
-    /* text-align: center; */
+.text-center{
+    text-align: center;
 }
 
 .hide {

@@ -42,16 +42,16 @@ function displayQuestion(){
     $('#mockInterview').html(`
         
         <form id='interview' name='interview' autocomplete='off'>
-        <div class"row">
-            <img id="interviewAvatar" class="col-12" src="/Interview_avatar.png">
+        <div class="row">
+            <img id="interviewAvatar" src="/Interview_avatar.png">
         </div>
-        <div class"row">
+        <div class="row">
              <label class='interviewQuestion col-12'><span>${randomQuestion(interviewQuestions).questionText}</span></label>
         </div>
-        <div class"row">
+        <div class="row">
         <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
         </div>
-        <div class"row">
+        <div class="row">
         <button id='answerButton' type='submit' value='Answer'>Answer</button>
         </div>
         </form>`);
@@ -92,7 +92,8 @@ function displayResponses(data) {
     for (let i=0; i < data.length; i++){
         console.log(`appending results ${i}`);
         console.log(data[0].responses[i].questionText);
-        $('main').append(
+        $('main').html(`section id="display-responses" class="row"></section>`)
+        $('#display-responses').append(
             `<div class="response-container col-6">
                 <p><strong> ${data[0].responses[i].questionText}</strong></p>
                 <p> ${data[0].responses[i].responseText}</p>
