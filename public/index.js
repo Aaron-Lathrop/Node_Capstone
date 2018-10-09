@@ -122,12 +122,10 @@ function loadScreen(screen){
         } else if(screen === 'logout'){
             sessionStorage.clear();
             html = `
-            <section id="homescreen row">
-                <div class="home col-12">
-                    <div class="home center col-6">
-                        <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
-                        <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
-                        Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p><br>
+            <section id="homescreen" class="row">
+                <div class="col-12">
+                    <div class="home center">
+                        <h1>Logging out</h1>
                     </div> 
                 </div>
             </section>`;
@@ -239,11 +237,14 @@ function getInterviews(callback){
 
 function displayInterviewCards(data){
     console.log(data);
-    $('main').html(`<h1>Click on an interview to view your responses.</h1><section id="selectInterview" class="row"></section>`);
+    $('main').html(`<h1>Click on an interview to view your responses.</h1>
+    <button id="backToResults">Go Back</button>
+    <section id="selectInterview" class="row"></section>`);
     data.forEach(interview => {
         $('#selectInterview').append(`
         <div id=${interview.id} class='col-6 response-container interview'>
             <strong>Interview from: </strong><span>${interview.created}</span>
+            <button id="reviewInterview">Review</button>
             <button id="deleteInterview">Delete</button>
         </div>`);
     });
@@ -255,13 +256,16 @@ function getAndDisplayInterviewCards(){
 }
 
 function displayInterviewResponses(data){
-    $('#selectInterview').on("click", function(e){
+    console.log(data);
+    $('#reviewInterview').on("click", function(e){
         //if($(e.target).prop("tagName").toLowerCase() === "button")
         const interviewId = $(e.target).closest('div').attr('id');
         const interview = data.find(function(item){
             return item.id === interviewId;
         });
-        displayResponses(interview.responses);
+        console.log(interviewId);
+        console.log(interview);
+        displayResponses(interview);
     });
 }
 

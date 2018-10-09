@@ -64,6 +64,7 @@ function getAndDisplayQuestions(){
 }
 
 function createInterview(){
+    console.log(`createInterview called`);
     const token = localStorage.getItem("access_token");
     const userInfo = parseJwt(token);
     const URL = `/users/${userInfo.user.username}/interview`;
@@ -87,16 +88,17 @@ function createInterview(){
 }
 
 function displayResponses(data) {
-    $('header').html(`
-    <h1><u>Here are your responses</u></h1><br><br>`);
-    for (let i=0; i < data.length; i++){
+    console.log(data);
+    $('header').removeClass('hide');
+    $('header').html(`<h1><u>Here are your responses</u></h1><br><br>`);
+    $('main').html(`<section id="display-responses" class="row"></section>`)
+    for (let i=0; i < data.responses.length; i++){
         console.log(`appending results ${i}`);
-        console.log(data[0].responses[i].questionText);
-        $('main').html(`section id="display-responses" class="row"></section>`)
+        console.log(data.responses[i].questionText);
         $('#display-responses').append(
             `<div class="response-container col-6">
-                <p><strong> ${data[0].responses[i].questionText}</strong></p>
-                <p> ${data[0].responses[i].responseText}</p>
+                <p><strong> ${data.responses[i].questionText}</strong></p>
+                <p> ${data.responses[i].responseText}</p>
              </div>`
         );
     }

@@ -121,12 +121,12 @@ p {
 #signup input, #login input {
     border: 2px solid ghostwhite;
     border-radius: 8px;
-    height: 45px;
+    height: 35px;
     width: 75%;
     min-width: 250px;
     margin-bottom: 15px;
     padding: 15px;
-    font-size: 20px;
+    font-size: 16px;
     box-shadow: 7px 5px 5px grey;
 }
 
@@ -163,6 +163,9 @@ button {
     border-radius: 10px;
     color: #0c0d0f;
     padding: 15px;
+    margin: 7.5px 0 7.5px 0;
+    height: 150px;
+    overflow: auto;
 }
 
 .js-show-login-signup{
