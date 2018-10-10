@@ -244,11 +244,13 @@ function displayInterviewCards(data){
         $('#selectInterview').append(`
         <div id=${interview.id} class='col-6 response-container interview'>
             <strong>Interview from: </strong><span>${interview.created}</span>
-            <button id="reviewInterview">Review</button>
-            <button id="deleteInterview">Delete</button>
+            <button class="reviewInterview">Review</button>
+            <button class="deleteInterview">Delete</button>
         </div>`);
     });
     $(displayInterviewResponses(data));
+    $(deleteInterview());
+    $(displayInterviewResponses());
 }
 
 function getAndDisplayInterviewCards(){
@@ -257,7 +259,7 @@ function getAndDisplayInterviewCards(){
 
 function displayInterviewResponses(data){
     console.log(data);
-    $('#reviewInterview').on("click", function(e){
+    $('.reviewInterview').on("click", function(e){
         //if($(e.target).prop("tagName").toLowerCase() === "button")
         const interviewId = $(e.target).closest('div').attr('id');
         const interview = data.find(function(item){
@@ -272,7 +274,7 @@ function displayInterviewResponses(data){
 function deleteInterview(){
     const token = localStorage.getItem("access_token");
     const userInfo = parseJwt(token);
-    $('button').click("#deleteInterview",function(e){
+    $(".deleteInterview").click(function(e){
         console.log(`delete button clicked`);
         const interviewId = $(e.target).closest('div').attr('id');
         $.ajax({
@@ -283,8 +285,13 @@ function deleteInterview(){
             },
             async: true,
             type: "DELETE",
+            data: JSON.stringify({
+                username: userInfo.user.username,
+                id: interviewId
+            }),
             success: function(){
                 alert(`Interview has been deleted`);
+                $(`#${interviewId}`).addClass('hide');
             }
         });
     });
