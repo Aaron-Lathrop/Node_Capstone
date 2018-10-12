@@ -127,6 +127,7 @@ function loadScreen(screen){
                     <h1>Logging out</h1>
                 </div>
             </section>`;
+            $('html').css("background-image", "url(https://images.unsplash.com/photo-1518110516893-31ce851decb0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b8757e7de4ecb8fb79654a5a2e9cc25d&auto=format&fit=crop&w=750&q=80)");
             location.reload();
         }
         $('main').html(html);

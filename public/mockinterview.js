@@ -20,11 +20,6 @@ function getInterviewQuestions(callback){
             storeQuestionsLocally(data);
         }
     });
-    // $.getJSON(URL, callback)
-    // .done(data => {
-    //     console.log(data);
-    //     storeQuestionsLocally(data);
-    // });
 }
 
 function storeQuestionsLocally(data){
