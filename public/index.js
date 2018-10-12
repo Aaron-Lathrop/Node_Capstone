@@ -195,6 +195,9 @@ function loginUser(usernameAndPassword){
             localStorage.clear();
             localStorage.setItem("access_token", authToken);
             loadLoggedInScreenUsing(parsedToken);
+        },
+        error: function (jqXHR, status, err) {
+            console.log(jqXHR, status, err);
         }
     });
 }

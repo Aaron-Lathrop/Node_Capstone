@@ -9,12 +9,22 @@ const interviewResponses = {
     responses: []};
 
 function getInterviewQuestions(callback){
-    const URL = "https://stark-thicket-75096.herokuapp.com/mock-interview";
-    $.getJSON(URL, callback)
-    .done(data => {
-        console.log(data);
-        storeQuestionsLocally(data);
+    $.ajax({
+        async: true,
+        crossDomain: true,
+        url: "https://interview-prep-capstone.herokuapp.com/mock-interview",
+        headers: {
+            "Access-Control-Allow-Origin": "*"
+        },
+        success: function(data){
+            storeQuestionsLocally(data);
+        }
     });
+    // $.getJSON(URL, callback)
+    // .done(data => {
+    //     console.log(data);
+    //     storeQuestionsLocally(data);
+    // });
 }
 
 function storeQuestionsLocally(data){
