@@ -276,6 +276,7 @@ function deleteInterview(){
     const userInfo = parseJwt(token);
     $(".deleteInterview").click(function(e){
         console.log(`delete button clicked`);
+        alert(`Deleting an interview CANNOT be undone and you'll lose this data permanently.Type YES to delete your interview. <input id="confirmDelete" type="text">`);
         const interviewId = $(e.target).closest('div').attr('id');
         $.ajax({
             url: `/users/${userInfo.user.username}/interview/${interviewId}`,
