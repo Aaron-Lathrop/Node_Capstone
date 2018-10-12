@@ -132,6 +132,18 @@ function loadScreen(screen){
         }
         $('main').html(html);
         if(screen ==='review'){
+            $('main').html(`
+            <section class="row">
+                <div class="home col-12">
+                    <div class="home">
+                        <p>It looks like you haven't completed any interviews yet. Once you complete an interview, you can come back here to review the questions and answers or delete any interviews you no longer wish to keep.</p>
+                        <p>You can start an interview by clicking the button below or by clicking "Practice" above.</p>
+                    </div>
+                </div>
+            </section>
+            <div class='row'>
+                <button id='mockStart'>Start Interview</button>
+            </div>`);
             getAndDisplayInterviewCards();
         }
         $(document).ready($(handleNodeApp()));

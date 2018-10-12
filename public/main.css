@@ -30,6 +30,7 @@ nav ul {
     display: inline-block;
     list-style-type: circle;
     color: white;
+    margin: 0;
 }
 
 nav li {
@@ -37,7 +38,7 @@ nav li {
     margin-right: 15px;
     margin-left: 15px;
     font-weight: bold;
-    padding: 10px 0 10px 0;
+    padding: 15px 0 13px 0;
 }
 
 nav li:hover{
