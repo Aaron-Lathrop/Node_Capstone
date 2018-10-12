@@ -12,7 +12,7 @@ function getInterviewQuestions(callback){
     $.ajax({
         async: true,
         crossDomain: true,
-        url: "https://interview-prep-capstone.herokuapp.com/mock-interview",
+        url: "/mock-interview",
         headers: {
             "Access-Control-Allow-Origin": "*"
         },
@@ -50,7 +50,7 @@ function displayQuestion(){
     $('#mockInterview').html(`
         <form id='interview' name='interview' autocomplete='off'>
             <div class="row">
-                <img id="interviewAvatar" class="col-12" src="/Interview_avatar.png">
+                <img id="interviewAvatar" class="center" src="/Interview_avatar.png">
             </div>
             <div class="row">
                 <label class='interviewQuestion col-12'><span>${randomQuestion(interviewQuestions).questionText}</span></label>
