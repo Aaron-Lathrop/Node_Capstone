@@ -69,7 +69,7 @@ h1 {
 }
 
 main {
-    margin-top: 10%;
+    margin-top: 70px;
 }
 
 p {
@@ -86,10 +86,11 @@ p {
     font-size: 25px;
     display: block;
 }
+
 #login, #signup {
-    position: relative;
+    /* position: relative; */
     text-align: center;
-    top: 65px;
+    /* top: 65px; */
     /* transform: translateY(50%); */
 }
 
@@ -120,12 +121,12 @@ p {
 #signup input, #login input {
     border: 2px solid ghostwhite;
     border-radius: 8px;
-    height: 45px;
+    height: 35px;
     width: 75%;
     min-width: 250px;
     margin-bottom: 15px;
     padding: 15px;
-    font-size: 20px;
+    font-size: 16px;
     box-shadow: 7px 5px 5px grey;
 }
 
@@ -143,6 +144,7 @@ button {
     margin-right: 0 auto;
     text-align: center;
     padding: 15px;
+    
 }
 
 #selectInterview div:hover{
@@ -162,6 +164,9 @@ button {
     border-radius: 10px;
     color: #0c0d0f;
     padding: 15px;
+    margin: 7.5px 0 7.5px 0;
+    height: 150px;
+    overflow: auto;
 }
 
 .js-show-login-signup{
@@ -201,10 +206,6 @@ button:hover {
     width: 75%;
 }
 
-/* #interview label {
-
-} */
-
 #interviewAvatar {
     clear: both;
     display: block;
@@ -212,7 +213,6 @@ button:hover {
     margin-right: auto;
     max-height: 75px;
     max-width: 75px;
-    /* transform: translateY(30px); */
     border-radius: 50%;
 }
 
@@ -221,8 +221,8 @@ button:hover {
     border: 1px solid ghostwhite;
     border-radius: 8px;
     background-color: ghostwhite;
-    transform: translateY(-50%);
     display: block;
+    margin-top: 15px;
 }
 
 .response {
@@ -233,15 +233,13 @@ button:hover {
     height: 300px;
 }
 
-/* .center {
+.center {
     margin-left: auto;
     margin-right: auto;
-} */
+}
 
-.center {
-    left: 50%;
-    transform: translateX(50%);
-    /* text-align: center; */
+.text-center{
+    text-align: center;
 }
 
 .hide {
