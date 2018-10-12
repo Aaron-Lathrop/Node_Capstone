@@ -154,7 +154,8 @@ function runServer(databaseUrl, port = PORT) {
     // console.log(`${process.env.DATABASE_URL}`);
     // console.log(databaseUrl);
     return new Promise((resolve, reject) => {
-      mongoose.connect(databaseUrl, { useNewUrlParser: true, useCreateIndex: true }, err => {
+      mongoose.set('useCreateIndex', true)
+      mongoose.connect(databaseUrl, { useNewUrlParser: true }, err => {
         if (err) {
           return reject(err);
         }
