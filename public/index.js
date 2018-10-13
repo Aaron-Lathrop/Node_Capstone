@@ -25,10 +25,12 @@ function loadScreen(screen){
             </section>`;
         } else if(screen === 'practice'){
             html = `
-            <h2>Mock Interview</h2>
+            <h1>Mock Interview</h1>
             <div id="mockInterview" role="alert" aria-live="polite">
-                <p>You're about to start a 10 question mock interview. Questions will be delivered in a random order and your responses will be saved for later review.</p>
-                <button id='mockStart'>Start Interview</button>
+                <div class='container'>
+                    <p>You're about to start a 10 question mock interview. Questions will be delivered in a random order and your responses will be saved for later review.</p>
+                </div>
+                <button id='mockStart' class='center'>Start Interview</button>
             </div>`;
         } else if(screen === 'register'){
             html = `
@@ -133,6 +135,7 @@ function loadScreen(screen){
         $('main').html(html);
         if(screen ==='review'){
             $('main').html(`
+            <h1>Review</h1>
             <section id="mockInterview" class="row">
                 <div class="container col-12">
                     <div class="container">
@@ -284,7 +287,6 @@ function getAndDisplayInterviewCards(){
 function displayInterviewResponses(data){
     console.log(data);
     $('.reviewInterview').on("click", function(e){
-        //if($(e.target).prop("tagName").toLowerCase() === "button")
         const interviewId = $(e.target).closest('div').attr('id');
         const interview = data.find(function(item){
             return item.id === interviewId;
