@@ -15,8 +15,8 @@ function loadScreen(screen){
             <p>Practice makes perfect. Feel more confident.</p>`);
             html = `
             <section class="row">
-                <div class="home col-12">
-                    <div class="home">
+                <div class="container col-12">
+                    <div class="container">
                         <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
                         <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
                         Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p>
@@ -123,7 +123,7 @@ function loadScreen(screen){
             sessionStorage.clear();
             html = `
             <section class='row'>
-                <div class="home col-12">
+                <div class="container col-12">
                     <h1>Logging out</h1>
                 </div>
             </section>`;
@@ -134,8 +134,8 @@ function loadScreen(screen){
         if(screen ==='review'){
             $('main').html(`
             <section id="mockInterview" class="row">
-                <div class="home col-12">
-                    <div class="home">
+                <div class="container col-12">
+                    <div class="container">
                         <p>It looks like you haven't completed any interviews yet. Once you complete an interview, you can come back here to review the questions and answers or delete any interviews you no longer wish to keep.</p>
                         <p>You can start an interview by clicking the button below or by clicking "Practice" above.</p>
                     </div>
@@ -251,7 +251,6 @@ function getInterviews(callback){
                 <div class='row'>
                     <div class='col-12'>
                         <h2>Looks like you haven't taken any interiews yet.</h2>
-
                     </div>
                 </div>
                 `);
@@ -263,11 +262,11 @@ function getInterviews(callback){
 function displayInterviewCards(data){
     console.log(data);
     $('main').html(`<h1>Click on an interview to view your responses.</h1>
-    <button id="backToResults">Go Back</button>
+    <button id="backToResults" class="center">Go Back</button>
     <section id="selectInterview" class="row"></section>`);
     data.forEach(interview => {
         $('#selectInterview').append(`
-        <div id=${interview.id} class='col-6 response-container interview'>
+        <div id=${interview.id} class='col-6 response-container interviewContainer'>
             <strong>Interview from: </strong><span>${interview.created}</span>
             <button class="reviewInterview">Review</button>
             <button class="deleteInterview">Delete</button>

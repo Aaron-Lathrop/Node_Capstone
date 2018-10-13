@@ -146,7 +146,7 @@ p {
     background-color: rgba(248, 248, 255, 0.527);
 }
 
-.home {
+.container {
     background-color: ghostwhite;
     border-radius: 5px;
     padding: 15px;
@@ -215,6 +215,17 @@ button:hover {
     max-height: 75px;
     max-width: 75px;
     border-radius: 50%;
+}
+
+.reviewInterview, .deleteInterview {
+    padding: 15px;
+    font-size: 14px;
+    display: inline;
+}
+
+.interviewContainer{
+    height: auto;
+    margin: auto;
 }
 
 .interviewQuestion {

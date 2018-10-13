@@ -138,9 +138,11 @@ function answerButtonHandler() {
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
             $('#mockInterview').html(`
-                <section class='home col-12'>
-                    <h3>Thank you for your time, this concludes the interview</h3>
-                    <p><span class='center'>Click the review button to review your answers.</span></p>
+                <section class='container row'>
+                    <div class='col-12'>
+                        <h3>Thank you for your time, this concludes the interview</h3>
+                        <p><span class='center'>Click the review button to review your answers.</span></p>
+                    </div>
                 </section>
                 <button id='reviewButton' class='center'>Review Your Answers</button>`);
             $(reviewButtonHandler());
