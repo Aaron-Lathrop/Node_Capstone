@@ -26,7 +26,7 @@ function loadScreen(screen){
         } else if(screen === 'practice'){
             html = `
             <h1>Mock Interview</h1>
-            <div id="mockInterview" role="alert" aria-live="polite">
+            <div id="mockInterview" class='center-text' role="alert" aria-live="polite">
                 <div class='container'>
                     <p>You're about to start a 10 question mock interview. Questions will be delivered in a random order and your responses will be saved for later review.</p>
                 </div>
@@ -35,7 +35,7 @@ function loadScreen(screen){
         } else if(screen === 'register'){
             html = `
             <div class="row">
-                <div class="col-12 text-center">
+                <div class="col-12 center-text">
                     <p>Try a demo of this interview app!</p>
                     <p>Username: demo</p>
                     <p>Password: demo123456</p>
@@ -80,7 +80,7 @@ function loadScreen(screen){
         } else if(screen === 'signin'){
             html = `
             <div class="row">
-                <div class="col-12 text-center">
+                <div class="col-12 center-text">
                     <p>Try a demo of this interview app!</p>
                     <p>Username: demo</p>
                     <p>Password: demo123456</p>
@@ -136,7 +136,7 @@ function loadScreen(screen){
         if(screen ==='review'){
             $('main').html(`
             <h1>Review</h1>
-            <section id="mockInterview" class="row">
+            <section id="mockInterview" class='center-text' class="row">
                 <div class="container col-12">
                     <div class="container">
                         <p>It looks like you haven't completed any interviews yet. Once you complete an interview, you can come back here to review the questions and answers or delete any interviews you no longer wish to keep.</p>
@@ -269,7 +269,8 @@ function displayInterviewCards(data){
     data.forEach(interview => {
         $('#selectInterview').append(`
         <div id=${interview.id} class='col-6 response-container interviewContainer'>
-            <strong>Interview from: </strong><span>${interview.created}</span>
+
+            <p><b>Interview from:</b> <span>${interview.created}</span></p>
             <button class="reviewInterview">Review</button>
             <button class="deleteInterview">Delete</button>
         </div>`);

@@ -193,13 +193,7 @@ button {
 
 button:hover {
     cursor: pointer;
-    background-color: invert;
-    color: invert;
-}
-
-#mockInterview {
-    text-align: center;
-    margin-top: 10%;
+    background-color: purple;
 }
 
 #userResponse {
@@ -255,7 +249,7 @@ button:hover {
     margin-right: auto;
 }
 
-.text-center{
+.center-text{
     text-align: center;
 }
 
