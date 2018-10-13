@@ -133,7 +133,7 @@ function loadScreen(screen){
         $('main').html(html);
         if(screen ==='review'){
             $('main').html(`
-            <section class="row">
+            <section id="mockInterview" class="row">
                 <div class="home col-12">
                     <div class="home">
                         <p>It looks like you haven't completed any interviews yet. Once you complete an interview, you can come back here to review the questions and answers or delete any interviews you no longer wish to keep.</p>
@@ -141,10 +141,9 @@ function loadScreen(screen){
                     </div>
                 </div>
             </section>
-            <div class='row'>
-                <button id='mockStart'>Start Interview</button>
-            </div>`);
+            <button id='mockStart' class="center">Start Interview</button>`);
             getAndDisplayInterviewCards();
+            $(mockStartHandler());
         }
         $(document).ready($(handleNodeApp()));
 }

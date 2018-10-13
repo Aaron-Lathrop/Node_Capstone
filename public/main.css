@@ -140,14 +140,6 @@ p {
     padding-bottom: 15px;
 }
 
-button {
-    margin-left: 0 auto;
-    margin-right: 0 auto;
-    text-align: center;
-    padding: 15px;
-    
-}
-
 #selectInterview div:hover{
     cursor: pointer;
     border-color: rgba(248, 248, 255, 0.527);
@@ -188,13 +180,21 @@ textarea {
 }
 
 button {
-    /* padding: 15px 25px 15px 25px; */
+    padding: 20px 30px 20px 30px;
+    margin: 15px;
+    background-color: #0611B9;
+    color: ghostwhite;
     border-radius: 10px;
-    text-align: center;
+    display: flex;
+    border: 1px solid #0611B9;
+    font-size: 18px;
+    font-weight: 700;
 }
 
 button:hover {
     cursor: pointer;
+    background-color: invert;
+    color: invert;
 }
 
 #mockInterview {

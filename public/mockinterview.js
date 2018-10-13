@@ -54,7 +54,7 @@ function displayQuestion(){
                 <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
             </div>
             <div class="row">
-                <button id='answerButton' type='submit' value='Answer'>Answer</button>
+                <button id='answerButton' class="center" type='submit' value='Answer'>Answer</button>
             </div>
         </form>`);
     answerButtonHandler();
@@ -112,6 +112,7 @@ function mockStartHandler() {
         $('welcome').toggleClass('hide');
         $('mock').toggleClass('hide');
         $(getInterviewQuestions());
+        $('#mockStart').addClass('hide');
     });
 }
 
@@ -137,9 +138,11 @@ function answerButtonHandler() {
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
             $('#mockInterview').html(`
-                <h3>Thank you for your time, this concludes the interview</h3>
-                <p><span class='center'>Click the review button to review your answers.</span></p>
-                <button id='reviewButton'>Review Your Answers</button>`);
+                <section class='home col-12'>
+                    <h3>Thank you for your time, this concludes the interview</h3>
+                    <p><span class='center'>Click the review button to review your answers.</span></p>
+                </section>
+                <button id='reviewButton' class='center'>Review Your Answers</button>`);
             $(reviewButtonHandler());
         }
         let mic = $('#speechinput');
