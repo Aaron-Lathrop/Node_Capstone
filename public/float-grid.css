@@ -60,7 +60,45 @@
         display: none;
     }
 
-    /* #practice {
-        display: none
-    } */
+    #practice {
+        display: inline;
+    }
+
+    #home {
+        display: inline;
+    }
+
+    #review {
+        display: inline;
+    }
+
+    #logout {
+        display: inline;
+    }
+
+    #signin {
+        display: inline;
+    }
+}
+
+@media only screen and (max-width: 639px){
+    #practice {
+        display: none;
+    }
+
+    #home {
+        display: none;
+    }
+
+    #review {
+        display: none;
+    }
+
+    #logout {
+        display: none;
+    }
+
+    #signin {
+        display: none;
+    }
 }

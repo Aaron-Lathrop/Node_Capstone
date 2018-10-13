@@ -48,14 +48,11 @@ nav li:hover{
 }
 
 header {
-    /* position: absolute;
-    left: 0; */
     margin-top: 40px;
     margin-left: 0 auto;
     margin-right: 0 auto;
     width: 100%;
     padding: 20px;
-    /* background-image: linear-gradient(to bottom right, rgb(153, 132, 187), #0611B9); */
     color: #0c0d0f;
 }
 
@@ -89,10 +86,7 @@ p {
 }
 
 #login, #signup {
-    /* position: relative; */
     text-align: center;
-    /* top: 65px; */
-    /* transform: translateY(50%); */
 }
 
 #signup label, #login label {
@@ -246,6 +240,10 @@ button:hover {
     height: 300px;
 }
 
+#hamburger-icon{
+    list-style-type: none;
+}
+
 .icon {
     float: right;
     color: white;
@@ -267,3 +265,27 @@ button:hover {
 :focus {
     border-radius: 8px;
 }
+
+/* #practice {
+        display: none;
+    }
+
+#home {
+    display: none;
+}
+
+#review {
+    display: none;
+}
+
+#logout {
+    display: none;
+}
+
+#signin {
+    display: none;
+}
+
+#register {
+    display: none;
+} */

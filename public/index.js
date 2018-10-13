@@ -365,6 +365,14 @@ function parseJwt(token) {
     return JSON.parse(window.atob(base64));
 };
 
+// function screenSize(){
+//     if(window.innerWidth < 640){
+//         $('#home, #signin, #register, #account, #practice, #review, #logout').addClass('hide');
+//     }else{
+//         loggedIn();
+//     }
+// }
+
 function handleNodeApp(){
     $(signupButtonHandler());
     $(loginButtonHandler());
@@ -372,6 +380,7 @@ function handleNodeApp(){
     $(handleNav());
     $(loggedIn());
     $(mockStartHandler());
+    
 }
 
 $(document).ready($(handleNodeApp()));
