@@ -157,9 +157,12 @@ p {
     border-radius: 10px;
     color: #0c0d0f;
     padding: 15px;
-    margin: 7.5px 0 7.5px 0;
     height: 150px;
     overflow: auto;
+    width: 48%;
+    margin: auto;
+    margin-left: 15px;
+    margin-bottom: 15px;
 }
 
 .js-show-login-signup{
@@ -217,9 +220,13 @@ button:hover {
     display: inline;
 }
 
-.interviewContainer{
+.interviewContainer {
     height: auto;
     margin: auto;
+    width: 48%;
+    margin: auto;
+    margin-left: 15px;
+    margin-bottom: 15px;
 }
 
 .interviewQuestion {

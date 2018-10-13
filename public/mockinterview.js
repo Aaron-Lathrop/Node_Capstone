@@ -90,11 +90,8 @@ function createInterview(){
 }
 
 function displayResponses(data) {
-    console.log(data);
-    $('header').removeClass('hide');
-    $('header').html(`<h1><u>Here are your responses</u></h1><br>
-    <button id='review-all' class='center'>Review All</button>`);
-    $('main').html(`<section id="display-responses" class="row"></section>`)
+    $('main').html(`<h1>Here are your responses</h1><br>
+    <button id='review-all' class='center'>Review All</button><section id="display-responses" class="row"></section>`)
     for (let i=0; i < data.responses.length; i++){
         console.log(`appending results ${i}`);
         console.log(data.responses[i].questionText);
