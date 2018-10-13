@@ -92,7 +92,8 @@ function createInterview(){
 function displayResponses(data) {
     console.log(data);
     $('header').removeClass('hide');
-    $('header').html(`<h1><u>Here are your responses</u></h1><br><br>`);
+    $('header').html(`<h1><u>Here are your responses</u></h1><br>
+    <button id='review-all' class='center'>Review All</button>`);
     $('main').html(`<section id="display-responses" class="row"></section>`)
     for (let i=0; i < data.responses.length; i++){
         console.log(`appending results ${i}`);
@@ -104,6 +105,13 @@ function displayResponses(data) {
              </div>`
         );
     }
+    $(reviewAllHandler);
+}
+
+function reviewAllHandler() {
+    $('#review-all').click(function(){
+        loadScreen('review');
+    });
 }
 
 function mockStartHandler() {
