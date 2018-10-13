@@ -265,7 +265,6 @@ function getInterviews(callback){
 function displayInterviewCards(data){
     console.log(data);
     $('main').html(`<h1>Click on an interview to view your responses.</h1>
-    <button id="backToResults" class="center">Go Back</button>
     <section id="selectInterview" class="row"></section>`);
     data.forEach(interview => {
         $('#selectInterview').append(`
@@ -302,25 +301,26 @@ function deleteInterview(){
     const userInfo = parseJwt(token);
     $(".deleteInterview").click(function(e){
         console.log(`delete button clicked`);
-        alert(`Deleting an interview CANNOT be undone and you'll lose this data permanently.Type YES to delete your interview. <input id="confirmDelete" type="text">`);
-        const interviewId = $(e.target).closest('div').attr('id');
-        $.ajax({
-            url: `/users/${userInfo.user.username}/interview/${interviewId}`,
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "content-type": "application/json"
-            },
-            async: true,
-            type: "DELETE",
-            data: JSON.stringify({
-                username: userInfo.user.username,
-                id: interviewId
-            }),
-            success: function(){
-                alert(`Interview has been deleted`);
-                $(`#${interviewId}`).addClass('hide');
-            }
-        });
+        if(confirm(`Deleting an interview CANNOT be undone and you'll lose this data permanently.\n\nClick OK to PERMANENTLY DELETE your intervew.`)){
+            const interviewId = $(e.target).closest('div').attr('id');
+            $.ajax({
+                url: `/users/${userInfo.user.username}/interview/${interviewId}`,
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "content-type": "application/json"
+                },
+                async: true,
+                type: "DELETE",
+                data: JSON.stringify({
+                    username: userInfo.user.username,
+                    id: interviewId
+                }),
+                success: function(){
+                    alert(`Interview has been deleted`);
+                    $(`#${interviewId}`).addClass('hide');
+                }
+            });
+        }
     });
 }
 
