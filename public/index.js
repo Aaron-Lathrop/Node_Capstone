@@ -53,7 +53,7 @@ function loadScreen(screen){
                                 <input type="text" name='username' placeholder="Username">
                                 <label for="password">Password</label>
                                 <input type="password" name='password' placeholder="Password">
-                                <button id='signupButton' type="submit">SIGN UP</button>
+                                <button id='signupButton' class='center' type="submit">SIGN UP</button>
                                 <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
                             </fieldset>
                         </form>
@@ -69,7 +69,7 @@ function loadScreen(screen){
                                 <input type="text" name='login-username' placeholder="Username">
                                 <label for="login-password">Password</label>
                                 <input type="password" name='login-password' placeholder="Password">
-                                <button id='loginButton' type="submit">LOG IN</button>
+                                <button id='loginButton' class='center' type="submit">LOG IN</button>
                                 <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
                             </fieldset>
                         </form>
@@ -93,7 +93,7 @@ function loadScreen(screen){
                                 <input type="text" name='login-username' placeholder="Username">
                                 <label for="login-password">Password</label>
                                 <input type="password" name='login-password' placeholder="Password">
-                                <button id='loginButton' type="submit">LOG IN</button>
+                                <button id='loginButton' class='center' type="submit">LOG IN</button>
                                 <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
                             </fieldset>
                         </form>
@@ -113,7 +113,7 @@ function loadScreen(screen){
                         <input type="text" name='username' placeholder="Username">
                         <label for="password">Password</label>
                         <input type="password" name='password' placeholder="Password">
-                        <button id='signupButton' type="submit">SIGN UP</button>
+                        <button id='signupButton' class='center' type="submit">SIGN UP</button>
                         <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
                     </fieldset>
                 </form>

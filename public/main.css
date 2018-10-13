@@ -131,14 +131,14 @@ p {
     box-shadow: 7px 5px 5px grey;
 }
 
-#signupButton, #loginButton {
+/* #signupButton, #loginButton {
     border: 1px solid #0611B9;
     background-color: #0611B9;
     color: ghostwhite;
     height: 45px;
     width: 50%;
     padding-bottom: 15px;
-}
+} */
 
 #selectInterview div:hover{
     cursor: pointer;
@@ -243,6 +243,11 @@ button:hover {
     border-radius: 8px;
     background-color: ghostwhite;
     height: 300px;
+}
+
+.icon {
+    float: right;
+    color: white;
 }
 
 .center {
