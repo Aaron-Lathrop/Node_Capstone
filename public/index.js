@@ -8,7 +8,7 @@ function handleNav(){
 }
 
 function loadScreen(screen){
-    $('header').addClass('hide');
+    if(screen !== 'hamburger-icon'){$('header').addClass('hide')};
     let html;
         if(screen === 'home'){
             $('header').removeClass('hide').html(`<h1>Welcome <span class="js-username-dash"></span></h1>
@@ -344,6 +344,7 @@ function handleShowLoginSignup() {
 }
 
 function loggedIn() {
+    console.log(`loggedIn called`);
     let userLoggedInToken = localStorage.getItem("access_token");
     if(userLoggedInToken){
         const parsedToken = parseJwt(userLoggedInToken);
@@ -352,10 +353,13 @@ function loggedIn() {
         $('#signin, #register').addClass('hide');
         displayDashboard(parsedToken.user);
         $(logoutUser());
+        return true;
     } else{
         console.log("you're logged out right now");
         $('#practice, #review, #logout, #account').addClass('hide');
-        $('#home, #sigin, #register').removeClass('hide');
+        $('#home, #signin, #register').removeClass('hide');
+        return false;
+
     }
 }
 
@@ -365,13 +369,15 @@ function parseJwt(token) {
     return JSON.parse(window.atob(base64));
 };
 
-// function screenSize(){
-//     if(window.innerWidth < 640){
-//         $('#home, #signin, #register, #account, #practice, #review, #logout').addClass('hide');
-//     }else{
-//         loggedIn();
-//     }
-// }
+function showNav(){
+    if(loggedIn()){
+        $('#practice, #review, #logout').toggle();
+        $('#practice, #review, #logout').removeClass('hide');
+    } else {
+        $('#home, #signin, #register').toggle();
+        $('#home, #signin, #register').removeClass('hide');
+    }
+}
 
 function handleNodeApp(){
     $(signupButtonHandler());

@@ -262,6 +262,10 @@ button:hover {
     display: none;
 }
 
+.block {
+    display: block;
+}
+
 :focus {
     border-radius: 8px;
 }
