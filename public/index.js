@@ -151,6 +151,12 @@ function loadScreen(screen){
         $(document).ready($(handleNodeApp()));
 }
 
+function getStartedHandler(){
+    $('#get-started').click(function(){
+        loadScreen('signin');
+    });
+}
+
 function signupButtonHandler(){
     $('#signup').submit(function(e){
         e.preventDefault();
@@ -349,6 +355,7 @@ function loggedIn() {
     if(userLoggedInToken){
         const parsedToken = parseJwt(userLoggedInToken);
         console.log(`you're logged in right now`);
+        $('nav').removeClass('hide');
         $('#practice, #review, #logout').removeClass('hide');
         $('#signin, #register').addClass('hide');
         displayDashboard(parsedToken.user);
@@ -356,6 +363,7 @@ function loggedIn() {
         return true;
     } else{
         console.log("you're logged out right now");
+        $('nav').addClass('hide');
         $('#practice, #review, #logout').addClass('hide');
         $('#home, #signin, #register').removeClass('hide');
         return false;
@@ -385,6 +393,7 @@ function handleNodeApp(){
     $(handleShowLoginSignup());
     $(handleNav());
     $(mockStartHandler());
+    $(getStartedHandler());
 }
 
 $(document).ready($(handleNodeApp()));
