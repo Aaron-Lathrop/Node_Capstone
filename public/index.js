@@ -370,7 +370,7 @@ function parseJwt(token) {
 
 function showNav(){
     if(loggedIn()){
-        $('#practice, #review, #logout').toggle();
+        $('#home, #practice, #review, #logout').toggle();
         $('#practice, #review, #logout').removeClass('hide');
     } else {
         $('#home, #signin, #register').toggle();

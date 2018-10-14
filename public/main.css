@@ -141,7 +141,7 @@ p {
 }
 
 .container {
-    background-color: ghostwhite;
+    background-color: rgba(248, 248, 255, .7);
     border-radius: 5px;
     padding: 15px;
 }
@@ -269,27 +269,3 @@ button:hover {
 :focus {
     border-radius: 8px;
 }
-
-/* #practice {
-        display: none;
-    }
-
-#home {
-    display: none;
-}
-
-#review {
-    display: none;
-}
-
-#logout {
-    display: none;
-}
-
-#signin {
-    display: none;
-}
-
-#register {
-    display: none;
-} */
