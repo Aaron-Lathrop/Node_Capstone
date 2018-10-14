@@ -349,17 +349,16 @@ function loggedIn() {
     if(userLoggedInToken){
         const parsedToken = parseJwt(userLoggedInToken);
         console.log(`you're logged in right now`);
-        $('#account, #practice, #review, #logout').removeClass('hide');
+        $('#practice, #review, #logout').removeClass('hide');
         $('#signin, #register').addClass('hide');
         displayDashboard(parsedToken.user);
         $(logoutUser());
         return true;
     } else{
         console.log("you're logged out right now");
-        $('#practice, #review, #logout, #account').addClass('hide');
+        $('#practice, #review, #logout').addClass('hide');
         $('#home, #signin, #register').removeClass('hide');
         return false;
-
     }
 }
 
@@ -386,7 +385,6 @@ function handleNodeApp(){
     $(handleNav());
     $(loggedIn());
     $(mockStartHandler());
-    
 }
 
 $(document).ready($(handleNodeApp()));
