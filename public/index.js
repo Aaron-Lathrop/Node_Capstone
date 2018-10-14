@@ -16,11 +16,11 @@ function loadScreen(screen){
             html = `
             <section class="row">
                 <div class="container col-12">
-                    <div class="container">
-                        <p>Welcome to interview prep. Many people feel excited and nervous when they get a job interview. What questions will they ask? How do I want to respond?</p><br>
+                        <h2>Welcome to Interview Prep!</h2> 
+                        <p>Many people feel excited and nervous when they get a job interview.</p> 
+                        <p><b>What questions will the interviewer ask? How do I want to respond?</b></p>
                         <p>Sometimes, when we think back on what we said in an interview, we wish we had something else. 
                         Our growing database of common interview questions gives you a chance to practice and reivew your answers so you can perfect them.</p>
-                    </div>
                 </div>
             </section>`;
         } else if(screen === 'practice'){
@@ -379,11 +379,11 @@ function showNav(){
 }
 
 function handleNodeApp(){
+    $(loggedIn());
     $(signupButtonHandler());
     $(loginButtonHandler());
     $(handleShowLoginSignup());
     $(handleNav());
-    $(loggedIn());
     $(mockStartHandler());
 }
 
