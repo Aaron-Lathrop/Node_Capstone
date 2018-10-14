@@ -153,9 +153,11 @@ p {
     padding: 15px;
     height: 150px;
     overflow: auto;
-    width: 48%;
+}
+
+.interviewContainer {
+    height: auto;
     margin: auto;
-    margin-left: 15px;
     margin-bottom: 15px;
 }
 
@@ -212,15 +214,6 @@ button:hover {
     padding: 15px;
     font-size: 14px;
     display: inline;
-}
-
-.interviewContainer {
-    height: auto;
-    margin: auto;
-    width: 48%;
-    margin: auto;
-    margin-left: 15px;
-    margin-bottom: 15px;
 }
 
 .interviewQuestion {

@@ -8,11 +8,8 @@ function handleNav(){
 }
 
 function loadScreen(screen){
-    if(screen !== 'hamburger-icon'){$('header').addClass('hide')};
     let html;
         if(screen === 'home'){
-            $('header').removeClass('hide').html(`<h1>Welcome <span class="js-username-dash"></span></h1>
-            <p>Practice makes perfect. Feel more confident.</p>`);
             html = `
             <section class="row">
                 <div class="container col-12">
@@ -357,7 +354,7 @@ function loggedIn() {
         console.log(`you're logged in right now`);
         $('nav').removeClass('hide');
         $('#practice, #review, #logout').removeClass('hide');
-        $('#signin, #register').addClass('hide');
+        $('#signin, #register, #get-started').addClass('hide');
         displayDashboard(parsedToken.user);
         $(logoutUser());
         return true;
@@ -365,7 +362,7 @@ function loggedIn() {
         console.log("you're logged out right now");
         $('nav').addClass('hide');
         $('#practice, #review, #logout').addClass('hide');
-        $('#home, #signin, #register').removeClass('hide');
+        $('#home, #signin, #register, #get-started').removeClass('hide');
         return false;
     }
 }
