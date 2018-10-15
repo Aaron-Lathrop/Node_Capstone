@@ -10,6 +10,7 @@ function handleNav(){
 function loadScreen(screen){
     let html;
         if(screen === 'home'){
+            $('header').removeClass('hide');
             html = `
             <section class="row">
                 <div class="container col-12">
@@ -21,15 +22,20 @@ function loadScreen(screen){
                 </div>
             </section>`;
         } else if(screen === 'practice'){
+            $('header').addClass('hide');
             html = `
             <h1>Mock Interview</h1>
             <div id="mockInterview" class='center-text' role="alert" aria-live="polite">
                 <div class='container'>
-                    <p>You're about to start a 10 question mock interview. Questions will be delivered in a random order and your responses will be saved for later review.</p>
+                    <p>You're about to start a 10 question mock interview.</p> 
+                    <p>Questions will be delivered in a random order and your responses will be saved for later review.</p>
+                    <p>This is Rupert, he'll be your interviewer for the day. Good luck!</p>
+                    <img id="interviewAvatar" class="center" src="/Interview_avatar.png">
                 </div>
                 <button id='mockStart' class='center'>Start Interview</button>
             </div>`;
         } else if(screen === 'register'){
+            $('header').addClass('hide');
             html = `
             <div class="row">
                 <div class="col-12 center-text">
@@ -75,6 +81,7 @@ function loadScreen(screen){
                     </div>
                 </div>`;
         } else if(screen === 'signin'){
+            $('header').addClass('hide');
             html = `
             <div class="row">
                 <div class="col-12 center-text">
@@ -119,6 +126,7 @@ function loadScreen(screen){
                     </div>
                 </div>`;
         } else if(screen === 'logout'){
+            $('header').addClass('hide');
             sessionStorage.clear();
             html = `
             <section class='row'>
@@ -131,6 +139,8 @@ function loadScreen(screen){
         }
         $('main').html(html);
         if(screen ==='review'){
+            $('header').addClass('hide');
+
             $('main').html(`
             <h1>Review</h1>
             <section id="mockInterview" class='center-text' class="row">
