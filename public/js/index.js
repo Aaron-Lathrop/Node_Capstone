@@ -50,14 +50,14 @@ function loadScreen(screen){
                         <form id="signup" name="signup" class="center">
                             <fieldset>
                                 <legend>SIGN UP</legend>
-                                <label for="firstName">First Name</label>
-                                <input type='text' name='firstName' placeholder="First Name">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" name='lastName' placeholder="Last Name">
-                                <label for="username">Username</label>
-                                <input type="text" name='username' placeholder="Username">
-                                <label for="password">Password</label>
-                                <input type="password" name='password' placeholder="Password">
+                                <label for="firstName">First Name*</label>
+                                <input type='text' name='firstName' placeholder="First Name" required>
+                                <label for="lastName">Last Name*</label>
+                                <input type="text" name='lastName' placeholder="Last Name" required>
+                                <label for="username">Username*</label>
+                                <input type="text" name='username' placeholder="Username" required>
+                                <label for="password">Password*</label>
+                                <input type="password" name='password' placeholder="Password" required>
                                 <button id='signupButton' class='center' type="submit">SIGN UP</button>
                                 <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
                             </fieldset>
@@ -70,9 +70,9 @@ function loadScreen(screen){
                         <form id="login" name="login" class="hide center">
                             <fieldset>
                                 <legend>LOG IN</legend>
-                                <label for="login-username">Username</label>
+                                <label for="login-username">Username*</label>
                                 <input type="text" name='login-username' placeholder="Username">
-                                <label for="login-password">Password</label>
+                                <label for="login-password">Password*</label>
                                 <input type="password" name='login-password' placeholder="Password">
                                 <button id='loginButton' class='center' type="submit">LOG IN</button>
                                 <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
@@ -95,9 +95,9 @@ function loadScreen(screen){
                         <form id="login" name="login" class="center">
                             <fieldset>
                                 <legend>LOG IN</legend>
-                                <label for="login-username">Username</label>
+                                <label for="login-username">Username*</label>
                                 <input type="text" name='login-username' placeholder="Username">
-                                <label for="login-password">Password</label>
+                                <label for="login-password">Password*</label>
                                 <input type="password" name='login-password' placeholder="Password">
                                 <button id='loginButton' class='center' type="submit">LOG IN</button>
                                 <p>*Don't have an account? <span class='js-show-login-signup'>Sign up</span></p>
@@ -111,14 +111,14 @@ function loadScreen(screen){
                     <form id="signup" name="signup" class="hide center">
                     <fieldset>
                         <legend>SIGN UP</legend>
-                        <label for="firstName">First Name</label>
+                        <label for="firstName">First Name*</label>
                         <input type='text' name='firstName' placeholder="First Name">
                         <label for="lastName">Last Name</label>
-                        <input type="text" name='lastName' placeholder="Last Name">
-                        <label for="username">Username</label>
-                        <input type="text" name='username' placeholder="Username">
-                        <label for="password">Password</label>
-                        <input type="password" name='password' placeholder="Password">
+                        <input type="text" name='lastName' placeholder="Last Name" required>
+                        <label for="username">Username*</label>
+                        <input type="text" name='username' placeholder="Username" required>
+                        <label for="password">Password*</label>
+                        <input type="password" name='password' placeholder="Password" required>
                         <button id='signupButton' class='center' type="submit">SIGN UP</button>
                         <p>*Already have an account? <span class='js-show-login-signup'>Log in</span></p>
                     </fieldset>
@@ -167,17 +167,27 @@ function getStartedHandler(){
 function signupButtonHandler(){
     $('#signup').submit(function(e){
         e.preventDefault();
-        const newUser = {
-            username: $('input[name="username"]').val(),
-            password: $('input[name="password"]').val(),
-            firstName: $('input[name="firstName"]').val(),
-            lastName: $('input[name="lastName"]').val()
-        };
-        postNewUser(newUser);
-        $('input[name="username"]').val("");
-        $('input[name="password"]').val("");
-        $('input[name="firstName"]').val("");
-        $('input[name="lastName"]').val("");
+        const username = `${$('input[name="username"]').val()}`;
+        const password = `${$('input[name="password"]').val()}`;
+        const firstName = `${$('input[name="firstName"]').val()}`;
+        const lastName = `${$('input[name="lastName"]').val()}`;
+        console.log(username, password, firstName, lastName);
+        if(username && password && firstName && lastName){
+            const newUser = {
+                username: username,
+                password: password,
+                firstName: firstName,
+                lastName: lastName
+            };
+            postNewUser(newUser);
+            $('input[name="username"]').val("");
+            $('input[name="password"]').val("");
+            $('input[name="firstName"]').val("");
+            $('input[name="lastName"]').val("");
+        }else {
+            alert(`please complete all required fields`)
+        }
+        
     });
 }
 

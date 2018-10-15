@@ -147,6 +147,12 @@ router.post('/', jsonParser, (req, res) => {
     });
 });
 
+router.get('/', function(req, res){
+  return User.find()
+  .then(user => res.json(user.map(user => user.serialize())))
+  .catch(err => res.status(500).json({message: 'Internal server error'}));
+});
+
 router.get('/:username', jwtAuth, (req, res) => {
   return User.findOne({username: req.params.username})
       .then(user => res.json(user.serialize()))

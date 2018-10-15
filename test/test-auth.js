@@ -50,7 +50,7 @@ describe('Auth endpoints', function () {
         .request(app)
         .post('/auth/login')
         .then(() =>
-          expect.fail(null, null, 'Request should not succeed')
+          expect.fail('', '', 'Request should not succeed')
         )
         .catch(err => {
           if (err instanceof chai.AssertionError) {

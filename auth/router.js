@@ -21,6 +21,17 @@ const localAuth = passport.authenticate('local', {session: false});
 router.use(express.json());
 
 router.post('/login', localAuth, (req,res) => {
+    if(!(req.body.username && req.body.password)){
+        let message;
+        if(!(req.body.username)){
+            message = `Please enter a username`;
+        }
+        if(!(req.body.password)){
+            message = `Please enter a password`;
+        }
+        console.error(message);
+        return res.status(400).json({message: message});
+    }
     const authToken = createAuthToken(req.user.serialize());
     //res.setHeader("Set-Cookie", `access_token=${authToken}`);
     res.json({authToken});
