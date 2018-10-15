@@ -91,6 +91,8 @@ This app is built to be responsive to smaller screen sizes using a float-grid cs
 Features for future iterations include:
 - Add voice recognition to record interview responses
 - Add timer feature to answering interview questions
+- Add feature to allow users to add their own questions
+- Add advice for each question to help users
 - Add links to interview resources
 - Add feedback from others feature on interview responses
 - Add industry specific interview questions

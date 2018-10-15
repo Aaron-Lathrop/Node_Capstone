@@ -17,7 +17,7 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
-  const requiredFields = ['username', 'password'];
+  const requiredFields = ['username', 'password', 'firstName', 'lastName'];
   const missingField = requiredFields.find(field => !(field in req.body));
 
   if (missingField) {
@@ -50,7 +50,7 @@ router.post('/', jsonParser, (req, res) => {
   // trimming them and expecting the user to understand.
   // We'll silently trim the other fields, because they aren't credentials used
   // to log in, so it's less of a problem.
-  const explicityTrimmedFields = ['username', 'password'];
+  const explicityTrimmedFields = ['firstName', 'lastName'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
@@ -132,7 +132,7 @@ router.post('/', jsonParser, (req, res) => {
       });
     })
     .then(user => {
-      res.json({message: user});
+      //res.json({message: user});
       console.log(user.serialize());
       return res.status(201).json(user.serialize());//return res.status(201).json(user.serialize());
     })

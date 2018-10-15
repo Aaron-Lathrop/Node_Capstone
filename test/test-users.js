@@ -412,7 +412,7 @@ describe('/user', function() {
             lastName: ` ${lastName} `
           })
           .then(res => {
-            expect(res).to.have.status(201);
+            expect(res).to.have.status(200);
             expect(res.body).to.be.an('object');
             expect(res.body).to.have.keys(
               'username',

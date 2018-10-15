@@ -3,14 +3,14 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const expect = chai.expect;
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const {app, runServer, closeServer, server} = require('../server');
 const {User, Interview} = require('../users')
 const { JWT_SECRET, TEST_DATABASE_URL } = require('../config');
 
 chai.use(chaiHttp);
-
-
 
 function tearDownDb() {
     return new Promise((resolve, reject) => {
