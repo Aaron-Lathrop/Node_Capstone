@@ -22,7 +22,7 @@ app.use(express.static('public'));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Cookie");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
     res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
     if(req.method === 'OPTIONS'){
         return res.send(204);
@@ -39,15 +39,6 @@ app.use('/interview', express.static('public/index.html'));
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-//fallback test endpoint; remove for production
-app.get('/api/protected', jwtAuth, (req, res) => {
-    return res.json({
-      data: 'rosebud'
-    });
-  });
-
-//gets questions for user to practice during mock-interview, consider
-//renaming the slug on this
 app.get('/mock-interview', function(req, res){
     Question
     .find()
@@ -61,86 +52,6 @@ app.get('/mock-interview', function(req, res){
     .catch(err => {
         console.error(err);
         res.status(500).json({message: "Internal server error! Oh my!"});
-    });
-});
-
-//gets the interviews a user has done, add additional paramters once 
-//authentication coding is complete
-app.get('/interview', jwtAuth, function(req, res){
-    console.log(`Getting interviews from database.`)
-    Interview
-    .find()
-    .then(interviews => {
-        res.json({
-            interviews: interviews.map(
-                (interview) => interview.serialize())
-        });
-    })
-    .catch(err => {
-        console.error(err);
-        res.status(500).json({message: "Internal server error! Oh my!"});
-    });
-    console.log(`Interviews loaded.`)
-});
-
-//this creates a new interview document to record a specific set of questions and 
-//responses that a user had a specific time. Questions and responses begin blank
-//and will populate using the PUT endpoint
-app.post('/interview', jwtAuth, function(req,res){
-    Interview
-    .create({
-        username: req.body.username,
-        firstName: req.body.firstName,
-        responses: req.body.responses
-    })
-    .then(interview => res.status(201).json(interview.serialize()))
-    .catch(err => {
-        console.error(err);
-        res.status(500).json({message: "Internal server error! Oh my!"});
-    });
-});
-
-//updates the responses and questions properties of the Interview document
-//the interview to be updated will be tracked by the document's id
-app.put('/interview/:id', jwtAuth, function(req, res){
-    if(!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-        const message = (`Request path id (${req.params.id}) must match ` + 
-        `request body id ${req.body.id}`);
-        console.error(message);
-        return res.status(400).json({message: message});
-    }
-
-    const toUpdate = {};
-    const updateableFields = ["responses"];
-
-    updateableFields.forEach(field => {
-        if(field in req.body){
-            toUpdate[field] = req.body[field];
-        }
-    });
-    
-    Interview
-    .findByIdAndUpdate(req.params.id, { $set: toUpdate})
-    .then(interview => res.status(204).end())
-    .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'});
-    });
-
-});
-
-//deletes a specific interview by id
-app.delete('/interview/:id', jwtAuth, function(req,res){
-    if(!(req.params.id && req.body.id && req.params.id === req.body.id)){
-        const message = (`Request path id (${req.params.id}) must match`+
-        `request body id (${req.body.id})`);
-        console.error(message);
-        res.status(400).json({message: message});
-    }
-
-    Interview.findByIdAndDelete(req.params.id)
-    .then(interview => res.status(204).end())
-    .catch(err => {
-        console.error(err);
-        res.status(500).json({message: `Internal server error! Oh my!`})
     });
 });
 
