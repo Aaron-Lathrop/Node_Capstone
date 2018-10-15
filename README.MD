@@ -14,50 +14,50 @@ View Node working prototype here: [interview-prep](https://interview-prep-capsto
 
 As a user, I want to understand what the app is so that I can decide if I want to sign up
 
-![Logged Out Landing page design](/images/Logged_out_home_page.png)
+![Logged Out Landing page design](/public/images/Logged_out_home_page.png)
 
 **Sign Up Page**
 
 As a user, I want to sign up so I can save the interviews I complete
 
-![Sign Up page design](/images/Sign_up_screen.png)
+![Sign Up page design](/public/images/Sign_up_screen.png)
 
 
 **Log In Page**
 
 As a user, I want to log in so I can access my information
 
-![Log In page design](/images/Log_in_screen.png)
+![Log In page design](/public/images/Log_in_screen.png)
 
 **Dashboard Page**
 
 As a user, I want to see which interviews I've completed, review them, or delete them if I no longer wish to keep them
 
-![Logged In Landing page design](/images/Logged_in_homepage.png)
+![Logged In Landing page design](/public/images/Logged_in_homepage.png)
 
 **Question Page**
 
 As a user, I want to answer different interview quesitons
 
-![Question page design](/images/Question_screen.png)
+![Question page design](/public/images/Question_screen.png)
 
 **Interview Complete Page**
 
 As a user, I want to know when the interview is over
 
-![Interview Complete page design](/images/Interview_complete.png)
+![Interview Complete page design](/public/images/Interview_complete.png)
 
 **Review Responses Page**
 
 As a user, I want to review my responses
 
-![Response Reivew page design](/images/Response_review_screen.png)
+![Response Reivew page design](/public/images/Response_review_screen.png)
 
 **Review Interview Page**
 
 As a user, I want to review all of the interviews I've done
 
-![Question page design](/images/Review_interview_screen.png)
+![Question page design](/public/images/Review_interview_screen.png)
 
 **Log Out Page**
 
