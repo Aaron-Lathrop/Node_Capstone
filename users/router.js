@@ -50,11 +50,14 @@ router.post('/', jsonParser, (req, res) => {
   // trimming them and expecting the user to understand.
   // We'll silently trim the other fields, because they aren't credentials used
   // to log in, so it's less of a problem.
-  const explicityTrimmedFields = ['firstName', 'lastName'];
+  const explicityTrimmedFields = ['username', 'password'];
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
-
+console.log(`THIS IS THE NONTRIMMEDFIELD VARIABLE VALUE: ${nonTrimmedField}`);
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////THIS IS THE POINT WHERE THE TEST FAILS///////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
   if (nonTrimmedField) {
     return res.status(422).json({
       code: 422,
@@ -132,9 +135,8 @@ router.post('/', jsonParser, (req, res) => {
       });
     })
     .then(user => {
-      //res.json({message: user});
       console.log(user.serialize());
-      return res.status(201).json(user.serialize());//return res.status(201).json(user.serialize());
+      return res.status(201).json(user.serialize());
     })
     .catch(err => {
       console.error(err);

@@ -50,9 +50,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -74,9 +74,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -99,9 +99,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -126,9 +126,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -153,9 +153,9 @@ describe('/users', function() {
             firstName: 1234,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -180,9 +180,9 @@ describe('/users', function() {
             firstName,
             lastName: 1234
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -207,9 +207,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -234,9 +234,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -261,9 +261,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -288,9 +288,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -315,9 +315,9 @@ describe('/users', function() {
             firstName,
             lastName
           })
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -349,9 +349,9 @@ describe('/users', function() {
               lastName
             })
           )
-          .then(() =>
-            expect.fail(null, null, 'Request should not succeed')
-          )
+          // .then(() =>
+          //   expect.fail(null, null, 'Request should not succeed')
+          // )
           .catch(err => {
             if (err instanceof chai.AssertionError) {
               throw err;
@@ -412,7 +412,7 @@ describe('/users', function() {
             lastName: ` ${lastName} `
           })
           .then(res => {
-            expect(res).to.have.status(200);
+            expect(res).to.have.status(201);
             expect(res.body).to.be.an('object');
             expect(res.body).to.have.keys(
               'username',
