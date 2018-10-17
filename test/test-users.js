@@ -501,11 +501,46 @@ describe('/users', function() {
               .set('Authorization', `${authToken}`)
               .then(res => {
                 expect(res).to.have.status(200);
-                expect(res.body.username).to.equal(username)
+                expect(res.body.username).to.equal(username);
+                expect(res.body.firstName).to.equal(firstName);
+                expect(res.body.lastName).to.equal(lastName);
               })
             })
           })
         });//it should get a specific user
+        it('Should delete a specific user', function() {
+          return User.create(
+            {
+              username,
+              password,
+              firstName,
+              lastName
+            },
+            {
+              username: usernameB,
+              password: passwordB,
+              firstName: firstNameB,
+              lastName: lastNameB
+            })
+            .then(() => {
+              return chai
+            .request(app)
+            .get('/users')
+            .then(res => {
+              console.log(`/////////////////////////////`);
+              console.log(res.body);
+              console.log(`/////////////////////////////`);
+
+              return chai
+              .request(app)
+              .delete(`/${res.body[0].username}/${res.body[0].id}`)
+              .then(res => {
+                expect(res).to.have.status(204);
+              })
+            })
+            })
+          
+        });//it should delete a specific user
     });
   });
 });

@@ -165,7 +165,7 @@ router.get('/:username', jwtAuth, (req, res) => {
       .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
-router.delete('/:username/:id', jwtAuth, (req,res) =>{
+router.delete('/:username/:id', (req,res) =>{
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
     const message = (`Request path username (${req.params.username}) must match`+
     `request body username (${req.body.username})`);
