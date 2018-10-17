@@ -474,6 +474,38 @@ describe('/users', function() {
             });
           });
       });
+      it('Should get a specific user', function() {
+        let authToken;
+        return chai
+          .request(app)
+          .post('/users')
+          .send({
+            username,
+            password,
+            firstName,
+            lastName
+          })
+          .then(res => {
+            return chai
+            .request(app)
+            .post('/auth/login')
+            .send({
+              username: username,
+              password: password
+            })
+            .then(res => {
+              authToken = `Bearer ${res.body.authToken}`;
+              return chai
+              .request(app)
+              .get(`/users/${username}`)
+              .set('Authorization', `${authToken}`)
+              .then(res => {
+                expect(res).to.have.status(200);
+                expect(res.body.username).to.equal(username)
+              })
+            })
+          })
+        });//it should get a specific user
     });
   });
 });

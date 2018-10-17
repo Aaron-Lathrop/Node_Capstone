@@ -14,6 +14,11 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
+// function parseJwt(token) {
+//   var base64Url = token.split('.')[1];
+//   var base64 = base64Url.replace('-', '+').replace('_', '/');
+//   return JSON.parse(window.atob(base64));
+// };
 
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
@@ -54,10 +59,7 @@ router.post('/', jsonParser, (req, res) => {
   const nonTrimmedField = explicityTrimmedFields.find(
     field => req.body[field].trim() !== req.body[field]
   );
-console.log(`THIS IS THE NONTRIMMEDFIELD VARIABLE VALUE: ${nonTrimmedField}`);
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////THIS IS THE POINT WHERE THE TEST FAILS///////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////
+
   if (nonTrimmedField) {
     return res.status(422).json({
       code: 422,
@@ -156,6 +158,8 @@ router.get('/', function(req, res){
 });
 
 router.get('/:username', jwtAuth, (req, res) => {
+  // const name = parseJwt(jwtAuth);
+  // console.log(name);
   return User.findOne({username: req.params.username})
       .then(user => res.json(user.serialize()))
       .catch(err => res.status(500).json({message: 'Internal server error'}));
