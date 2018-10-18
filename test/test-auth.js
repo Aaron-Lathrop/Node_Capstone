@@ -66,9 +66,10 @@ describe('Auth endpoints', function () {
         .request(app)
         .post('/auth/login')
         .send({ username: 'wrongUsername', password })        
-        // .then(() =>
+        // .then(result => {
         //   expect.fail(null, null, 'Request should not succeed')
-        // )
+        //   }
+        //)
         .catch(err => {
           if (err instanceof chai.AssertionError) {
             throw err;

@@ -5,7 +5,9 @@ const chaiHttp = require('chai-http');
 
 const {app, runServer, closeServer} = require('../server');
 const {User} = require('../users');
+const {Interview} = require('../interviews');
 const { JWT_SECRET, TEST_DATABASE_URL } = require('../config');
+
 
 
 const expect = chai.expect;
@@ -508,39 +510,50 @@ describe('/users', function() {
             })
           })
         });//it should get a specific user
-        it('Should delete a specific user', function() {
-          return User.create(
-            {
-              username,
-              password,
-              firstName,
-              lastName
-            },
-            {
-              username: usernameB,
-              password: passwordB,
-              firstName: firstNameB,
-              lastName: lastNameB
-            })
-            .then(() => {
-              return chai
-            .request(app)
-            .get('/users')
-            .then(res => {
-              console.log(`/////////////////////////////`);
-              console.log(res.body);
-              console.log(`/////////////////////////////`);
+        // it('Should delete a specific user', function() {
+        //   return User.create(
+        //     {
+        //       username,
+        //       password,
+        //       firstName,
+        //       lastName
+        //     },
+        //     {
+        //       username: usernameB,
+        //       password: passwordB,
+        //       firstName: firstNameB,
+        //       lastName: lastNameB
+        //     })
+        //     .then(() => {
+        //       return chai
+        //     .request(app)
+        //     .get('/users')
+        //     .then(res => {
+        //       console.log(`/////////////////////////////`);
+        //       console.log(res.body);
+        //       console.log(`/////////////////////////////`);
 
-              return chai
-              .request(app)
-              .delete(`/${res.body[0].username}/${res.body[0].id}`)
-              .then(res => {
-                expect(res).to.have.status(204);
-              })
-            })
-            })
+        //       return chai
+        //       .request(app)
+        //       .delete(`/${res.body[0].username}/${res.body[0].id}`)
+        //       .then(res => {
+        //         expect(res).to.have.status(204);
+        //       })
+        //     })
+        //     })
           
-        });//it should delete a specific user
+        // });//it should delete a specific user
+
+        it.only('should delete a user interview by id', function(){
+          return Interview.create({
+            username: username,
+            firstName: firstName,
+            responses: [{questionText: "something?", responseText: "response"}]
+          })
+          .then(interview => {
+            console.log(interview);
+          })
+        });//it should delete a user interview by id
     });
   });
 });

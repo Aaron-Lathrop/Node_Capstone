@@ -7,6 +7,7 @@ const morgan = require('morgan');
 mongoose.Promise = global.Promise;
 
 const { router: usersRouter } = require('./users');
+const { router: interviewsRouter } = require('./interviews');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { PORT, DATABASE_URL} = require('./config');
 const { Question } = require('./models');
@@ -34,6 +35,7 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use('/users', usersRouter);
+app.use('/interviews', interviewsRouter);
 app.use('/auth', authRouter);
 app.use('/interview', express.static('public/index.html'));
 
@@ -62,7 +64,7 @@ app.use('*', function (req, res) {
 let server;
 
 function runServer(databaseUrl, port = PORT) {
-    // console.log(`${process.env.DATABASE_URL}`);
+    // console.log(process.env.DATABASE_URL);
     // console.log(databaseUrl);
     return new Promise((resolve, reject) => {
       mongoose.set('useCreateIndex', true)
