@@ -1,6 +1,10 @@
 'use strict';
-// import * as CACHE from 'utilities';
-const CACHE = window.CACHE_MODULE;
+// const CACHE = window.CACHE_MODULE;
+const CACHE = {
+        getUserAuthenticationFromCache,
+        saveUserAuthenticationIntoCache,
+        deleteUserAuthenticationFromCache
+    };
 
 
 function signupButtonHandler(){
@@ -117,12 +121,11 @@ function loadLoggedInScreenUsing(){
 }
 
 function getInterviews(callback){
-    const token = localStorage.getItem("access_token");
-    const userInfo = parseJwt(token);
+    const user = CACHE.getUserAuthenticationFromCache();
     $.ajax({
-        url: `/users/${userInfo.user.username}/interview`,
+        url: `/users/${user.username}/interview`,
         headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${user.jwtToken}`,
             "content-type": "application/json"
         },
         async: true,
@@ -170,7 +173,7 @@ function displayInterviewResponses(data){
     $('.reviewInterview').on("click", function(e){
         const interviewId = $(e.target).closest('div').attr('id');
         const interview = data.find(function(item){
-            return item.id === interviewId;
+            return item._id === interviewId;
         });
         console.log(interviewId);
         console.log(interview);
@@ -179,22 +182,21 @@ function displayInterviewResponses(data){
 }
 
 function deleteInterview(){
-    const token = localStorage.getItem("access_token");
-    const userInfo = parseJwt(token);
+    const user = CACHE.getUserAuthenticationFromCache();
     $(".deleteInterview").click(function(e){
         console.log(`delete button clicked`);
         if(confirm(`Deleting an interview CANNOT be undone and you'll lose this data permanently.\n\nClick OK to PERMANENTLY DELETE your intervew.`)){
             const interviewId = $(e.target).closest('div').attr('id');
             $.ajax({
-                url: `/users/${userInfo.user.username}/interview/${interviewId}`,
+                url: `/users/${user.username}/interview/${interviewId}`,
                 headers: {
-                    "Authorization": `Bearer ${token}`,
+                    "Authorization": `Bearer ${user.jwtToken}`,
                     "content-type": "application/json"
                 },
                 async: true,
                 type: "DELETE",
                 data: JSON.stringify({
-                    username: userInfo.user.username,
+                    username: user.username,
                     id: interviewId
                 }),
                 success: function(){
@@ -208,7 +210,7 @@ function deleteInterview(){
 
 function logoutUser(){
     $('#logout').click(function(){
-        localStorage.removeItem("access_token");
+        CACHE.deleteUserAuthenticationFromCache();
         location.reload();
     });
 }
@@ -227,14 +229,12 @@ function handleShowLoginSignup() {
 function loggedIn() {
     const user = CACHE.getUserAuthenticationFromCache();
     console.log(`loggedIn called`);
-    let userLoggedInToken = localStorage.getItem("access_token");
-    if(userLoggedInToken){
-        const parsedToken = parseJwt(userLoggedInToken);
+    if(user){
         console.log(`you're logged in right now`);
         $('nav').removeClass('hide');
         $('#practice, #review, #logout').removeClass('hide');
         $('#signin, #register, #get-started').addClass('hide');
-        displayDashboard(parsedToken.user);
+        displayDashboard(user);
         $(logoutUser());
         return true;
     } else{
