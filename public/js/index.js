@@ -225,6 +225,7 @@ function handleShowLoginSignup() {
 }
 
 function loggedIn() {
+    const user = CACHE.getUserAuthenticationFromCache();
     console.log(`loggedIn called`);
     let userLoggedInToken = localStorage.getItem("access_token");
     if(userLoggedInToken){
