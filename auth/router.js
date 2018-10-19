@@ -5,6 +5,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
 const config = require('../config');
+
 const router = express.Router();
 
 
@@ -32,16 +33,18 @@ router.post('/login', localAuth, (req,res) => {
         console.error(message);
         return res.status(400).json({message: message});
     }
-    const authToken = createAuthToken(req.user.serialize());
-    //res.setHeader("Set-Cookie", `access_token=${authToken}`);
-    res.json({authToken});
+
+    const user = req.user.serialize();
+    const jwtToken = createAuthToken(user);
+    res.json({jwtToken, user});
 });
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 router.post('/refresh', jwtAuth, (req,res) => {
-    const authToken = createAuthToken(req.user);
-    res.json({authToken});
+    const user = req.user;
+    const jwtToken = createAuthToken(user);
+    res.json({jwtToken, user});
 });
 
 module.exports = {router};

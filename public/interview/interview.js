@@ -90,6 +90,7 @@ function createInterview(){
 }
 
 function displayResponses(data) {
+    console.log(data);
     $('main').html(`<h1>Here are your responses</h1><br>
     <button id='review-all' class='center'>Review All</button><section id="display-responses" class="row"></section>`)
     for (let i=0; i < data.responses.length; i++){

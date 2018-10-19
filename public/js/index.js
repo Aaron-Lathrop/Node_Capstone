@@ -1,4 +1,7 @@
 'use strict';
+// import * as CACHE from 'utilities';
+const CACHE = window.CACHE_MODULE;
+
 
 function signupButtonHandler(){
     $('#signup').submit(function(e){
@@ -20,7 +23,7 @@ function signupButtonHandler(){
             $('input[name="password"]').val("");
             $('input[name="firstName"]').val("");
             $('input[name="lastName"]').val("");
-        }else {
+        } else {
             alert(`please complete all required fields`)
         }
         
@@ -55,6 +58,27 @@ function loginButtonHandler(){
     });
 }
 
+// function loginUser(usernameAndPassword){
+//     $.ajax({
+//         async: true,
+//         crossDomain: true,
+//         headers: {"content-type": "application/json"},
+//         type: "POST",
+//         url: "/auth/login",
+//         data: JSON.stringify(usernameAndPassword),
+//         success: function(jwtToken){
+//             const authToken = jwtToken.authToken;
+//             const parsedToken = parseJwt(authToken);
+//             localStorage.clear();
+//             localStorage.setItem("access_token", authToken);
+//             loadLoggedInScreenUsing(parsedToken);
+//         },
+//         error: function (jqXHR, status, err) {
+//             console.log(jqXHR, status, err);
+//         }
+//     });
+// }
+
 function loginUser(usernameAndPassword){
     $.ajax({
         async: true,
@@ -63,12 +87,10 @@ function loginUser(usernameAndPassword){
         type: "POST",
         url: "/auth/login",
         data: JSON.stringify(usernameAndPassword),
-        success: function(jwtToken){
-            const authToken = jwtToken.authToken;
-            const parsedToken = parseJwt(authToken);
-            localStorage.clear();
-            localStorage.setItem("access_token", authToken);
-            loadLoggedInScreenUsing(parsedToken);
+        success: function(response){
+            console.log(response);
+            CACHE.saveUserAuthenticationIntoCache(response)
+            loadLoggedInScreenUsing();
         },
         error: function (jqXHR, status, err) {
             console.log(jqXHR, status, err);
@@ -76,11 +98,13 @@ function loginUser(usernameAndPassword){
     });
 }
 
-function loadLoggedInScreenUsing(parsedToken){
+function loadLoggedInScreenUsing(){
+    const user = CACHE.getUserAuthenticationFromCache();
+    console.log(user);
     $.ajax({
-        url: `/users/${parsedToken.user.username}`,
+        url: `/users/${user.username}`,
         headers: {
-            "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
+            "Authorization": `Bearer ${user.jwtToken}`,
             "content-type": "application/json"
         },
         async: true,
@@ -105,7 +129,6 @@ function getInterviews(callback){
         type: "GET",
         success: function(res){
             console.log(res);
-            console.log(res.interviews);
             if(res.interviews.length > 0){
                 callback(res.interviews);
             } else if(res.interviews.length === 0){
@@ -127,7 +150,7 @@ function displayInterviewCards(data){
     <section id="selectInterview" class="row"></section>`);
     data.forEach(interview => {
         $('#selectInterview').append(`
-        <div id=${interview.id} class='col-6 response-container interviewContainer'>
+        <div id=${interview._id} class='col-6 response-container interviewContainer'>
 
             <p><b>Interview from:</b> <span>${interview.created}</span></p>
             <button class="reviewInterview">Review</button>
@@ -136,7 +159,6 @@ function displayInterviewCards(data){
     });
     $(displayInterviewResponses(data));
     $(deleteInterview());
-    $(displayInterviewResponses());
 }
 
 function getAndDisplayInterviewCards(){

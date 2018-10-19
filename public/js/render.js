@@ -153,7 +153,7 @@ function loadScreen(screen){
             </section>
             <button id='mockStart' class="center">Start Interview</button>`);
             getAndDisplayInterviewCards();
-            $(mockStartHandler());
+            //$(mockStartHandler());
         }
         $(document).ready($(handleNodeApp()));
 }

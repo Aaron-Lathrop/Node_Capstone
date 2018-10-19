@@ -201,7 +201,8 @@ router.get('/:username/interview', jwtAuth, (req,res) => {
   .then(user => {
     res.json({
       interviews: user.interviews.map(
-        (interview) => interview.serialize())
+        //(interview) => interview.serialize()
+        (interview) => interview)
     });
   })
   .catch(err => {
