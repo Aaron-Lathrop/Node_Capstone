@@ -158,6 +158,39 @@ router.get('/:username', jwtAuth, (req, res) => {
       .catch(err => res.status(500).json({message: 'Internal server error'}));
 });
 
+//change password
+router.put('/:id', jwtAuth, (req, res) => {
+
+  const currentPassword = req.body.password;
+
+  User.findById(req.params.id)
+  .then(user => {
+    return user.validatePassword(currentPassword)
+  })
+  .then((isValid) => {
+    if(isValid){
+      const newPassword = req.body.newPassword;
+      User.hashPassword(newPassword)
+      .then(hash => {
+        User.update({_id: req.params.id}, { $set: {password: hash} } )
+        .then(() => res.status(201).json({message: "Password changed successfully"}))
+        .catch(err => {
+          console.error(err)
+          .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
+        })
+      })
+    .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
+    } else {
+      res.status(500).json({message: 'Internal server error! Oh my!'}).end();
+      }
+  })
+  .catch(err => {
+    console.error(err)
+    res.end(500).json({message: 'Internal server error! Oh my!'})})
+  
+  
+});
+
 router.delete('/:username/:id', (req,res) =>{
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
     const message = (`Request path username (${req.params.username}) must match`+
@@ -181,41 +214,6 @@ router.delete('/:username/:id', (req,res) =>{
     console.error(err);
     res.status(500).json({message: "Internal server error! Oh my!"})
   });
-});
-
-router.put('/:username/interview/:id', jwtAuth, function(req,res){
-  if(!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-        const message = (`Request path id (${req.params.id}) must match ` + 
-        `request body id ${req.body.id}`);
-        console.error(message);
-        return res.status(400).json({message: message});
-    }
-
-    const toUpdate = {};
-    const updateableFields = ["responses"];
-
-    updateableFields.forEach(field => {
-        if(field in req.body){
-            toUpdate[field] = req.body[field];
-        }
-    });
-
-    User.findOne({username: req.params.username})
-    .then(user => user.interviews.forEach(function(interview, index) {
-      if(interview._id == req.body.id){
-        console.log(user.interviews[index].responses);
-        console.log(toUpdate);
-        user.interviews[index].responses = toUpdate;
-        return user.save() 
-      }
-       
-    }))
-    //.then(user => user.interviews.findByIdAndUpdate(req.params.id, { $set: toUpdate}))
-    .then(res.status(204).end())
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({message: "Internal server error! Oh my!"});
-  });    
 });
 
 module.exports = {router};

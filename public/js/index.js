@@ -241,7 +241,7 @@ function showNav(){
     }
 }
 
-function handleNodeApp(){
+function onPageLoad(){
     $(loggedIn());
     $(signupButtonHandler());
     $(loginButtonHandler());
@@ -251,4 +251,4 @@ function handleNodeApp(){
     $(getStartedHandler());
 }
 
-$(document).ready($(handleNodeApp()));
+$(document).ready($(onPageLoad()));

@@ -95,7 +95,7 @@ function displayResponses(data) {
         console.log(`appending results ${i}`);
         console.log(data.responses[i].questionText);
         $('#display-responses').append(
-            `<div class="response-container col-6">
+            `<div id=${i} class="response-container col-6">
                 <p><strong> ${data.responses[i].questionText}</strong></p>
                 <p> ${data.responses[i].responseText}</p>
              </div>`

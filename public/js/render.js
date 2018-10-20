@@ -155,7 +155,7 @@ function loadScreen(screen){
             getAndDisplayInterviewCards();
             //$(mockStartHandler());
         }
-        $(document).ready($(handleNodeApp()));
+        $(document).ready($(onPageLoad()));
 }
 
 function getStartedHandler(){
