@@ -14,7 +14,6 @@ function signupButtonHandler(){
         const password = `${$('input[name="password"]').val()}`;
         const firstName = `${$('input[name="firstName"]').val()}`;
         const lastName = `${$('input[name="lastName"]').val()}`;
-        console.log(username, password, firstName, lastName);
         if(username && password && firstName && lastName){
             const newUser = {
                 username: username,
@@ -71,30 +70,12 @@ function loginUser(usernameAndPassword){
         url: "/auth/login",
         data: JSON.stringify(usernameAndPassword),
         success: function(response){
-            console.log(response);
             CACHE.saveUserAuthenticationIntoCache(response)
-            loadLoggedInScreenUsing();
+            displayDashboard();
+            location.reload();
         },
         error: function (jqXHR, status, err) {
-            console.log(jqXHR, status, err);
-        }
-    });
-}
-
-function loadLoggedInScreenUsing(){
-    const user = CACHE.getUserAuthenticationFromCache();
-    console.log(user);
-    $.ajax({
-        url: `/users/${user.username}`,
-        headers: {
-            "Authorization": `Bearer ${user.jwtToken}`,
-            "content-type": "application/json"
-        },
-        async: true,
-        type: "GET",
-        success: function(res){
-            location.reload();
-            $(document).ready(displayDashboard(res));
+            console.error(jqXHR, status, err);
         }
     });
 }
@@ -110,7 +91,6 @@ function getInterviews(callback){
         async: true,
         type: "GET",
         success: function(res){
-            console.log(res);
             if(res.length > 0){
                 callback(res);
             } else if(res.length === 0){
@@ -127,7 +107,6 @@ function getInterviews(callback){
 }
 
 function displayInterviewCards(data){
-    console.log(data);
     $('main').html(`<h1>Click on an interview to view your responses.</h1>
     <section id="selectInterview" class="row"></section>`);
     data.forEach(interview => {
@@ -148,14 +127,11 @@ function getAndDisplayInterviewCards(){
 }
 
 function displayInterviewResponses(data){
-    console.log(data);
     $('.reviewInterview').on("click", function(e){
         const interviewId = $(e.target).closest('div').attr('id');
         const interview = data.find(function(item){
             return item.id === interviewId;
         });
-        console.log(interviewId);
-        console.log(interview);
         displayResponses(interview);
     });
 }
@@ -163,7 +139,6 @@ function displayInterviewResponses(data){
 function deleteInterview(){
     const user = CACHE.getUserAuthenticationFromCache();
     $(".deleteInterview").click(function(e){
-        console.log(`delete button clicked`);
         if(confirm(`Deleting an interview CANNOT be undone and you'll lose this data permanently.\n\nClick OK to PERMANENTLY DELETE your intervew.`)){
             const interviewId = $(e.target).closest('div').attr('id');
             $.ajax({
@@ -194,8 +169,9 @@ function logoutUser(){
     });
 }
 
-function displayDashboard(data){
-    $('.js-username-dash').html(data.firstName);
+function displayDashboard(){
+    const user = CACHE.getUserAuthenticationFromCache();
+    $('.js-username-dash').html(user.firstName);
 }
 
 function handleShowLoginSignup() {
@@ -207,17 +183,14 @@ function handleShowLoginSignup() {
 
 function loggedIn() {
     const user = CACHE.getUserAuthenticationFromCache();
-    console.log(`loggedIn called`);
     if(user){
-        console.log(`you're logged in right now`);
         $('nav').removeClass('hide');
         $('#practice, #review, #logout').removeClass('hide');
         $('#signin, #register, #get-started').addClass('hide');
-        displayDashboard(user);
+        displayDashboard();
         $(logoutUser());
         return true;
     } else{
-        console.log("you're logged out right now");
         $('nav').addClass('hide');
         $('#practice, #review, #logout').addClass('hide');
         $('#home, #signin, #register, #get-started').removeClass('hide');
