@@ -36,6 +36,26 @@ function loginUser(usernameAndPassword){
     });
 }
 
+function changePassword(passwordChange){
+    const user = getUserAuthenticationFromCache();
+    $.ajax({
+        async: true,
+        headers: {
+            "Authorization": `Bearer ${user.jwtToken}`,
+            "content-type": "application/json"
+        },
+        url: `/users/${user.userid}`,
+        type: "PUT",
+        data: JSON.stringify(passwordChange),
+        success: function(){
+            alert("Password changed successfully");
+        },
+        error: function (jqXHR, status, err) {
+            console.error(jqXHR, status, err);
+        }
+    });
+}
+
 
 //Interview HTTP Requests
 

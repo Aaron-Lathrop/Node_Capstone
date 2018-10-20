@@ -46,6 +46,16 @@ function loginButtonHandler(){
     });
 }
 
+function changePasswordHandler(){
+    $('#change-password').submit(function(event){
+        event.preventDefault();
+        const passwordChange = {
+            currentPassword: $("input[name='newPassword']").val(),
+            newPassword: $("input[name='newPassword']").val()
+        }
+        changePassword(passwordChange);
+    });
+}
 
 function displayInterviewCards(data){
     $('main').html(`<h1>Click on an interview to view your responses.</h1>
@@ -102,6 +112,7 @@ function loggedIn() {
     const user = CACHE.getUserAuthenticationFromCache();
     if(user){
         displayDashboard();
+        $('#get-started').toggle();
         return true;
     } else{
         $('nav').addClass('hide');
@@ -124,6 +135,7 @@ function onPageLoad(){
     $(handleNav());
     $(mockStartHandler());
     $(getStartedHandler());
+    $(changePasswordHandler());
 }
 
 $(document).ready($(onPageLoad()));

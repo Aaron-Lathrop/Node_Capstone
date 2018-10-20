@@ -21,6 +21,9 @@ function loadScreen(screen){
         } else if(screen === 'signin'){
             $('header').addClass('hide');
             html = loadSignIn();
+        } else if (screen === 'account'){
+            $('header').addClass('hide');
+            html = loadAccount();
         } else if(screen === 'logout'){
             $('header').addClass('hide');
             html = loadLogout();
@@ -168,6 +171,25 @@ function loadLogout(){
             <h1>Logging out</h1>
         </div>
     </section>`;
+}
+
+function loadAccount(){
+    return `
+    <div class="row">
+        <div class="col-12">
+            <form id="change-password" name="change-password" class="center">
+                <fieldset>
+                    <legend>Change Password</legend>
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" name='currentPassword' placeholder="password">
+                    <label for="newPassword">New Password*</label>
+                    <input type="password" name='newPassword' placeholder="new password">
+                    <button class='center' type="submit">Change Password</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    `;
 }
 
 function loadReview(){

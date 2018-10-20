@@ -86,17 +86,17 @@ p {
     display: block;
 }
 
-#login, #signup {
+form {
     text-align: center;
 }
 
-#signup label, #login label {
+form label {
     display: block;
-    text-align: left;
-    margin-left: 15%;
+    text-align: center;
+    /* margin-left: 15%; */
 }
 
-#signup fieldset, #login fieldset {
+form fieldset {
     font-size: 25px;
     width: 350px;
     position: relative;
@@ -107,14 +107,15 @@ p {
     background-color: white;
     box-shadow: 7px 5px 5px grey;
 }
-#signup legend, #login legend {
+form legend {
     position: relative;
     top: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
     padding-top: 20px;
+    font-weight: bold;
 }
 
-#signup input, #login input {
+form input {
     border: 2px solid ghostwhite;
     border-radius: 8px;
     height: 35px;
@@ -230,7 +231,7 @@ button:hover {
 }
 
 .icon {
-    float: right;
+    float: left;
     color: white;
 }
 

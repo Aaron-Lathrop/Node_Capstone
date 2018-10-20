@@ -160,7 +160,7 @@ router.get('/:username', jwtAuth, (req, res) => {
 //change password
 router.put('/:id', jwtAuth, (req, res) => {
 
-  const currentPassword = req.body.password;
+  const currentPassword = req.body.currentPassword;
 
   User.findById(req.params.id)
   .then(user => {

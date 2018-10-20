@@ -59,11 +59,16 @@
     .icon {
         display: none;
     }
+    
 }
 
 @media only screen and (max-width: 639px){
 
     #nav-list {
         display: none;
+    }
+
+    nav li {
+        float: initial;
     }
 }
