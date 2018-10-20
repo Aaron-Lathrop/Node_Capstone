@@ -66,16 +66,17 @@ function getAndDisplayQuestions(){
 }
 
 function createInterview(){
-    console.log(`createInterview called`);
-    const token = localStorage.getItem("access_token");
-    const userInfo = parseJwt(token);
-    const URL = `/users/${userInfo.user.username}/interview`;
+    const user = getUserAuthenticationFromCache();
+    // console.log(`createInterview called`);
+    // const token = localStorage.getItem("access_token");
+    // const userInfo = parseJwt(token);
+    const URL = `/users/${user.username}/interview`;
     const data = interviewResponses;
     $.ajax({
         async: true,
         crossDomain: true,
         headers: {
-            "Authorization": `Bearer ${token}`,
+            "Authorization": `Bearer ${user.jwtToken}`,
             "content-type": "application/json"
         },
         dataType: "json",

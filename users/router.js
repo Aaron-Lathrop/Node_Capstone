@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const {User} = require('./models');
+const {Interview} = require('../interviews/models')
 
 const router = express.Router();
 
@@ -218,14 +219,18 @@ router.post('/:username/interview', jwtAuth, (req,res) => {
     console.error(message);
     return res.status(400).json({message: message});
   }
+
+  Interview.create(req.body)
   
-  User.findOne({username: req.params.username})
-  .then(user => {
-    user.interviews.push(req.body);
-    return user.save();
-    } 
-  )
-  .then(res.status(201).json({message: `interview saved successfully`}))
+  // User.findOne({username: req.params.username})
+  // .then(user => {
+  //   user.interviews.push(req.body);
+  //   return user.save();
+  //   } 
+  // )
+  .then(interview => {
+    res.status(201).json({message: `interview saved successfully`, interview: interview})
+  })
   .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
 });
 

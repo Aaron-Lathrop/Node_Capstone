@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const interviewSchema = mongoose.Schema({
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     username: {type: String, required: true},
-    firstName: {type: String, required: true},
+    firstName: {type: String},
     created: {type: Date, default: Date.now},
     responses: {type: Array, sparse: true}
 });
@@ -40,7 +41,7 @@ const interviewSchema = mongoose.Schema({
 // };
 
 interviewSchema.pre('create', function(next){
-    this.populate('responses');
+    this.populate('User');
     next();
 });
 

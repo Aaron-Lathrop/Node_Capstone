@@ -1,5 +1,5 @@
 'use strict';
-// const CACHE = window.CACHE_MODULE;
+
 const CACHE = {
         getUserAuthenticationFromCache,
         saveUserAuthenticationIntoCache,
@@ -61,27 +61,6 @@ function loginButtonHandler(){
         loginUser(userSignupInfo);
     });
 }
-
-// function loginUser(usernameAndPassword){
-//     $.ajax({
-//         async: true,
-//         crossDomain: true,
-//         headers: {"content-type": "application/json"},
-//         type: "POST",
-//         url: "/auth/login",
-//         data: JSON.stringify(usernameAndPassword),
-//         success: function(jwtToken){
-//             const authToken = jwtToken.authToken;
-//             const parsedToken = parseJwt(authToken);
-//             localStorage.clear();
-//             localStorage.setItem("access_token", authToken);
-//             loadLoggedInScreenUsing(parsedToken);
-//         },
-//         error: function (jqXHR, status, err) {
-//             console.log(jqXHR, status, err);
-//         }
-//     });
-// }
 
 function loginUser(usernameAndPassword){
     $.ajax({

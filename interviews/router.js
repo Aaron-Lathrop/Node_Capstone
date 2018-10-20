@@ -2,7 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const {Interview} = require('./models');
+const {User, Interview} = require('./models');
 
 const router = express.Router();
 
@@ -15,19 +15,18 @@ passport.use(jwtStrategy);
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
 
-router.get('/:username/interview', jwtAuth, (req,res) => {
+router.get('/', jwtAuth, (req,res) => {
   // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
   //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
   //   `request body username ${req.body.username}`);
   //   console.error(message);
   //   return res.status(400).json({message: message});
   // }
-  User.findOne({username: req.params.username})
-  .then(user => {
-    res.json({
-      interviews: user.interviews.map(
-        (interview) => interview.serialize())
-    });
+  console.log(req.user);
+  Interview.find({user: req.user.id})
+  .populate('user')
+  .then(interviews => {
+    return res.status(200).json(interviews.map(interview => interview.serialize()))
   })
   .catch(err => {
       console.error(err);
@@ -35,21 +34,31 @@ router.get('/:username/interview', jwtAuth, (req,res) => {
   });
 });
 
-router.post('/:username/interview', jwtAuth, (req,res) => {
-  if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
-    const message = (`Request path username (${req.params.usernmae}) must match ` + 
-    `request body username ${req.body.username}`);
-    console.error(message);
-    return res.status(400).json({message: message});
-  }
+router.post('/', jwtAuth, (req,res) => {
+  // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
+  //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
+  //   `request body username ${req.body.username}`);
+  //   console.error(message);
+  //   return res.status(400).json({message: message});
+  // }
   
-  User.findOne({username: req.params.username})
-  .then(user => {
-    user.interviews.push(req.body);
-    return user.save();
-    } 
-  )
-  .then(res.status(201).json({message: `interview saved successfully`}))
+  // User.findOne({username: req.params.username})
+  // .then(user => {
+  //   user.interviews.push(req.body);
+  //   return user.save();
+  //   } 
+  // )
+  const newInterview = {
+    user: req.user.id,
+    username: req.user.username,
+    responses: req.body.responses
+  }
+
+  Interview.create(newInterview)
+  .then(interview => {
+    res.status(201).json({message: `interview saved successfully`, interview: interview})
+  })
+  // .then(res.status(201).json({message: `interview saved successfully`}))
   .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
 });
 

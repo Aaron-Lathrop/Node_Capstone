@@ -1,8 +1,4 @@
-// window.CACHE_MODULE = {
-//     getUserAuthenticationFromCache,
-//     saveUserAuthenticationIntoCache,
-//     deleteUserAuthenticationFromCache
-// };
+'use strict';
 
 function getUserAuthenticationFromCache() {
     const jwtToken = localStorage.getItem('jwtToken');
