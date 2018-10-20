@@ -1,12 +1,5 @@
 'use strict';
 
-const CACHE = {
-        getUserAuthenticationFromCache,
-        saveUserAuthenticationIntoCache,
-        deleteUserAuthenticationFromCache
-    };
-
-
 function signupButtonHandler(){
     $('#signup').submit(function(e){
         e.preventDefault();
@@ -49,11 +42,24 @@ function loginButtonHandler(){
 function changePasswordHandler(){
     $('#change-password').submit(function(event){
         event.preventDefault();
-        const passwordChange = {
-            currentPassword: $("input[name='newPassword']").val(),
-            newPassword: $("input[name='newPassword']").val()
+        const currentPassword = $("input[name='currentPassword']").val();
+        const newPassword = $("input[name='newPassword']").val();
+        const confirmPassword = $("input[name='confirmPassword']").val();
+        if(newPassword.length >= 10){
+            if(confirmPassword === newPassword){
+                const passwordChange = {
+                    currentPassword: currentPassword,
+                    newPassword: newPassword
+                }
+                changePassword(passwordChange);
+                loadScreen('home');
+            } else {
+                alert(`Passwords do not match`);
+            }
+        } else {
+            alert(`Password must be at least 10 characters in length`);
         }
-        changePassword(passwordChange);
+        
     });
 }
 
@@ -91,13 +97,13 @@ function displayInterviewResponses(data){
 
 function logoutUser(){
     $('#logout').click(function(){
-        CACHE.deleteUserAuthenticationFromCache();
+        deleteUserAuthenticationFromCache();
         location.reload();
     });
 }
 
 function displayDashboard(){
-    const user = CACHE.getUserAuthenticationFromCache();
+    const user = getUserAuthenticationFromCache();
     $('.js-username-dash').html(user.firstName);
 }
 
@@ -109,7 +115,7 @@ function handleShowLoginSignup() {
 }
 
 function loggedIn() {
-    const user = CACHE.getUserAuthenticationFromCache();
+    const user = getUserAuthenticationFromCache();
     if(user){
         displayDashboard();
         $('#get-started').toggle();

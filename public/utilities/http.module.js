@@ -26,7 +26,7 @@ function loginUser(usernameAndPassword){
         url: "/auth/login",
         data: JSON.stringify(usernameAndPassword),
         success: function(response){
-            CACHE.saveUserAuthenticationIntoCache(response)
+            saveUserAuthenticationIntoCache(response)
             displayDashboard();
             location.reload();
         },
@@ -60,7 +60,7 @@ function changePassword(passwordChange){
 //Interview HTTP Requests
 
 function getInterviews(callback){
-    const user = CACHE.getUserAuthenticationFromCache();
+    const user = getUserAuthenticationFromCache();
     $.ajax({
         url: `/interviews`,
         headers: {

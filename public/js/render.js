@@ -44,6 +44,8 @@ function getStartedHandler(){
 }
 
 function loadHome(){
+    $('header').html(`<h1><span class="js-username-dash"></span></h1>
+    <h2>Practice makes perfect. <br>Feel more confident.</h2>`);
     return `
     <section class="row">
         <div class="container col-12">
@@ -184,6 +186,8 @@ function loadAccount(){
                     <input type="password" name='currentPassword' placeholder="password">
                     <label for="newPassword">New Password*</label>
                     <input type="password" name='newPassword' placeholder="new password">
+                    <label for="confirmPassword">Re-enter Password*</label>
+                    <input type="password" name='confirmPassword' placeholder="re-enter password">
                     <button class='center' type="submit">Change Password</button>
                 </fieldset>
             </form>
