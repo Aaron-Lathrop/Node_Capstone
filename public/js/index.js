@@ -101,38 +101,23 @@ function handleShowLoginSignup() {
 function loggedIn() {
     const user = CACHE.getUserAuthenticationFromCache();
     if(user){
-        $('nav').removeClass('hide');
-        $('#practice, #review, #logout').removeClass('hide');
-        $('#signin, #register, #get-started').addClass('hide');
         displayDashboard();
-        $(logoutUser());
         return true;
     } else{
         $('nav').addClass('hide');
-        $('#practice, #review, #logout').addClass('hide');
-        $('#home, #signin, #register, #get-started').removeClass('hide');
         return false;
     }
 }
 
-function parseJwt(token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
-};
-
 function showNav(){
     if(loggedIn()){
-        $('#home, #practice, #review, #logout').toggle();
-        $('#practice, #review, #logout').removeClass('hide');
-    } else {
-        $('#home, #signin, #register').toggle();
-        $('#home, #signin, #register').removeClass('hide');
+        $('#nav-list').toggle();
     }
 }
 
 function onPageLoad(){
     $(loggedIn());
+    $(logoutUser());
     $(signupButtonHandler());
     $(loginButtonHandler());
     $(handleShowLoginSignup());

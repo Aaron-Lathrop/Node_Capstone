@@ -62,31 +62,8 @@
 }
 
 @media only screen and (max-width: 639px){
-    #practice {
-        display: none;
-        float: none;
-    }
 
-    #home {
-        display: none;
-        float: none;
-    }
-
-    #review {
-        display: none;
-        float: none;
-    }
-
-    #logout {
-        display: none;
-        float: none;
-    }
-
-    /* #signin {
+    #nav-list {
         display: none;
     }
-
-    #register {
-        display: none;
-    } */
 }
