@@ -11,7 +11,6 @@ const { router: interviewsRouter } = require('./interviews');
 const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const { PORT, DATABASE_URL} = require('./config');
 const { Question } = require('./models');
-const { Interview } = require('./users/models');
 
 const express = require('express');
 const app = express();

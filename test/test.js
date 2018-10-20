@@ -54,30 +54,4 @@ describe('Node Capstone app', function(){
             });
     });//it should show the app is online
 
-    // it('should GET one user',function(){
-    //     return chai
-    //     .request(app)
-    //     .post('/users')
-    //     .send({
-    //         password,
-    //         firstName,
-    //         lastName,
-    //         username
-    //     })
-    //     .then(() =>
-    //         expect(res).to.have.status(201)
-    //     )
-    //     .catch(err => {
-    //         if(err instanceof chai.AssertionError){
-    //             throw err;
-    //         }
-    //     });
-        // .then(() => {
-        //     chai.request(app)
-        //     .get(`/users/${username}`)
-        // })
-    // });
-
-    
-
 });//describe Node Capstone app

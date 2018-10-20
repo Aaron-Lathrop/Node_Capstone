@@ -8,6 +8,10 @@ const interviewResponses = {
     firstName: "",
     responses: []};
 
+
+    
+//HTTP request handlers
+
 function getInterviewQuestions(callback){
     $.ajax({
         async: true,
@@ -20,49 +24,6 @@ function getInterviewQuestions(callback){
             storeQuestionsLocally(data);
         }
     });
-}
-
-function storeQuestionsLocally(data){
-    data.questions.forEach(question => interviewQuestions.push(question));
-    displayQuestion(interviewQuestions);
-}
-
-function randomQuestion(questions){
-    if(interviewQuestions.length > 0){
-        let randomNumber = Math.floor(Math.random() * interviewQuestions.length);
-        console.log(randomNumber);
-        const output = questions.splice(randomNumber,1);
-        console.log(output[0]);
-        return output[0];
-    } 
-    else {
-        alert("No more questions");
-    }
-    
-}
-
-function displayQuestion(){
-    $('#mockInterview').html(`
-        <form id='interview' name='interview' autocomplete='off'>
-            <div class="row">
-                <img id="interviewAvatar" class="center" src="/Interview_avatar.png">
-            </div>
-            <div class="row">
-                <label class='interviewQuestion col-12'><span>${randomQuestion(interviewQuestions).questionText}</span></label>
-            </div>
-            <div class="row">
-                <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
-            </div>
-            <div class="row">
-                <button id='answerButton' class="center" type='submit' value='Answer'>Answer</button>
-            </div>
-        </form>`);
-    answerButtonHandler();
-}
-
-
-function getAndDisplayQuestions(){
-    getInterviewQuestions(displayQuestion);
 }
 
 function createInterview(){
@@ -87,13 +48,65 @@ function createInterview(){
     
 }
 
+
+
+//etc functions
+
+function storeQuestionsLocally(data){
+    data.questions.forEach(question => interviewQuestions.push(question));
+    displayQuestion(interviewQuestions);
+}
+
+function randomQuestion(questions){
+    if(interviewQuestions.length > 0){
+        let randomNumber = Math.floor(Math.random() * interviewQuestions.length);
+        const output = questions.splice(randomNumber,1);
+        return output[0];
+    } 
+    else {
+        alert("No more questions");
+    }
+    
+}
+
+function addResponse(){
+    interviewResponses.responses.push({
+        "questionText": $('#interview').find('label').text(),
+        "responseText": $('#interview').find('textarea[name="userResponse"]').val()
+    });
+}
+
+
+
+//display functions
+
+function displayQuestion(){
+    $('#mockInterview').html(`
+        <form id='interview' name='interview' autocomplete='off'>
+            <div class="row">
+                <img id="interviewAvatar" class="center" src="/Interview_avatar.png">
+            </div>
+            <div class="row">
+                <label class='interviewQuestion col-12'><span>${randomQuestion(interviewQuestions).questionText}</span></label>
+            </div>
+            <div class="row">
+                <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
+            </div>
+            <div class="row">
+                <button id='answerButton' class="center" type='submit' value='Answer'>Answer</button>
+            </div>
+        </form>`);
+    answerButtonHandler();
+}
+
+function getAndDisplayQuestions(){
+    getInterviewQuestions(displayQuestion);
+}
+
 function displayResponses(data) {
-    console.log(data);
     $('main').html(`<h1>Here are your responses</h1><br>
     <button id='review-all' class='center'>Review All</button><section id="display-responses" class="row"></section>`)
     for (let i=0; i < data.responses.length; i++){
-        console.log(`appending results ${i}`);
-        console.log(data.responses[i].questionText);
         $('#display-responses').append(
             `<div id=${i} class="response-container col-6">
                 <p><strong> ${data.responses[i].questionText}</strong></p>
@@ -104,44 +117,20 @@ function displayResponses(data) {
     $(reviewAllHandler);
 }
 
-function reviewAllHandler() {
-    $('#review-all').click(function(){
-        loadScreen('review');
-    });
-}
 
-function mockStartHandler() {
-    console.log("mockStartHandler called");
-    $('#mockStart').click(function(){
-        $('welcome').toggleClass('hide');
-        $('mock').toggleClass('hide');
-        $(getInterviewQuestions());
-        $('#mockStart').addClass('hide');
-    });
-}
+
+//button handlers
 
 function answerButtonHandler() {
     $('#interview').submit(function(e){
         e.preventDefault();
         const user = getUserAuthenticationFromCache();
-        // const parsedToken = parseJwt(localStorage.getItem("access_token"));
         if(questionNumber < 9 && user.jwtToken !== null){
-            interviewResponses.username = user.username;
-            interviewResponses.firstName = user.firstName;
-            interviewResponses.responses.push({
-                "username": `${user.username}`,
-                "questionText": $('#interview').find('label').text(),
-                "responseText": $('#interview').find('textarea[name="userResponse"]').val()
-            });
+            addResponse();
             $(displayQuestion());
-            
-        } else {
-            console.log(user.username);
-            interviewResponses.responses.push({
-                "username": `${user.username}`,
-                "questionText": $('#interview').find('label').text(),
-                "responseText": $('#interview').find('textarea[name="userResponse"]').val()
-            });
+        } 
+        else {
+            addResponse();
             $('#mockInterview').html(`
                 <section class='container row'>
                     <div class='col-12'>
@@ -168,8 +157,17 @@ function reviewButtonHandler(){
     });
 }
 
-// function parseJwt(token) {
-//     var base64Url = token.split('.')[1];
-//     var base64 = base64Url.replace('-', '+').replace('_', '/');
-//     return JSON.parse(window.atob(base64));
-// };
+function mockStartHandler() {
+    $('#mockStart').click(function(){
+        $('welcome').toggleClass('hide');
+        $('mock').toggleClass('hide');
+        $(getInterviewQuestions());
+        $('#mockStart').addClass('hide');
+    });
+}
+
+function reviewAllHandler() {
+    $('#review-all').click(function(){
+        loadScreen('review');
+    });
+}

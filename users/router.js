@@ -3,7 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const {User} = require('./models');
-const {Interview} = require('../interviews/models')
 
 const router = express.Router();
 
@@ -172,7 +171,7 @@ router.put('/:id', jwtAuth, (req, res) => {
       const newPassword = req.body.newPassword;
       User.hashPassword(newPassword)
       .then(hash => {
-        User.update({_id: req.params.id}, { $set: {password: hash} } )
+        User.updateOne({_id: req.params.id}, { $set: {password: hash} } )
         .then(() => res.status(201).json({message: "Password changed successfully"}))
         .catch(err => {
           console.error(err)
@@ -191,7 +190,7 @@ router.put('/:id', jwtAuth, (req, res) => {
   
 });
 
-router.delete('/:username/:id', (req,res) =>{
+router.delete('/:id', (req,res) =>{
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
     const message = (`Request path username (${req.params.username}) must match`+
     `request body username (${req.body.username})`);
