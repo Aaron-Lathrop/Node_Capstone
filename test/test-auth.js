@@ -35,7 +35,6 @@ describe('Auth endpoints', function () {
         username,
         password,
         firstName,
-        lastName
       })
     );
   });
@@ -102,17 +101,19 @@ describe('Auth endpoints', function () {
         .post('/auth/login')
         .send({ username, password })
         .then(res => {
+          console.log(res.body);
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
-          const token = res.body.authToken;
+          const token = res.body.jwtToken;
           expect(token).to.be.a('string');
           const payload = jwt.verify(token, JWT_SECRET, {
             algorithm: ['HS256']
           });
+          console.log(payload);
           expect(payload.user).to.deep.equal({
             username,
             firstName,
-            lastName
+            id: res.body.user.id
           });
         });
     });
@@ -223,7 +224,7 @@ describe('Auth endpoints', function () {
         .then(res => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
-          const token = res.body.authToken;
+          const token = res.body.jwtToken;
           expect(token).to.be.a('string');
           const payload = jwt.verify(token, JWT_SECRET, {
             algorithm: ['HS256']

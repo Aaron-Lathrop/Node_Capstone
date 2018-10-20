@@ -1,5 +1,4 @@
 'use strict';
-global.DATABASE_URL = 'mongodb://localhost/jwt-auth-demo-test';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
@@ -384,7 +383,8 @@ describe('/users', function() {
             expect(res.body).to.have.keys(
               'username',
               'firstName',
-              'lastName'
+              'lastName',
+              'id'
             );
             expect(res.body.username).to.equal(username);
             expect(res.body.firstName).to.equal(firstName);
@@ -419,7 +419,8 @@ describe('/users', function() {
             expect(res.body).to.have.keys(
               'username',
               'firstName',
-              'lastName'
+              'lastName',
+              'id'
             );
             expect(res.body.username).to.equal(username);
             expect(res.body.firstName).to.equal(firstName);
@@ -496,7 +497,7 @@ describe('/users', function() {
               password: password
             })
             .then(res => {
-              authToken = `Bearer ${res.body.authToken}`;
+              authToken = `Bearer ${res.body.jwtToken}`;
               return chai
               .request(app)
               .get(`/users/${username}`)
@@ -544,7 +545,7 @@ describe('/users', function() {
           
         // });//it should delete a specific user
 
-        it.only('should delete a user interview by id', function(){
+        it('should delete a user interview by id', function(){
           return Interview.create({
             username: username,
             firstName: firstName,

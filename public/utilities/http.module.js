@@ -2,6 +2,7 @@
 
 //User HTTP Requests
 
+//POST request
 function postNewUser(userSignupInfo){
     $.ajax({
         async: true,
@@ -17,6 +18,7 @@ function postNewUser(userSignupInfo){
     });
 }
 
+//POST request
 function loginUser(usernameAndPassword){
     $.ajax({
         async: true,
@@ -36,6 +38,7 @@ function loginUser(usernameAndPassword){
     });
 }
 
+//PUT request
 function changePassword(passwordChange){
     const user = getUserAuthenticationFromCache();
     $.ajax({
@@ -57,8 +60,10 @@ function changePassword(passwordChange){
 }
 
 
+
 //Interview HTTP Requests
 
+//GET request
 function getInterviews(callback){
     const user = getUserAuthenticationFromCache();
     $.ajax({
@@ -85,6 +90,7 @@ function getInterviews(callback){
     });
 }
 
+//POST request
 function createInterview(){
     const user = getUserAuthenticationFromCache();
     const URL = `/interviews`;
@@ -106,6 +112,7 @@ function createInterview(){
     });
 }
 
+//DELETE request
 function deleteInterview(){
     const user = getUserAuthenticationFromCache();
     $(".deleteInterview").click(function(e){
@@ -132,8 +139,11 @@ function deleteInterview(){
     });
 }
 
+
+
 //Question HTTP Requests
 
+//GET request
 function getInterviewQuestions(callback){
     $.ajax({
         async: true,
