@@ -8,48 +8,6 @@ const interviewResponses = {
     firstName: "",
     responses: []};
 
-
-    
-//HTTP request handlers
-
-function getInterviewQuestions(callback){
-    $.ajax({
-        async: true,
-        crossDomain: true,
-        url: "/mock-interview",
-        headers: {
-            "Access-Control-Allow-Origin": "*"
-        },
-        success: function(data){
-            storeQuestionsLocally(data);
-        }
-    });
-}
-
-function createInterview(){
-    const user = getUserAuthenticationFromCache();
-    const URL = `/interviews`;
-    const data = interviewResponses;
-    $.ajax({
-        async: true,
-        crossDomain: true,
-        headers: {
-            "Authorization": `Bearer ${user.jwtToken}`,
-            "content-type": "application/json"
-        },
-        dataType: "json",
-        type: "POST",
-        url: URL,
-        data: JSON.stringify(data),
-        success: function(){
-            displayResponses(data);
-        },
-    });
-    
-}
-
-
-
 //etc functions
 
 function storeQuestionsLocally(data){
