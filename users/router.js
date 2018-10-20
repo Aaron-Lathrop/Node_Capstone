@@ -180,7 +180,7 @@ router.put('/:id', jwtAuth, (req, res) => {
       })
     .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
     } else {
-      res.status(500).json({message: 'Internal server error! Oh my!'}).end();
+      res.status(422).json({message: 'Internal server error! Oh my!'}).end();
       }
   })
   .catch(err => {

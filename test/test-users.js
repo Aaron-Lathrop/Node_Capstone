@@ -436,11 +436,10 @@ describe('/users', function() {
     });
 
     describe('PUT', function(){
-      it.only('should change the user password', function(){
+      it('should change the user password', function(){
         let userid;
         const newPassword = '0123456789';
         const currentPassword = password;
-        let confirmPassword = newPassword;
         const passwordChange = {
           currentPassword: currentPassword,
           newPassword: newPassword
@@ -472,6 +471,42 @@ describe('/users', function() {
             })
           })
       });//it('should change the user password')
+      it.only('should reject an incorrect current password', function(){
+        let userid;
+        const newPassword = '0123456789';
+        const currentPassword = password;
+        const passwordChange = {
+          currentPassword: currentPassword,
+          newPassword: newPassword
+        }
+        return chai
+          .request(app)
+          .post('/users')
+          .send({
+            username,
+            password,
+            firstName,
+            lastName
+          })
+          .then(res => {
+            userid = res.body.id;
+            return chai
+            .request(app)
+            .post('/auth/login')
+            .send({username, password})
+          })
+          .then(res => {
+            passwordChange.currentPassword = 'Wrongpassword';
+            return chai
+            .request(app)
+            .put(`/users/${userid}`)
+            .set('Authorization', `Bearer ${res.body.jwtToken}`)
+            .send(passwordChange)
+            .then(res => {
+              expect(res).to.have.status(422);
+            })
+          })
+      });//it('should reject an incorrect current password')
     });//describe('PUT')
 
 
