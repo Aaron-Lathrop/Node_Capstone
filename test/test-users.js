@@ -388,7 +388,6 @@ describe('/users', function() {
             );
             expect(res.body.username).to.equal(username);
             expect(res.body.firstName).to.equal(firstName);
-            expect(res.body.lastName).to.equal(lastName);
             return User.findOne({
               username
             });
@@ -396,7 +395,6 @@ describe('/users', function() {
           .then(user => {
             expect(user).to.not.be.null;
             expect(user.firstName).to.equal(firstName);
-            expect(user.lastName).to.equal(lastName);
             return user.validatePassword(password);
           })
           .then(passwordIsCorrect => {
@@ -445,7 +443,7 @@ describe('/users', function() {
           expect(res.body).to.have.length(0);
         });
       });
-      it('Should return an array of users', function() {
+      it.only('Should return an array of users', function() {
         return User.create(
           {
             username,
@@ -468,12 +466,15 @@ describe('/users', function() {
             expect(res.body[0]).to.deep.equal({
               username,
               firstName,
-              lastName
+              lastName,
+              id: res.body[0].id
             });
+            
             expect(res.body[1]).to.deep.equal({
               username: usernameB,
               firstName: firstNameB,
-              lastName: lastNameB
+              lastName: lastNameB,
+              id: res.body[1].id
             });
           });
       });
