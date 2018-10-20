@@ -156,7 +156,6 @@ function displayInterviewResponses(data){
         });
         console.log(interviewId);
         console.log(interview);
-        //displayResponses(data);
         displayResponses(interview);
     });
 }
@@ -168,7 +167,7 @@ function deleteInterview(){
         if(confirm(`Deleting an interview CANNOT be undone and you'll lose this data permanently.\n\nClick OK to PERMANENTLY DELETE your intervew.`)){
             const interviewId = $(e.target).closest('div').attr('id');
             $.ajax({
-                url: `/users/${user.username}/interview/${interviewId}`,
+                url: `/interviews/${interviewId}`,
                 headers: {
                     "Authorization": `Bearer ${user.jwtToken}`,
                     "content-type": "application/json"

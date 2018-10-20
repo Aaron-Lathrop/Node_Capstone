@@ -15,12 +15,6 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-// function parseJwt(token) {
-//   var base64Url = token.split('.')[1];
-//   var base64 = base64Url.replace('-', '+').replace('_', '/');
-//   return JSON.parse(window.atob(base64));
-// };
-
 // Post to register a new user
 router.post('/', jsonParser, (req, res) => {
   const requiredFields = ['username', 'password', 'firstName', 'lastName'];
@@ -159,8 +153,6 @@ router.get('/', function(req, res){
 });
 
 router.get('/:username', jwtAuth, (req, res) => {
-  // const name = parseJwt(jwtAuth);
-  // console.log(name);
   return User.findOne({username: req.params.username})
       .then(user => res.json(user.serialize()))
       .catch(err => res.status(500).json({message: 'Internal server error'}));
@@ -189,49 +181,6 @@ router.delete('/:username/:id', (req,res) =>{
     console.error(err);
     res.status(500).json({message: "Internal server error! Oh my!"})
   });
-});
-
-router.get('/:username/interview', jwtAuth, (req,res) => {
-  // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
-  //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
-  //   `request body username ${req.body.username}`);
-  //   console.error(message);
-  //   return res.status(400).json({message: message});
-  // }
-  User.findOne({username: req.params.username})
-  .then(user => {
-    res.json({
-      interviews: user.interviews.map(
-        //(interview) => interview.serialize()
-        (interview) => interview)
-    });
-  })
-  .catch(err => {
-      console.error(err);
-      res.status(500).json({message: "Internal server error! Oh my!"});
-  });
-});
-
-router.post('/:username/interview', jwtAuth, (req,res) => {
-  if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
-    const message = (`Request path username (${req.params.usernmae}) must match ` + 
-    `request body username ${req.body.username}`);
-    console.error(message);
-    return res.status(400).json({message: message});
-  }
-
-  Interview.create(req.body)
-  
-  // User.findOne({username: req.params.username})
-  // .then(user => {
-  //   user.interviews.push(req.body);
-  //   return user.save();
-  //   } 
-  // )
-  .then(interview => {
-    res.status(201).json({message: `interview saved successfully`, interview: interview})
-  })
-  .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
 });
 
 router.put('/:username/interview/:id', jwtAuth, function(req,res){
@@ -267,36 +216,6 @@ router.put('/:username/interview/:id', jwtAuth, function(req,res){
       console.error(err);
       res.status(500).json({message: "Internal server error! Oh my!"});
   });    
-});
-
-router.delete('/:username/interview/:id', jwtAuth, function(req,res){
-  if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
-    const message = (`Request path username (${req.params.username}) must match`+
-    `request body username (${req.body.username})`);
-    console.error(message);
-    res.status(400).json({message: message});
-  }
-
-  if(!(req.params.id && req.body.id && req.params.id === req.body.id)){
-    const message = (`Request path id (${req.params.id}) must match`+
-    `request body id (${req.body.id})`);
-    console.error(message);
-    res.status(400).json({message: message});
-  }
-
-  User.findOne({username: req.body.username})
-  .then(user => user.interviews.forEach(function(interview, index) {
-    if(interview._id == req.body.id){
-      user.interviews.splice(index,1);
-      return user.save() 
-    }
-     
-  }))
-  .then(res.status(201).json({message: "interview successfully deleted"}))
-  .catch(err => {
-    console.error(err);
-    res.status(500).json({message: `Internal server error! Oh my!`})
-  });
 });
 
 module.exports = {router};
