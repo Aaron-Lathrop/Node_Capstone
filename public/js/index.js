@@ -102,7 +102,7 @@ function loadLoggedInScreenUsing(){
 function getInterviews(callback){
     const user = CACHE.getUserAuthenticationFromCache();
     $.ajax({
-        url: `/users/${user.username}/interview`,
+        url: `/interviews`,
         headers: {
             "Authorization": `Bearer ${user.jwtToken}`,
             "content-type": "application/json"
@@ -111,9 +111,9 @@ function getInterviews(callback){
         type: "GET",
         success: function(res){
             console.log(res);
-            if(res.interviews.length > 0){
-                callback(res.interviews);
-            } else if(res.interviews.length === 0){
+            if(res.length > 0){
+                callback(res);
+            } else if(res.length === 0){
                 $('header').html(`
                 <div class='row'>
                     <div class='col-12'>
@@ -132,7 +132,7 @@ function displayInterviewCards(data){
     <section id="selectInterview" class="row"></section>`);
     data.forEach(interview => {
         $('#selectInterview').append(`
-        <div id=${interview._id} class='col-6 response-container interviewContainer'>
+        <div id=${interview.id} class='col-6 response-container interviewContainer'>
 
             <p><b>Interview from:</b> <span>${interview.created}</span></p>
             <button class="reviewInterview">Review</button>
@@ -152,10 +152,11 @@ function displayInterviewResponses(data){
     $('.reviewInterview').on("click", function(e){
         const interviewId = $(e.target).closest('div').attr('id');
         const interview = data.find(function(item){
-            return item._id === interviewId;
+            return item.id === interviewId;
         });
         console.log(interviewId);
         console.log(interview);
+        //displayResponses(data);
         displayResponses(interview);
     });
 }

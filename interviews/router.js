@@ -16,13 +16,7 @@ const jwtAuth = passport.authenticate('jwt', {session: false});
 
 
 router.get('/', jwtAuth, (req,res) => {
-  // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
-  //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
-  //   `request body username ${req.body.username}`);
-  //   console.error(message);
-  //   return res.status(400).json({message: message});
-  // }
-  console.log(req.user);
+  
   Interview.find({user: req.user.id})
   .populate('user')
   .then(interviews => {
@@ -35,19 +29,7 @@ router.get('/', jwtAuth, (req,res) => {
 });
 
 router.post('/', jwtAuth, (req,res) => {
-  // if(!(req.params.username && req.body.username && req.params.username === req.body.username)) {
-  //   const message = (`Request path username (${req.params.usernmae}) must match ` + 
-  //   `request body username ${req.body.username}`);
-  //   console.error(message);
-  //   return res.status(400).json({message: message});
-  // }
   
-  // User.findOne({username: req.params.username})
-  // .then(user => {
-  //   user.interviews.push(req.body);
-  //   return user.save();
-  //   } 
-  // )
   const newInterview = {
     user: req.user.id,
     username: req.user.username,
@@ -58,7 +40,6 @@ router.post('/', jwtAuth, (req,res) => {
   .then(interview => {
     res.status(201).json({message: `interview saved successfully`, interview: interview})
   })
-  // .then(res.status(201).json({message: `interview saved successfully`}))
   .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
 });
 
@@ -98,19 +79,6 @@ router.put('/:username/interview/:id', jwtAuth, function(req,res){
 });
 
 router.delete('/:interviewId', jwtAuth, function(req,res){
-  // if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
-  //   const message = (`Request path username (${req.params.username}) must match`+
-  //   `request body username (${req.body.username})`);
-  //   console.error(message);
-  //   res.status(400).json({message: message});
-  // }
-
-  // if(!(req.params.id && req.body.id && req.params.id === req.body.id)){
-  //   const message = (`Request path id (${req.params.id}) must match`+
-  //   `request body id (${req.body.id})`);
-  //   console.error(message);
-  //   res.status(400).json({message: message});
-  // }
 
   Interview.findByIdAndDelete(req.params.interviewId)
   .then(() => {

@@ -67,10 +67,7 @@ function getAndDisplayQuestions(){
 
 function createInterview(){
     const user = getUserAuthenticationFromCache();
-    // console.log(`createInterview called`);
-    // const token = localStorage.getItem("access_token");
-    // const userInfo = parseJwt(token);
-    const URL = `/users/${user.username}/interview`;
+    const URL = `/interviews`;
     const data = interviewResponses;
     $.ajax({
         async: true,
@@ -126,21 +123,22 @@ function mockStartHandler() {
 function answerButtonHandler() {
     $('#interview').submit(function(e){
         e.preventDefault();
-        const parsedToken = parseJwt(localStorage.getItem("access_token"));
-        if(questionNumber < 9 && localStorage.getItem("access_token") !== null){
-            interviewResponses.username = parsedToken.user.username;
-            interviewResponses.firstName = parsedToken.user.firstName;
+        const user = getUserAuthenticationFromCache();
+        // const parsedToken = parseJwt(localStorage.getItem("access_token"));
+        if(questionNumber < 9 && user.jwtToken !== null){
+            interviewResponses.username = user.username;
+            interviewResponses.firstName = user.firstName;
             interviewResponses.responses.push({
-                "username": `${parsedToken.user.username}`,
+                "username": `${user.username}`,
                 "questionText": $('#interview').find('label').text(),
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
             $(displayQuestion());
             
         } else {
-            console.log(parsedToken.user.username);
+            console.log(user.username);
             interviewResponses.responses.push({
-                "username": `${parsedToken.user.username}`,
+                "username": `${user.username}`,
                 "questionText": $('#interview').find('label').text(),
                 "responseText": $('#interview').find('textarea[name="userResponse"]').val()
             });
@@ -170,8 +168,8 @@ function reviewButtonHandler(){
     });
 }
 
-function parseJwt(token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace('-', '+').replace('_', '/');
-    return JSON.parse(window.atob(base64));
-};
+// function parseJwt(token) {
+//     var base64Url = token.split('.')[1];
+//     var base64 = base64Url.replace('-', '+').replace('_', '/');
+//     return JSON.parse(window.atob(base64));
+// };
