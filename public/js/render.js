@@ -26,6 +26,7 @@ function loadScreen(screen){
             html = loadAccount();
         } else if(screen === 'logout'){
             $('header').addClass('hide');
+            deleteUserAuthenticationFromCache();
             html = loadLogout();
             location.reload();
         } 
