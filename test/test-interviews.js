@@ -109,10 +109,28 @@ describe('/interview', function(){
             expect(res).to.have.status(200);
             expect(res.body).to.be.an('array');
             expect(res.body).to.have.length(0);
-  
           })
         });//it('should create a new interview')
-  
-        })
+        
+        it('should return an array of interviews', function(){
+          return chai
+          .request(app)
+          .post(`/interviews`)
+          .send({user, responses})
+          .set('Authorization', `Bearer ${jwtToken}`)
+          .then(() => {
+            return chai
+            .request(app)
+            .get(`/interviews`)
+            .set('Authorization', `Bearer ${jwtToken}`)
+          })
+          .then(res => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body).to.have.length(1);
+          })
+        });
+
+      })
 
 });
