@@ -26,13 +26,15 @@ function loadScreen(screen){
             html = loadAccount();
         } else if(screen === 'logout'){
             $('header').addClass('hide');
+            deleteUserAuthenticationFromCache();
             html = loadLogout();
             location.reload();
         } 
         $('main').html(html);
         if(screen ==='review'){
-            $('header').addClass('hide');
-            loadReview();
+            // $('header').addClass('hide');
+            // loadReview();
+            getAndDisplayInterviewCards();
         }
         $(document).ready($(onPageLoad()));
 }
@@ -197,17 +199,17 @@ function loadAccount(){
 }
 
 function loadReview(){
-    $('main').html(`
-    <h1>Review</h1>
-    <section id="mockInterview" class='center-text' class="row">
-        <div class="container col-12">
-            <div class="container">
-                <p>It looks like you haven't completed any interviews yet. Once you complete an interview, you can come back here to review the questions and answers or delete any interviews you no longer wish to keep.</p>
-                <p>You can start an interview by clicking the button below or by clicking "Practice" above.</p>
-            </div>
-        </div>
-    </section>
-    <button id='mockStart' class="center">Start Interview</button>`);
+    // $('main').html(`
+    // <h1>Review</h1>
+    // <section id="mockInterview" class='center-text' class="row">
+    //     <div class="container col-12">
+    //         <div class="container">
+    //             <p>It looks like you haven't completed any interviews yet. Once you complete an interview, you can come back here to review the questions and answers or delete any interviews you no longer wish to keep.</p>
+    //             <p>You can start an interview by clicking the button below or by clicking "Practice" above.</p>
+    //         </div>
+    //     </div>
+    // </section>
+    // <button id='mockStart' class="center">Start Interview</button>`);
     getAndDisplayInterviewCards();
 }
 

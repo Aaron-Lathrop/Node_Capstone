@@ -76,6 +76,7 @@ function mockStartHandler() {
     $('#mockStart').click(function(){
         $('welcome').toggleClass('hide');
         $('mock').toggleClass('hide');
+        
         $(getInterviewQuestions());
         $('#mockStart').addClass('hide');
     });

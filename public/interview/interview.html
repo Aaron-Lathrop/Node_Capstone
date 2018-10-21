@@ -17,29 +17,29 @@
         </a></li>
         <ul id="nav-list">
             <li id='home'>Home</li>
-            <li id='practice'>Practice</li>
-            <li id='review'>Review</li>
-            <li id='account'>Account</li>
-            <li id='logout'>Log Out</li>
+            <li id='practice'><a href='/interview/interview.html'>Interview</a></li>
+            <li id='review'><a href='/interview/review.html'></a>Review</li>
+            <li id='account'><a href='/interview/account.html'></a>Account</li>
+            <li id='logout'></a>Log Out</li>
         </ul>
     </nav>
-    <header role='banner'>
+    <!-- <header role='banner'>
         <h1><span class="js-username-dash"></span></h1>
         <h2>Practice makes perfect. <br>Feel more confident.</h2>
-</header>
+</header> -->
     <body>
 
         <main role='main'>
-            <section class="row">
-                <div class="container col-12">
-                        <h2>Welcome to Interview Prep!</h2> 
-                        <p>Many people feel excited and nervous when they get a job interview.</p> 
-                        <p><b>What questions will the interviewer ask? How do I want to respond?</b></p>
-                        <p>Sometimes, when we think back on what we said in an interview, we wish we had something else.</p> 
-                        <p>Interview Prep is a free and easy to use app with a growing database of common interview questions. This gives you a chance to practice and reivew your answers so you can perfect them.</p>
+            <h1>Mock Interview</h1>
+                <div id="mockInterview" class='center-text' role="alert" aria-live="polite">
+                    <div class='container'>
+                        <p>You're about to start a 10 question mock interview.</p> 
+                        <p>Questions will be delivered in a random order and your responses will be saved for later review.</p>
+                        <p>This is Rupert, he'll be your interviewer for the day. Good luck!</p>
+                        <img id="interviewAvatar" class="center" src="/Interview_avatar.png">
+                    </div>
+                <button id='mockStart' class='center'>Start Interview</button>
                 </div>
-            </section>
-            <button id='get-started' class='center'>Get Started</button>
         </main>
     
     </body>

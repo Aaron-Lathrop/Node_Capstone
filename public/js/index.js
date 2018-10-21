@@ -96,8 +96,8 @@ function displayInterviewResponses(data){
 
 
 function logoutUser(){
+
     $('#logout').click(function(){
-        deleteUserAuthenticationFromCache();
         location.reload();
     });
 }
