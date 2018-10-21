@@ -45,16 +45,16 @@ function getStartedHandler(){
 }
 
 function loadHome(){
-    $('header').html(`<h1><span class="js-username-dash"></span></h1>
-    <h2>Practice makes perfect. <br>Feel more confident.</h2>`);
+    // $('header').html(`<h1><span class="js-username-dash"></span></h1>
+    // <h2>Practice makes perfect. <br>Feel more confident.</h2>`);
     return `
     <section class="row">
         <div class="container col-12">
-                <h2>Welcome to Interview Prep!</h2> 
-                <p>Many people feel excited and nervous when they get a job interview.</p> 
-                <p><b>What questions will the interviewer ask? How do I want to respond?</b></p>
-                <p>Sometimes, when we think back on what we said in an interview, we wish we had something else.</p> 
-                <p>Interview Prep is a free and easy to use app with a growing database of common interview questions. This gives you a chance to practice and reivew your answers so you can perfect them.</p>
+                <h2>Getting Started with Interview Prep</h2> 
+                <p>The Practice section let's you take a 10 question interview consisting of common questions you'll likely encounter during an actual interview.</p> 
+                <p>Want to look over the questions you've already answered? Head over the Review section to view and edit past interviews.</p>
+                <p>Click on Account to change your password.</p> 
+                <p>We know that the job search and interviewing is stressful. Interview Prep is here to help you practice and feel more confident. Don't worry, you are going to be fine.</p>
         </div>
     </section>`;
 }
@@ -241,8 +241,8 @@ function displayResponses(data) {
     for (let i=0; i < data.responses.length; i++){
         $('#display-responses').append(
             `<div id=${i} class="response-container col-12">
-                <p><strong> ${data.responses[i].questionText}</strong></p>
-                <p> ${data.responses[i].responseText}</p>
+                <p><strong><span id='questionText${i}'> ${data.responses[i].questionText}</span></strong></p>
+                <p><span id='resonseText${i}'> ${data.responses[i].responseText}</span></p>
              </div>`
         );
     }

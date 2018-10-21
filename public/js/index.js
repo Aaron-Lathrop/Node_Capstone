@@ -104,6 +104,7 @@ function logoutUser(){
 function displayDashboard(){
     const user = getUserAuthenticationFromCache();
     $('.js-username-dash').html(user.firstName);
+    // loadScreen('home');
 }
 
 function handleShowLoginSignup() {
@@ -118,6 +119,8 @@ function loggedIn() {
     if(user){
         displayDashboard();
         $('#get-started').toggle();
+        $('#logged-out').addClass('hide');
+        $('#logged-in').removeClass('hide');
         return true;
     } else{
         $('nav').addClass('hide');
