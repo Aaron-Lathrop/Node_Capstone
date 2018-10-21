@@ -63,7 +63,7 @@ function loadPractice(){
     return `
     <h1>Mock Interview</h1>
     <div id="mockInterview" class='center-text' role="alert" aria-live="polite">
-        <div class='container'>
+        <div class='container limitWidth'>
             <p>You're about to start a 10 question mock interview.</p> 
             <p>Questions will be delivered in a random order and your responses will be saved for later review.</p>
             <p>This is Rupert, he'll be your interviewer for the day. Good luck!</p>
@@ -201,12 +201,10 @@ function loadReview(){
     $('main').html(`
     <h1>Review</h1>
     <section id="mockInterview" class='center-text' class="row">
-        <div class="container col-12">
-            <div class="container">
+            <div class="container limitWidth">
                 <p>It looks like you haven't completed any interviews yet. Once you complete an interview, you can come back here to review the questions and answers or delete any interviews you no longer wish to keep.</p>
                 <p>You can start an interview by clicking the button below or by clicking "Practice" above.</p>
             </div>
-        </div>
     </section>
     <button id='mockStart' class="center">Start Interview</button>`);
     getAndDisplayInterviewCards();

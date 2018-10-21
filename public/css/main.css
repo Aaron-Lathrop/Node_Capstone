@@ -42,10 +42,9 @@ nav li {
     padding: 15px 0 13px 0;
 }
 
-nav li:hover{
+li:hover{
     cursor: pointer;
     color: ghostwhite;
-    /* background-color: #0611B9; */
 }
 
 header {
@@ -93,7 +92,6 @@ form {
 form label {
     display: block;
     text-align: center;
-    /* margin-left: 15%; */
 }
 
 form fieldset {
@@ -133,6 +131,12 @@ form input {
     background-color: rgba(248, 248, 255, 0.527);
 }
 
+.limitWidth {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .container {
     background-color: rgba(248, 248, 255, .7);
     border-radius: 5px;
@@ -144,8 +148,6 @@ form input {
     border-radius: 10px;
     color: #0c0d0f;
     padding: 15px;
-    /* height: 150px;
-    overflow: auto; */
     margin-bottom: 15px;
 }
 
@@ -175,18 +177,24 @@ textarea {
 button {
     padding: 20px 30px 20px 30px;
     margin: 15px;
-    background-color: #0611B9;
-    color: ghostwhite;
-    border-radius: 10px;
     display: flex;
-    border: 1px solid #0611B9;
     font-size: 18px;
     font-weight: 700;
+    background-color: rgba(12, 13, 15, .7);
+    color: ghostwhite;
+    border-radius: 10px;
+    border: 1px solid rgba(12, 13, 15, .7);
 }
 
 button:hover {
     cursor: pointer;
-    background-color: purple;
+    background-color: #0c0d0f;
+    border: 1px solid #0c0d0f;
+}
+
+button:active{
+    background-color: #7d7e81;
+    border: 1px solid #7d7e81;
 }
 
 #userResponse {
