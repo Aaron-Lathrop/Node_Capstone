@@ -137,7 +137,7 @@ describe('/interview', function(){
 
       })
 
-      describe.only('DELETE', function(){
+      describe('DELETE', function(){
         
         it('should delete an interview by id', function(){
           let interview;

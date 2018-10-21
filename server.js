@@ -40,7 +40,7 @@ app.use('/interview', express.static('public/index.html'));
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-app.get('/mock-interview', function(req, res){
+app.get('/questions', function(req, res){
     Question
     .find()
     .limit(100)

@@ -155,7 +155,7 @@ function getInterviewQuestions(callback){
     $.ajax({
         async: true,
         crossDomain: true,
-        url: "/mock-interview",
+        url: "/questions",
         headers: {
             "Access-Control-Allow-Origin": "*"
         },

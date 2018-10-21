@@ -7,41 +7,17 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const {app, runServer, closeServer, server} = require('../server');
-const {User, Interview} = require('../users')
-const { JWT_SECRET, TEST_DATABASE_URL } = require('../config');
+const { JWT_SECRET, DATABASE_URL } = require('../config');
 
 chai.use(chaiHttp);
 
-function tearDownDb() {
-    return new Promise((resolve, reject) => {
-      console.warn('Deleting database');
-      mongoose.connection.dropDatabase()
-        .then(result => resolve(result))
-        .catch(err => reject(err));
-    });
-  }
-
 describe('Node Capstone app', function(){
-    const username = 'exampleUser';
-    const password = 'examplePass';
-    const firstName = 'Example';
-    const lastName = 'User';
-    const usernameB = 'exampleUserB';
-    const passwordB = 'examplePassB';
-    const firstNameB = 'ExampleB';
-    const lastNameB = 'UserB';
 
     before(function(){
-        return runServer(TEST_DATABASE_URL);
+        return runServer(DATABASE_URL);
     });
 
-    afterEach(function() {
-        return tearDownDb();
-    })
-
     after(function() {
-        console.log(server);
-
         return closeServer();
     });
 
@@ -54,4 +30,20 @@ describe('Node Capstone app', function(){
             });
     });//it should show the app is online
 
+    describe("GET", function(){
+        it('should get a list of questions', function(){
+            return chai
+            .request(app)
+            .get('/questions')
+            .then(res => {
+                expect(res).to.have.status(200);
+                expect(res.body).to.be.an('object');
+                expect(res.body).to.have.keys(
+                    'questions'
+                );
+                expect(res.body.questions).to.be.an('array');
+                expect(res.body.questions).to.have.length.of.at.least(1);
+            })
+        });
+    });
 });//describe Node Capstone app
