@@ -470,7 +470,7 @@ describe('/users', function() {
             })
           })
       });//it('should change the user password')
-      it.only('should reject an incorrect current password', function(){
+      it('should reject an incorrect current password', function(){
         let userid;
         const newPassword = '0123456789';
         const currentPassword = password;

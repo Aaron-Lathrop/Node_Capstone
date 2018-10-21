@@ -32,12 +32,6 @@ function addResponse(){
     });
 }
 
-
-
-
-
-
-
 //button handlers
 
 function answerButtonHandler() {
