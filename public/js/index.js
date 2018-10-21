@@ -77,6 +77,8 @@ function displayInterviewCards(data){
     });
     $(displayInterviewResponses(data));
     $(deleteInterview());
+    $(editButtonHandler());
+
 }
 
 function getAndDisplayInterviewCards(event){
@@ -90,6 +92,7 @@ function displayInterviewResponses(data){
             return item.id === interviewId;
         });
         displayResponses(interview);
+        $(editButtonHandler());
     });
 }
 
@@ -104,7 +107,6 @@ function logoutUser(){
 function displayDashboard(){
     const user = getUserAuthenticationFromCache();
     $('.js-username-dash').html(user.firstName);
-    // loadScreen('home');
 }
 
 function handleShowLoginSignup() {
@@ -132,6 +134,16 @@ function showNav(){
     if(loggedIn()){
         $('#nav-list').toggle();
     }
+}
+
+function editButtonHandler(){
+    console.log(`edit button called`);
+    $('.edit').click(function(event){
+        console.log(`edit button clicked`);
+        console.log($('#responseText0').text());
+        const responseText = event.target.closest("span").html();
+        console.log(responseText);
+    });
 }
 
 function onPageLoad(){

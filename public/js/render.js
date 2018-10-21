@@ -1,8 +1,8 @@
 'use strict';
 
 function handleNav(){
-    $('li').unbind().click(function(e){
-        let go = e.target.id
+    $('li').unbind().click(function(event){
+        let go = event.target.id
         loadScreen(go);
     });
 }
@@ -242,8 +242,11 @@ function displayResponses(data) {
         $('#display-responses').append(
             `<div id=${i} class="response-container col-12">
                 <p><strong><span id='questionText${i}'> ${data.responses[i].questionText}</span></strong></p>
-                <p><span id='resonseText${i}'> ${data.responses[i].responseText}</span></p>
-             </div>`
+                <p><span id='responseText${i}'> ${data.responses[i].responseText}</span></p>
+                <button class="edit center">Edit</button>
+             </div>
+             `
+             
         );
     }
     $(reviewAllHandler);
