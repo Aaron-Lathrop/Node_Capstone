@@ -26,7 +26,7 @@ function tearDownDb() {
     });
   }
 
-describe.only('/interview', function(){
+describe('/interview', function(){
   const questionText = 'Example question?';
   const responseText = 'Response lorem';
   const responses = [{questionText, responseText}]
@@ -44,6 +44,28 @@ describe.only('/interview', function(){
     return runServer(TEST_DATABASE_URL);
   });
 
+  beforeEach(function(){
+    return chai
+    .request(app)
+    .post('/users')
+    .send({
+      username,
+      password,
+      firstName,
+      lastName
+    })
+    .then(res => {
+      userid = res.body.id;
+      return chai
+      .request(app)
+      .post('/auth/login')
+      .send({username, password})
+    })
+    .then(res => {
+      jwtToken = res.body.jwtToken;
+    })
+  });
+
   after(function () {
     return closeServer();
   });
@@ -52,49 +74,45 @@ describe.only('/interview', function(){
     return tearDownDb();
   });
   
-      describe('POST', function(){
+    describe('POST', function(){
 
-        before(function(){
+      it('should create a new interview', function(){
+        return chai
+        .request(app)
+        .post(`/interviews`)
+        .send({user, responses})
+        .set('Authorization', `Bearer ${jwtToken}`)
+        .then(res => {
+          expect(res).to.have.status(201);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.keys(
+            'message',
+            'interview'
+          );
+          expect(res.body.interview.user).to.equal(userid);
+          expect(res.body.interview.responses[0].questionText).to.equal(responses[0].questionText);
+          expect(res.body.interview.responses[0].responseText).to.equal(responses[0].responseText);
+
+        })
+      });//it('should create a new interview')
+
+      })
+
+      describe.only('GET', function(){
+
+        it('should return an empty array initially', function(){
           return chai
           .request(app)
-          .post('/users')
-          .send({
-            username,
-            password,
-            firstName,
-            lastName
-          })
-          .then(res => {
-            userid = res.body.id;
-            return chai
-            .request(app)
-            .post('/auth/login')
-            .send({username, password})
-          })
-          .then(res => {
-            jwtToken = res.body.jwtToken;
-          })
-        });
-
-
-        it('should create a new interview', function(){
-          return chai
-          .request(app)
-          .post(`/interviews`)
-          .send({user, responses})
+          .get(`/interviews`)
           .set('Authorization', `Bearer ${jwtToken}`)
           .then(res => {
-            expect(res).to.have.status(201);
-            expect(res.body).to.be.an('object');
-            expect(res.body).to.have.keys(
-              'message',
-              'interview'
-            );
-            expect(res.body.interview.user).to.equal(userid);
-            expect(res.body.interview.responses[0].questionText).to.equal(responses[0].questionText);
-            expect(res.body.interview.responses[0].responseText).to.equal(responses[0].responseText);
-
+            expect(res).to.have.status(200);
+            expect(res.body).to.be.an('array');
+            expect(res.body).to.have.length(0);
+  
           })
         });//it('should create a new interview')
-  })
+  
+        })
+
 });
