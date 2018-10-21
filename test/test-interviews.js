@@ -113,21 +113,29 @@ describe('/interview', function(){
         });//it('should create a new interview')
         
         it('should return an array of interviews', function(){
+          let interview;
           return chai
           .request(app)
           .post(`/interviews`)
           .send({user, responses})
           .set('Authorization', `Bearer ${jwtToken}`)
-          .then(() => {
+          .then((res) => {
+            interview = res.body.interview;
             return chai
             .request(app)
             .get(`/interviews`)
             .set('Authorization', `Bearer ${jwtToken}`)
           })
           .then(res => {
+            console.log('THIS IS THE RESPONSE BODY');
+            console.log(res.body);
+            console.log('THIS IS THE INTERVIEW');
+            console.log(interview);
             expect(res).to.have.status(200);
             expect(res.body).to.be.an('array');
             expect(res.body).to.have.length(1);
+            expect(res.body[0].id).to.equal(interview._id);
+            expect(res.body[0].responses[0]).to.deep.equal(interview.responses[0]);
           })
         });
 
