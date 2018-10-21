@@ -144,8 +144,9 @@ form input {
     border-radius: 10px;
     color: #0c0d0f;
     padding: 15px;
-    height: 150px;
-    overflow: auto;
+    /* height: 150px;
+    overflow: auto; */
+    margin-bottom: 15px;
 }
 
 .interviewContainer {

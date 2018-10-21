@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 const {User} = require('./models');
 
@@ -159,7 +160,6 @@ router.post('/', jsonParser, (req, res) => {
 
 //change password
 router.put('/:id', jwtAuth, (req, res) => {
-
   const currentPassword = req.body.currentPassword;
 
   User.findById(req.params.id)
@@ -190,7 +190,7 @@ router.put('/:id', jwtAuth, (req, res) => {
   
 });
 
-router.delete('/:id', (req,res) =>{
+router.delete('/:id', jwtAuth, (req,res) =>{
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
     const message = (`Request path username (${req.params.username}) must match`+
     `request body username (${req.body.username})`);

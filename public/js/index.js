@@ -79,7 +79,7 @@ function displayInterviewCards(data){
     $(deleteInterview());
 }
 
-function getAndDisplayInterviewCards(){
+function getAndDisplayInterviewCards(event){
     getInterviews(displayInterviewCards);
 }
 

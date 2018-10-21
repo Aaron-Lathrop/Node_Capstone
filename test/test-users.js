@@ -4,7 +4,6 @@ const chaiHttp = require('chai-http');
 
 const {app, runServer, closeServer} = require('../server');
 const {User} = require('../users');
-const {Interview} = require('../interviews');
 const { JWT_SECRET, TEST_DATABASE_URL } = require('../config');
 
 
@@ -509,6 +508,9 @@ describe('/users', function() {
       });//it('should reject an incorrect current password')
     });//describe('PUT')
 
+    describe('DELETE', function(){
+
+    });
 
         
         
