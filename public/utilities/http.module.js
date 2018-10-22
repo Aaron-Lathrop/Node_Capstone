@@ -97,7 +97,6 @@ function getInterviews(callback){
 
 //POST request
 function createInterview(){
-    console.log('createInterviews called');
     const user = getUserAuthenticationFromCache();
     const URL = `/interviews`;
     const data = interviewResponses;
@@ -118,9 +117,32 @@ function createInterview(){
     });
 }
 
+//PUT request
+function updateInterview(index, editedResponse, interviewId){
+    const user = getUserAuthenticationFromCache;
+    const url = `/interviews/${interviewId}`;
+    const data = {
+        index,
+        editedResponse
+    };
+    $.ajax({
+        async: true,
+        crossDomain: true,
+        headers: {
+            "Authorization": `Bearer ${user.jwtToken}`,
+            "content-type": "application/json"
+        },
+        dataType: "json",
+        type: "PUT",
+        url: URL,
+        data: JSON.stringify(data),
+        success: function(){
+            alert('Response saved');
+        }
+}
+
 //DELETE request
 function deleteInterview(){
-    console.log(`deleteInterview called`);
     const user = getUserAuthenticationFromCache();
     $(".deleteInterview").click(function(e){
         if(confirm(`Deleting an interview CANNOT be undone and you'll lose this data permanently.\n\nClick OK to PERMANENTLY DELETE your intervew.`)){

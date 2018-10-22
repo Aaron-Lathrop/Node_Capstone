@@ -39,6 +39,7 @@ router.get('/:interviewId', jwtAuth, (req, res) => {
   });
 });
 
+//updates an individual response in an interview by finding the interview's repsonses and replacing one of them with the desired text
 router.put('/:interviewId', jwtAuth, (req,res) => {
   const i = req.body.index;
   const index = parseInt(i);
