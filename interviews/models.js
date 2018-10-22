@@ -9,11 +9,13 @@ const interviewSchema = mongoose.Schema({
     responses: {type: Array, sparse: true}
 });
 
+//load's the user's information before the interview is created
 interviewSchema.pre('create', function(next){
     this.populate('User');
     next();
 });
 
+//choose what information to display from each interview
 interviewSchema.methods.serialize = function() {
     return {
         id: this._id,

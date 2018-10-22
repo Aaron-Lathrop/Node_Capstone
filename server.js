@@ -40,6 +40,7 @@ app.use('/interview', express.static('public/index.html'));
 
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
+//gets questions to use during the practice interviews
 app.get('/questions', function(req, res){
     Question
     .find()
@@ -56,6 +57,8 @@ app.get('/questions', function(req, res){
     });
 });
 
+
+//if a page isn't found, then display this error
 app.use('*', function (req, res) {
     res.status(404).json({ message: 'Oops! Looks like this is not the page you were looking for. This one is Not Found' });
 });

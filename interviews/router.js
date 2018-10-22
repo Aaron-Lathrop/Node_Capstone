@@ -14,7 +14,7 @@ passport.use(localStrategy);
 passport.use(jwtStrategy);
 const jwtAuth = passport.authenticate('jwt', {session: false});
 
-
+//get a list of all the interviews a user has
 router.get('/', jwtAuth, (req,res) => {
   
   Interview.find({user: req.user.id})
@@ -28,6 +28,7 @@ router.get('/', jwtAuth, (req,res) => {
   });
 });
 
+//create a new interview for the logged in user
 router.post('/', jwtAuth, (req,res) => {
   
   const newInterview = {
@@ -43,6 +44,7 @@ router.post('/', jwtAuth, (req,res) => {
   .catch(err => {res.end(500).json({message: 'Internal server error! Oh my!'})})
 });
 
+//deletes 1 interview by id from a user's account
 router.delete('/:interviewId', jwtAuth, function(req,res){
 
   Interview.findByIdAndDelete(req.params.interviewId)
@@ -56,42 +58,3 @@ router.delete('/:interviewId', jwtAuth, function(req,res){
 });
 
 module.exports = {router};
-
-
-
-
-
-// router.put('/:username/interview/:id', jwtAuth, function(req,res){
-//   if(!(req.params.id && req.body.id && req.params.id === req.body.id)) {
-//         const message = (`Request path id (${req.params.id}) must match ` + 
-//         `request body id ${req.body.id}`);
-//         console.error(message);
-//         return res.status(400).json({message: message});
-//     }
-
-//     const toUpdate = {};
-//     const updateableFields = ["responses"];
-
-//     updateableFields.forEach(field => {
-//         if(field in req.body){
-//             toUpdate[field] = req.body[field];
-//         }
-//     });
-
-//     User.findOne({username: req.params.username})
-//     .then(user => user.interviews.forEach(function(interview, index) {
-//       if(interview._id == req.body.id){
-//         console.log(user.interviews[index].responses);
-//         console.log(toUpdate);
-//         user.interviews[index].responses = toUpdate;
-//         return user.save() 
-//       }
-       
-//     }))
-//     //.then(user => user.interviews.findByIdAndUpdate(req.params.id, { $set: toUpdate}))
-//     .then(res.status(204).end())
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({message: "Internal server error! Oh my!"});
-//   });    
-// });

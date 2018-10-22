@@ -14,6 +14,7 @@ const UserSchema = mongoose.Schema ({
 
 );
 
+//choose what information to display from each user
 UserSchema.methods.serialize = function() {
     return {
         username: this.username || '',

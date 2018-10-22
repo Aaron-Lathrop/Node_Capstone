@@ -158,7 +158,7 @@ router.post('/', jsonParser, (req, res) => {
 //       .catch(err => res.status(500).json({message: 'Internal server error'}));
 // });
 
-//change password
+//change the user's password
 router.put('/:id', jwtAuth, (req, res) => {
   const currentPassword = req.body.currentPassword;
 
@@ -190,6 +190,7 @@ router.put('/:id', jwtAuth, (req, res) => {
   
 });
 
+//deletes a user's account
 router.delete('/:id', jwtAuth, (req,res) =>{
   if(!(req.params.username && req.body.username && req.params.username === req.body.username)){
     const message = (`Request path username (${req.params.username}) must match`+
