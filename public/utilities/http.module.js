@@ -69,7 +69,6 @@ function loginUser(usernameAndPassword){
 
 //GET request
 function getInterviews(callback){
-    console.log('getInterviews called');
     const user = getUserAuthenticationFromCache();
     $.ajax({
         url: `/interviews`,
@@ -119,7 +118,7 @@ function createInterview(){
 
 //PUT request
 function updateInterview(index, editedResponse, interviewId){
-    const user = getUserAuthenticationFromCache;
+    const user = getUserAuthenticationFromCache();
     const url = `/interviews/${interviewId}`;
     const data = {
         index,
@@ -134,11 +133,12 @@ function updateInterview(index, editedResponse, interviewId){
         },
         dataType: "json",
         type: "PUT",
-        url: URL,
+        url: url,
         data: JSON.stringify(data),
         success: function(){
             alert('Response saved');
         }
+    });
 }
 
 //DELETE request
