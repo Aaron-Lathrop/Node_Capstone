@@ -222,7 +222,7 @@ function displayQuestion(){
                 <label class='interviewQuestion col-12'><span>${randomQuestion(interviewQuestions).questionText}</span></label>
             </div>
             <div class="row">
-                <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
+                <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus required></textarea>
             </div>
             <div class="row">
                 <button id='answerButton' class="center" type='submit' value='Answer'>Answer</button>
