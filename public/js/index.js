@@ -136,10 +136,7 @@ function loggedIn() {
 
 function showNav(){
     if(loggedIn()){
-        $('#nav-list').toggle;
-
-
-
+        $('#nav-list').toggle();
     }
 }
 
@@ -158,5 +155,3 @@ function onPageLoad(){
 }
 
 $(document).ready($(onPageLoad()));
-
-//this is a comment to try a test merge
