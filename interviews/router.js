@@ -39,6 +39,27 @@ router.get('/:interviewId', jwtAuth, (req, res) => {
   });
 });
 
+router.put('/:interviewId', jwtAuth, (req,res) => {
+  const i = req.body.index;
+  const index = parseInt(i);
+  const editedResponse = req.body.editedResponse;
+  Interview.findById(req.params.interviewId)
+  .then(interview => {
+    console.log(index);
+    console.log(index.NaN());
+    interview.responses[index].responseText = editedResponse;
+    console.log(interview.responses[index].responseText);
+    return interview.save();
+  })
+  .then(() => {
+    return res.status(200).json({message: "Interview response updated successfully.", editedResponse})
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({message: "Internal server error! Oh my!"});
+  });
+});
+
 router.post('/', jwtAuth, (req,res) => {
   
   const newInterview = {
