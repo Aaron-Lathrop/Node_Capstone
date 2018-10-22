@@ -69,7 +69,6 @@ function loginUser(usernameAndPassword){
 
 //GET request
 function getInterviews(callback){
-    console.log('getInterviews called');
     const user = getUserAuthenticationFromCache();
     $.ajax({
         url: `/interviews`,
@@ -97,7 +96,6 @@ function getInterviews(callback){
 
 //POST request
 function createInterview(){
-    console.log('createInterviews called');
     const user = getUserAuthenticationFromCache();
     const URL = `/interviews`;
     const data = interviewResponses;
@@ -120,7 +118,6 @@ function createInterview(){
 
 //DELETE request
 function deleteInterview(){
-    console.log(`deleteInterview called`);
     const user = getUserAuthenticationFromCache();
     $(".deleteInterview").click(function(e){
         if(confirm(`Deleting an interview CANNOT be undone and you'll lose this data permanently.\n\nClick OK to PERMANENTLY DELETE your intervew.`)){

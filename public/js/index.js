@@ -63,6 +63,12 @@ function changePasswordHandler(){
     });
 }
 
+function startInterviewHandler(){
+    $('#startInterview').click(function(){
+        loadScreen('practice');
+    });
+}
+
 function displayInterviewCards(data){
     $('main').html(`<h1>Click on an interview to view your responses.</h1>
     <section id="selectInterview" class="row"></section>`);
@@ -139,6 +145,8 @@ function onPageLoad(){
     $(logoutUser());
     $(signupButtonHandler());
     $(loginButtonHandler());
+    $(reviewAllHandler());
+    $(startInterviewHandler());
     $(handleShowLoginSignup());
     $(handleNav());
     $(mockStartHandler());

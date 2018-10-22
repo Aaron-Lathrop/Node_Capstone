@@ -45,18 +45,18 @@ function getStartedHandler(){
 }
 
 function loadHome(){
-    // $('header').html(`<h1><span class="js-username-dash"></span></h1>
-    // <h2>Practice makes perfect. <br>Feel more confident.</h2>`);
     return `
-    <section class="row">
-        <div class="container col-12">
-                <h2>Getting Started with Interview Prep</h2> 
-                <p>The Practice section let's you take a 10 question interview consisting of common questions you'll likely encounter during an actual interview.</p> 
-                <p>Want to look over the questions you've already answered? Head over the Review section to view and edit past interviews.</p>
-                <p>Click on Account to change your password.</p> 
-                <p>We know that the job search and interviewing is stressful. Interview Prep is here to help you practice and feel more confident. Don't worry, you are going to be fine.</p>
-        </div>
-    </section>`;
+        <section id="logged-in" class="row hide">
+            <div class="container col-12">
+                    <h2>Getting Started with Interview Prep</h2> 
+                    <p>The Practice section let's you take a 10 question interview consisting of common questions you'll likely encounter during an actual interview.</p> 
+                    <p>Want to look over the questions you've already answered? Head over the Review section to view and edit past interviews.</p>
+                    <p>Click on Account to change your password.</p> 
+                    <p>We know that the job search and interviewing is stressful. Interview Prep is here to help you practice and feel more confident. Don't worry, you are going to be fine.</p>
+            </div>
+                <button id='startInterview' class='center'>Start an Interview</button>
+                <button id='review-all' class='center'>Review Interviews</button>   
+        </section>`;
 }
 
 function loadPractice(){
