@@ -45,19 +45,26 @@ router.put('/:interviewId', jwtAuth, (req,res) => {
   const editedResponse = req.body.editedResponse;
   Interview.findById(req.params.interviewId)
   .then(interview => {
-    console.log(index);
-    console.log(index.NaN());
+    console.log(interview.responses[index].responseText);
     interview.responses[index].responseText = editedResponse;
     console.log(interview.responses[index].responseText);
     return interview.save();
   })
-  .then(() => {
-    return res.status(200).json({message: "Interview response updated successfully.", editedResponse})
-  })
+  .then((response) => {
+    Interview.findOneAndUpdate({_id: req.params.interviewId}, {$set: {responses: response.responses}})
+    .then(()=> {
+      return res.status(201).json({message: "Interview response updated successfully.", editedResponse})
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({message: "Internal server error! Oh my!"});
+      });
+    })
   .catch(err => {
     console.error(err);
     res.status(500).json({message: "Internal server error! Oh my!"});
   });
+
 });
 
 router.post('/', jwtAuth, (req,res) => {
