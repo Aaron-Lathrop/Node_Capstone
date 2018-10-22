@@ -156,7 +156,6 @@ function saveButtonHandler(){
         const index = parseInt(i);
         const editedResponse = $('#editedResponse').val();
         const selector = `#responseText${index}`;
-        console.log(interviewId);
 
         updateInterview(index, editedResponse, interviewId);
         $(selector).html(editedResponse);
