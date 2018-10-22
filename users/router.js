@@ -108,7 +108,6 @@ router.post('/', jsonParser, (req, res) => {
   return User.find({username})
     .countDocuments()
     .then(count => {
-      console.log(count);
       if (count > 0) {
         // There is an existing user with the same username
         return Promise.reject({
@@ -132,7 +131,6 @@ router.post('/', jsonParser, (req, res) => {
       });
     })
     .then(user => {
-      console.log(user.serialize());
       return res.status(201).json(user.serialize());
     })
     .catch(err => {
@@ -145,18 +143,6 @@ router.post('/', jsonParser, (req, res) => {
       res.status(500).json({code: 500, message: 'OH NO EVERYTHING IS BROKEN!'});
     });
 });
-
-// router.get('/', function(req, res){
-//   return User.find()
-//   .then(user => res.json(user.map(user => user.serialize())))
-//   .catch(err => res.status(500).json({message: 'Internal server error'}));
-// });
-
-// router.get('/:username', jwtAuth, (req, res) => {
-//   return User.findOne({username: req.params.username})
-//       .then(user => res.json(user.serialize()))
-//       .catch(err => res.status(500).json({message: 'Internal server error'}));
-// });
 
 //change the user's password
 router.put('/:id', jwtAuth, (req, res) => {
