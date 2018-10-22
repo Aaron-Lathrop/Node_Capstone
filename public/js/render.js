@@ -167,7 +167,7 @@ function loadSignIn(){
 }
 
 function loadLogout(){
-    $('html').css("background-image", "url(https://images.unsplash.com/photo-1518110516893-31ce851decb0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b8757e7de4ecb8fb79654a5a2e9cc25d&auto=format&fit=crop&w=750&q=80)");
+    $('html').css("background-image", "url(/images/camille-orgel-551599-unsplash.jpg)");
     return `
     <section class='row'>
         <div class="container col-12">
@@ -222,7 +222,7 @@ function displayQuestion(){
                 <label class='interviewQuestion col-12'><span>${randomQuestion(interviewQuestions).questionText}</span></label>
             </div>
             <div class="row">
-                <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus></textarea>
+                <textarea class="col-12" id='userResponse' rows='10' cols='75' wrap='hard' placeholder='Type your response...' name='userResponse' autofocus required></textarea>
             </div>
             <div class="row">
                 <button id='answerButton' class="center" type='submit' value='Answer'>Answer</button>

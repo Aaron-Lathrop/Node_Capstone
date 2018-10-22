@@ -5,7 +5,6 @@
 html {
     background-color: rgba(202, 214, 218, 0.568);
     background: url('/images/joanna-kosinska-129039-unsplash.jpg') no-repeat center center fixed;
-    /* background: url(https://images.unsplash.com/photo-1472289065668-ce650ac443d2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cdff4c62302fd44491d4850202323d11&auto=format&fit=crop&w=750&q=80) no-repeat center center fixed; */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
