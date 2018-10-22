@@ -91,7 +91,7 @@ function displayInterviewResponses(data){
         const interview = data.find(function(item){
             return item.id === interviewId;
         });
-        displayResponses(interview);
+        displayResponses(interview, interviewId);
         $(editButtonHandler());
     });
 }
@@ -137,12 +137,14 @@ function showNav(){
 }
 
 function editButtonHandler(){
-    console.log(`edit button called`);
     $('.edit').click(function(event){
-        console.log(`edit button clicked`);
-        console.log($('#responseText0').text());
-        const responseText = event.target.closest("span").html();
-        console.log(responseText);
+        const id = event.target.id;
+        const selector = `#responseText${id}`;
+        const responseText = $(selector).text();
+        $(selector).html(`
+        <textarea id="editedResponse" rows="10" class="col-12">${responseText}</textarea>
+        `);
+        $(selector).append(`<button id=${id} class="save center">Save</button>`)
     });
 }
 

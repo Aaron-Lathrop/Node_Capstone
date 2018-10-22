@@ -28,6 +28,17 @@ router.get('/', jwtAuth, (req,res) => {
   });
 });
 
+router.get('/:interviewId', jwtAuth, (req, res) => {
+  Interview.findById(req.params.interviewId)
+  .then(interview => {
+    return res.status(200).json(interview);
+  })
+  .catch(err => {
+    console.error(err);
+    res.status(500).json({message: "Internal server error! Oh my!"});
+  });
+});
+
 router.post('/', jwtAuth, (req,res) => {
   
   const newInterview = {

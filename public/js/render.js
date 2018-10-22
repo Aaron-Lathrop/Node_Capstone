@@ -235,7 +235,7 @@ function getAndDisplayQuestions(){
     getInterviewQuestions(displayQuestion);
 }
 
-function displayResponses(data) {
+function displayResponses(data, interviewId) {
     $('main').html(`<h1>Here are your responses</h1><br>
     <button id='review-all' class='center'>Review All</button><section id="display-responses" class="row"></section>`)
     for (let i=0; i < data.responses.length; i++){
@@ -243,7 +243,7 @@ function displayResponses(data) {
             `<div id=${i} class="response-container col-12">
                 <p><strong><span id='questionText${i}'> ${data.responses[i].questionText}</span></strong></p>
                 <p><span id='responseText${i}'> ${data.responses[i].responseText}</span></p>
-                <button class="edit center">Edit</button>
+                <button id=${i} class="edit center">Edit</button>
              </div>
              `
              
