@@ -146,7 +146,6 @@ function editButtonHandler(){
         `);
         $(selector).append(`<button id=${id} class="save center">Save</button>`)
         $(saveButtonHandler());
-        $()
     });
 }
 
