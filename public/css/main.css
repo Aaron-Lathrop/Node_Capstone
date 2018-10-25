@@ -261,6 +261,10 @@ button:active{
     display: block;
 }
 
+.save, .cancel {
+    display: inline;
+}
+
 :focus {
     border-radius: 8px;
 }

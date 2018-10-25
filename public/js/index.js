@@ -144,7 +144,8 @@ function editButtonHandler(){
         $(selector).html(`
         <textarea id="editedResponse" rows="10" class="col-12">${responseText}</textarea>
         `);
-        $(selector).append(`<button id=${id} class="save center">Save</button>`)
+        $(selector).append(`<div class="center"><button id=${id} class="save center">Save</button> <button id=${id} class="cancel center">Cancel</button></div>`);
+        $('.edit').toggle();
         $(saveButtonHandler());
     });
 }
@@ -159,8 +160,11 @@ function saveButtonHandler(){
 
         updateInterview(index, editedResponse, interviewId);
         $(selector).html(editedResponse);
+        $('.edit').toggle();
     });
 }
+
+
 
 function onPageLoad(){
     $(loggedIn());
