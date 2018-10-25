@@ -240,7 +240,7 @@ function displayResponses(data, interviewId) {
     <button id='review-all' class='center'>Review All</button><section id="display-responses" class="row"></section>`)
     for (let i=0; i < data.responses.length; i++){
         $('#display-responses').append(
-            `<div id=${interviewId} class="response-container col-12">
+            `<div id='${interviewId}' class="response-container col-12">
                 <p><strong><span id='questionText${i}'> ${data.responses[i].questionText}</span></strong></p>
                 <p><span id='responseText${i}'> ${data.responses[i].responseText}</span></p>
                 <button id=${i} class="edit center">Edit</button>

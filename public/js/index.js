@@ -145,20 +145,20 @@ function editButtonHandler(){
         <textarea id="editedResponse" rows="10" class="col-12">${responseText}</textarea>
         `);
         $(selector).append(`<div class="center"><button id=${id} class="save center">Save</button> <button id=${id} class="cancel center">Cancel</button></div>`);
-        $('.edit').toggle();
         $(saveButtonHandler());
         $(cancelButtonHandler(responseText));
+        $('.edit').toggle();
     });
 }
 
 function saveButtonHandler(){
     $('.save').click(function(event){
-        const interviewId = $('.save').closest('div').attr('id');
+        const interviewId = $('div').attr('id');
         const i = event.target.id;
         const index = parseInt(i);
         const editedResponse = $('#editedResponse').val();
         const selector = `#responseText${index}`;
-
+        console.log(interviewId);
         updateInterview(index, editedResponse, interviewId);
         $(selector).html(editedResponse);
         $('.edit').toggle();
