@@ -147,6 +147,7 @@ function editButtonHandler(){
         $(selector).append(`<div class="center"><button id=${id} class="save center">Save</button> <button id=${id} class="cancel center">Cancel</button></div>`);
         $('.edit').toggle();
         $(saveButtonHandler());
+        $(cancelButtonHandler(responseText));
     });
 }
 
@@ -164,7 +165,14 @@ function saveButtonHandler(){
     });
 }
 
-
+function cancelButtonHandler(responseText){
+    $('.cancel').click(function(event){
+        const id = event.target.id;
+        const selector = `#responseText${id}`;
+        $(selector).html(`${responseText}`);
+        $('.edit').toggle();
+    });
+}
 
 function onPageLoad(){
     $(loggedIn());
