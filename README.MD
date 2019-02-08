@@ -157,13 +157,6 @@ This app is built to be responsive to smaller screen sizes using a float-grid cs
 * Returns all interviews for a given user from the database Interviews collection
 * Bearer Authentication with JSON Web Token
 
-### Get One Interview
-##### GET: /interviews/:interviewId
-
-* Returns an interview for a given user from the database Interviews collection
-* Bearer Authentication with JSON Web Token
-* Must provide interview id in parameters
-
 ### Update One Interview
 ##### PUT: /interviews/:interviewId
 
